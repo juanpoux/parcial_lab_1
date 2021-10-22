@@ -18,5 +18,6 @@ void EncabezadoConCantidadPendientes();
 void EncabezadoConCantidadKilos();
 int MostrarPedidosPendientesConKilos(eCliente listaCliente[], int tamCliente, ePedido listaPedido[], int tamPedido);
 void MostrarPedidosConDatosDeCliente(ePedido pedido, eCliente listaCliente[], int tamCliente);
+int CantidadPendientesPorLocalidad(eCliente listaCliente[], int tamCliente, ePedido listaPedido[], int tamPedido);
 
 #endif /* NEXO_H_ */

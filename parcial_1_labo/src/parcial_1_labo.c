@@ -6,7 +6,7 @@
 
 #include "Nexo.h"
 #define TCLIENTE 100
-#define TPEDIDO 100
+#define TPEDIDO 1000
 #define MAX_NOMBRE 60
 
 
@@ -19,7 +19,10 @@ int main(void)
 	{
 	{ "Coca Cola", "22-44556655-2", "San Martin 266", "Abasto", 1, CARGADO },
 	{ "Pepsi", "22-88887777-2", "Vieytes 885", "Washington DC", 2, CARGADO },
-	{ "Google", "11-77777777-2", "Comahue 266", "Banfield", 3, CARGADO } };
+	{ "Royal Canin", "11-45678489-2", "Comahue 266", "Banfield", 3, CARGADO },
+	{ "Eukanuba", "12-55988744-2", "Espora 5990", "Lomas de Zamora", 4, CARGADO },
+	{ "Pedigree", "55-15874965-2", "Saavedra 352", "Lanus", 5, CARGADO },
+	{ "Purina", "11-49875963-2", "Eva Peron 254", "Temperley", 6, CARGADO } };
 
 	ePedido pedidos[TPEDIDO] =
 	{
@@ -33,7 +36,7 @@ int main(void)
 	int bancoIdCliente;
 	int bancoIdPedido;
 
-	bancoIdCliente = 4;
+	bancoIdCliente = 7;
 	bancoIdPedido = 5;
 	//InicializarArray(clientes, TCLIENTE);
 	//Hardcodeo(clientes);
@@ -124,6 +127,17 @@ int main(void)
 		case 7:
 			printf("\n                       ******* Pedidos con estado pendiente *******\n\n");
 			MostrarPedidosPendientesConKilos(clientes, TCLIENTE, pedidos, TPEDIDO);
+			break;
+		case 9:
+			switch(CantidadPendientesPorLocalidad(clientes, TCLIENTE, pedidos, TPEDIDO))
+				{
+				case -1:
+					printf("Parametros invalidos!\n");
+					break;
+				case 0:
+					printf("No hay clientes cargados!\n");
+					break;
+				}
 			break;
 		case 15:
 			PedirEnteroP(&opcion, "Desea salir? \n1) SALIR: \n2) NO SALIR: ",

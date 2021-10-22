@@ -85,7 +85,7 @@ void EncabezadoConCantidadPendientes()
 void EncabezadoConCantidadKilos()
 {
 	printf("==============================================================================================\n");
-	printf("|%6s |%-15s |%-15s |%-15s |%-15s |%-15s |\n", "Id", "Empresa", "CUIT", "Direccion", "Localidad", "Cant. kilos");
+	printf("|%10s |%-15s |%-15s |%-15s |%-15s |%-15s |\n", "Id pedido", "Empresa", "CUIT", "Direccion", "Localidad", "Cant. kilos");
 	printf("==============================================================================================\n");
 }
 
@@ -149,7 +149,7 @@ void MostrarPedidosConDatosDeCliente(ePedido pedido, eCliente listaCliente[], in
 	eCliente auxC;
 
 	auxC = ObtenerClientePorID(listaCliente, tamCliente, pedido.idCliente);
-	printf("|%6d |", pedido.idPedido);
+	printf("|%10d |", pedido.idPedido);
 	printf("%-15s |", auxC.nombre);
 	printf("%-15s |", auxC.cuit);
 	printf("%-15s |", auxC.direccion);
@@ -158,29 +158,32 @@ void MostrarPedidosConDatosDeCliente(ePedido pedido, eCliente listaCliente[], in
 	printf("----------------------------------------------------------------------------------------------\n");
 }
 
-void CantidadPendientesPorLocalidad(eCliente listaCliente[], int tamCliente, ePedido listaPedido[], int tamPedido)
+int CantidadPendientesPorLocalidad(eCliente listaCliente[], int tamCliente, ePedido listaPedido[], int tamPedido)
 {
+	int retorno;
 	char localidad[60];
 	int cantidad;
 
-	PedirCadena("Ingrese localidad: ", localidad, 60);
-	for(int i = 0; i < tamCliente; i++)
-	{
-		if(listaCliente[i].isEmpty == CARGADO && stricmp(listaCliente[i].localidad, localidad) == 0)
-		{
-			ContarPendientes(listaPedido, tamPedido, listaCliente[i].idCliente, &cantidad);
-		}
-	}
-}
-
-/*int ContarPendientesPorLocalidad(eCliente cliente, ePedido listaPedido[], int tamPedido)
-{
-	int retorno;
-
 	retorno = -1;
 
-
+	if(listaCliente != NULL && tamCliente > 0 && listaPedido != NULL && tamPedido > 0)
+	{
+		retorno = 0;
+		PedirCadena("Ingrese localidad: ", localidad, 60);
+		for(int i = 0; i < tamCliente; i++)
+		{
+			if(listaCliente[i].isEmpty == CARGADO && stricmp(listaCliente[i].localidad, localidad) == 0)
+			{
+				retorno = 1;
+				ContarPendientes(listaPedido, tamPedido, listaCliente[i].idCliente, &cantidad);
+			}
+		}
+		if(retorno == 1)
+		{
+			printf("\nEn la localidad de %s hay %d pedidos pedidos pendientes\n", localidad, cantidad);
+		}
+	}
 
 	return retorno;
+}
 
-}*/

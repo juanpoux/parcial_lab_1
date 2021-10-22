@@ -91,7 +91,8 @@ int MenuDeOpciones()
 	int retorno;
 
 	printf("====================\n\tMENU\n====================\n\n1) ALTAS \n2) MODIFICACIONES \n3) BAJAS \n4) CREAR PEDIDO DE RECOLECCION"
-			"\n5) PROCESAR RESIDUOS \n6) INFORMES \n15) SALIR\n\n");
+			"\n5) PROCESAR RESIDUOS \n6) MOSTRAR CLIENTES CON PEDIDOS PENDIENTES \n7) MOSTRAR PEDIDOS PENDIENTES"
+			"\n9) MOSTRAR PEDIDOS PENDIENTES POR LOCALIDAD \n15) SALIR\n\n");
 	PedirEnteroP(&retorno, "Ingrese una opcion: ", "Error, opcion invalida! ", 1, 99);
 
 	return retorno;

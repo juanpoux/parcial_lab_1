@@ -190,10 +190,12 @@ int ModificarCliente(eCliente lista[], int tam)
 	if(lista != NULL && tam > 0)
 	{
 		retorno = 0;
+		EncabezadoCliente();
 		MostrarListaClientes(lista, tam);
 		PedirYVerificarIdCliente(lista, tam, &idCliente, "Seleccione el ID del cliente que desea modificar: ", "Error, opcion invalida! ", 1, 9999);
 		indice = BuscarClientePorID(lista, tam, idCliente);
 		aux = lista[indice];
+		EncabezadoCliente();
 		MostrarUnCliente(aux);
 		PedirEnteroP(&opcion, "1) Modificar direccion \n2) Modificar localidad \n3) Volver al menu principal: ", "Error, opcion invalida! ", 1, 3);
 		switch(opcion)
@@ -207,8 +209,9 @@ int ModificarCliente(eCliente lista[], int tam)
 		case 3:
 			break;
 		}
+		EncabezadoCliente();
 		MostrarUnCliente(aux);
-		PedirEnteroP(&opcion, "Desea guardar cliente asi? \n1) SI\n2) NO", "Error, opcion invalida ", 1, 2);
+		PedirEnteroP(&opcion, "Desea guardar cliente asi? \n1) SI\n2) NO \n", "Error, opcion invalida ", 1, 2);
 		if(opcion == 1)
 		{
 			lista[indice] =  aux;
@@ -235,13 +238,15 @@ int BajaCliente(eCliente lista[], int tam)
 	if(lista != NULL && tam > 0)
 	{
 		retorno = 0;
+		EncabezadoCliente();
 		MostrarListaClientes(lista, tam);
 		PedirYVerificarIdCliente(lista, tam, &idCliente, "Seleccione el ID del cliente que desea dar de baja: ", "Error, opcion invalida! ", 1, 9999);
 		indice = BuscarClientePorID(lista, tam, idCliente);
+		EncabezadoCliente();
 		MostrarUnCliente(lista[indice]);
 		aux = lista[indice];
 		aux.isEmpty = VACIO;
-		PedirEnteroP(&opcion, "Desea confirmar operacion? \n1) SI\n2) NO", "Error, opcion invalida ", 1, 2);
+		PedirEnteroP(&opcion, "Desea confirmar operacion? \n1) SI\n2) NO \n", "Error, opcion invalida ", 1, 2);
 		if(opcion == 1)
 		{
 			lista[indice] =  aux;

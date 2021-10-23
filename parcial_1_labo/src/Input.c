@@ -236,11 +236,11 @@ int PedirCuit(char cadena[])
 			for(int i = 0; i < 14 && cadena[i] != '\0'; i++)
 			{
 				if(i == 2 && cadena[i] == '-')
-				{   printf("asd\n");
+				{
 					continue;
 				}
 				if(i == 11 && cadena[i] == '-')
-				{   printf("dsa\n");
+				{
 					continue;
 				}
 				if(isdigit(cadena[i]) == 0)

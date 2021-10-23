@@ -47,6 +47,7 @@ int main(void)
 		switch (MenuDeOpciones())
 		{
 		case 1:
+			printf("\n                ******* Dar de alta un cliente *******\n\n");
 			switch (AltaCliente(clientes, TCLIENTE, &bancoIdCliente))
 			{
 			case -1:
@@ -64,6 +65,7 @@ int main(void)
 			}
 			break;
 		case 2:
+			printf("\n               ******* Modificar datos de un cliente *******\n\n");
 			switch (ModificarCliente(clientes, TCLIENTE))
 			{
 			case -1:
@@ -81,6 +83,7 @@ int main(void)
 			}
 			break;
 		case 3:
+			printf("\n                  ******* Dar de baja un cliente *******\n\n");
 			switch(BajaCliente(clientes, TCLIENTE))
 			{
 			case -1:
@@ -90,10 +93,10 @@ int main(void)
 				printf("No hay posiciones libres!\n");
 				break;
 			case 1:
-				printf("baja generada con exito\n");
+				printf("Baja generada con exito\n");
 				break;
 			case 2:
-				printf("baja cancelada\n");
+				printf("Baja cancelada\n");
 				break;
 			}
 			break;

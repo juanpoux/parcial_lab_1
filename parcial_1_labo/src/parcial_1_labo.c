@@ -128,16 +128,18 @@ int main(void)
 			printf("\n                       ******* Pedidos con estado pendiente *******\n\n");
 			MostrarPedidosPendientesConKilos(clientes, TCLIENTE, pedidos, TPEDIDO);
 			break;
+		case 8:
+			printf("\n                ******* Pedidos procesados *******\n\n");
+			MostrarPedidosProcesadosConDescripcion(clientes, TCLIENTE, pedidos, TPEDIDO);
+			break;
 		case 9:
+			printf("\n                ******* Cantidad de pedidos pendientes por localidad *******\n\n");
 			switch(CantidadPendientesPorLocalidad(clientes, TCLIENTE, pedidos, TPEDIDO))
-				{
-				case -1:
-					printf("Parametros invalidos!\n");
-					break;
-				case 0:
-					printf("No hay clientes cargados!\n");
-					break;
-				}
+			{
+			case -1:
+				printf("Parametros invalidos!\n");
+				break;
+			}
 			break;
 		case 15:
 			PedirEnteroP(&opcion, "Desea salir? \n1) SALIR: \n2) NO SALIR: ",

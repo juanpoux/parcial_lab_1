@@ -68,7 +68,6 @@ int ProcesarResiduos(ePedido lista[], int tam, int generadorId)
 
 	if(lista != NULL && tam > 0)
 	{
-		//MostrarListaPedidosPendiente(lista, tam);
 		PedirYVerificarIdPedido(lista, tam, &id, "ingrese el id: ", "error ", 1, generadorId);
 		aux  = ObtenerPedidoPorID(lista, tam, id);
 		indice = BuscarIndicePorIdPedido(lista, tam, id);

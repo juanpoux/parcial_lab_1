@@ -92,8 +92,9 @@ int MenuDeOpciones()
 
 	printf("====================\n\tMENU\n====================\n\n1) ALTAS \n2) MODIFICACIONES \n3) BAJAS \n4) CREAR PEDIDO DE RECOLECCION"
 			"\n5) PROCESAR RESIDUOS \n6) MOSTRAR CLIENTES CON PEDIDOS PENDIENTES \n7) MOSTRAR PEDIDOS PENDIENTES"
-			"\n9) MOSTRAR PEDIDOS PENDIENTES POR LOCALIDAD \n15) SALIR\n\n");
-	PedirEnteroP(&retorno, "Ingrese una opcion: ", "Error, opcion invalida! ", 1, 99);
+			"\n8) MOSTRAR PEDIDOS PROCESADOS \n9) MOSTRAR PEDIDOS PENDIENTES POR LOCALIDAD "
+			"\n10) Cantidad de kilos de polipropileno reciclado promedio por cliente \n0) SALIR\n\n");
+	PedirEnteroP(&retorno, "Ingrese una opcion: ", "Error, opcion invalida! ", 0, 10);
 
 	return retorno;
 }

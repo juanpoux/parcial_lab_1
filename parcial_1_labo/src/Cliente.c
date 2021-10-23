@@ -47,6 +47,7 @@ int AltaCliente(eCliente lista[], int tam, int* generadorId)
 			aux = CargarCliente(*generadorId);
 		}
 
+		EncabezadoCliente();
 		MostrarUnCliente(aux);
 		PedirEnteroP(&opcion, "Desea guardar cliente asi? \n1) SI\n2) NO\n", "Error, opcion invalida ", 1, 2);
 
@@ -101,21 +102,21 @@ int MenuDeOpciones()
 
 void EncabezadoCliente()
 {
-printf("===========================================================================\n");
-printf("|%4s |%-15s |%-15s |%-15s |%-15s |\n", "ID", "Empresa", "CUIT", "Direccion", "Localidad");
-printf("===========================================================================\n");
+printf("=====================================================================================\n");
+printf("|%4s |%-15s |%-15s |%-20s |%-20s |\n", "ID", "Empresa", "CUIT", "Direccion", "Localidad");
+printf("=====================================================================================\n");
 }
 void MostrarUnCliente(eCliente lista)
 {
 	printf("|%4d |", lista.idCliente);
 	printf("%-15s |", lista.nombre);
 	printf("%-15s |", lista.cuit);
-	printf("%-15s |", lista.direccion);
-	printf("%-15s |\n", lista.localidad);
+	printf("%-20s |", lista.direccion);
+	printf("%-20s |\n", lista.localidad);
 
 	//printf("%-4d |\n", lista.isEmpty);
 	printf(
-			"---------------------------------------------------------------------------\n");
+			"-------------------------------------------------------------------------------------\n");
 }
 
 int MostrarListaClientes(eCliente lista[], int tam)
@@ -334,13 +335,13 @@ void MostrarUnClienteConCantidad(eCliente lista, int cantidad)
 	printf("|%4d |", lista.idCliente);
 	printf("%-15s |", lista.nombre);
 	printf("%-15s |", lista.cuit);
-	printf("%-15s |", lista.direccion);
-	printf("%-15s |", lista.localidad);
+	printf("%-20s |", lista.direccion);
+	printf("%-20s |", lista.localidad);
 	printf("%-16d |\n", cantidad);
 	//printf("%-4d |", lista.isEmpty);
 
 	printf(
-			"---------------------------------------------------------------------------------------------\n");
+			"-------------------------------------------------------------------------------------------------------\n");
 }
 
 eCliente ObtenerClientePorID(eCliente lista[], int tam, int id)

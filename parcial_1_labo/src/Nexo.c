@@ -77,16 +77,16 @@ int MostrarClientesConCantidadPedidosPendientes(eCliente listaClientes[], int ta
 
 void EncabezadoConCantidadPendientes()
 {
-	printf("=============================================================================================\n");
-	printf("|%4s |%-15s |%-15s |%-15s |%-15s |%-15s |\n", "ID", "Empresa", "CUIT", "Direccion", "Localidad", "Cant. Pendientes");
-	printf("=============================================================================================\n");
+	printf("=======================================================================================================\n");
+	printf("|%4s |%-15s |%-15s |%-20s |%-20s |%-15s |\n", "ID", "Empresa", "CUIT", "Direccion", "Localidad", "Cant. Pendientes");
+	printf("=======================================================================================================\n");
 }
 
 void EncabezadoConCantidadKilos()
 {
-	printf("==================================================================================================\n");
-	printf("|%10s |%-15s |%-15s |%-15s |%-15s |%-15s |\n", "Id pedido", "Empresa", "CUIT", "Direccion", "Localidad", "Cant. kilos");
-	printf("==================================================================================================\n");
+	printf("============================================================================================================\n");
+	printf("|%10s |%-15s |%-15s |%-20s |%-20s |%-15s |\n", "Id pedido", "Empresa", "CUIT", "Direccion", "Localidad", "Cant. kilos");
+	printf("============================================================================================================\n");
 }
 
 
@@ -152,10 +152,10 @@ void MostrarPedidosConDatosDeCliente(ePedido pedido, eCliente listaCliente[], in
 	printf("|%10d |", pedido.idPedido);
 	printf("%-15s |", auxC.nombre);
 	printf("%-15s |", auxC.cuit);
-	printf("%-15s |", auxC.direccion);
-	printf("%-15s |", auxC.localidad);
+	printf("%-20s |", auxC.direccion);
+	printf("%-20s |", auxC.localidad);
 	printf("%-15.2f |\n", pedido.kilos);
-	printf("--------------------------------------------------------------------------------------------------\n");
+	printf("------------------------------------------------------------------------------------------------------------\n");
 }
 
 int CantidadPendientesPorLocalidad(eCliente listaCliente[], int tamCliente, ePedido listaPedido[], int tamPedido)
@@ -205,9 +205,9 @@ int MostrarPedidosProcesadosConDescripcion(eCliente listaCliente[], int tamClien
 
 	if(listaCliente != NULL && tamCliente > 0 && listaPedido != NULL && tamPedido > 0)
 	{
-		printf("=================================================================================================================================\n");
-		printf("|%10s |%-15s |%-15s |%-15s |%-15s |%-10s |%-10s |%-10s |%-10s |\n", "Id pedido", "Empresa", "CUIT", "Direccion", "Localidad", "HDPE", "LDPE", "PP", "Resto");
-		printf("=================================================================================================================================\n");
+		printf("===========================================================================================================================================\n");
+		printf("|%10s |%-15s |%-15s |%-20s |%-20s |%-10s |%-10s |%-10s |%-10s |\n", "Id pedido", "Empresa", "CUIT", "Direccion", "Localidad", "HDPE", "LDPE", "PP", "Resto");
+		printf("===========================================================================================================================================\n");
 		retorno = 0;
 		for(i = 0; i < tamPedido; i++)
 		{
@@ -234,11 +234,11 @@ void MostrarPedidosProcesados(ePedido pedido, eCliente listaCliente[], int tamCl
 	printf("|%10d |", pedido.idPedido);
 	printf("%-15s |", auxC.nombre);
 	printf("%-15s |", auxC.cuit);
-	printf("%-15s |", auxC.direccion);
-	printf("%-15s |", auxC.localidad);
+	printf("%-20s |", auxC.direccion);
+	printf("%-20s |", auxC.localidad);
 	printf("%-10.2f |", pedido.HDPE);
 	printf("%-10.2f |", pedido.LDPE);
 	printf("%-10.2f |", pedido.PP);
 	printf("%-10.2f |\n", resto);
-	printf("---------------------------------------------------------------------------------------------------------------------------------\n");
+	printf("-------------------------------------------------------------------------------------------------------------------------------------------\n");
 }

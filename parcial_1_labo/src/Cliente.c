@@ -48,7 +48,7 @@ int AltaCliente(eCliente lista[], int tam, int* generadorId)
 		}
 
 		MostrarUnCliente(aux);
-		PedirEnteroP(&opcion, "Desea guardar cliente asi? \n1) SI\n2) NO", "Error, opcion invalida ", 1, 2);
+		PedirEnteroP(&opcion, "Desea guardar cliente asi? \n1) SI\n2) NO\n", "Error, opcion invalida ", 1, 2);
 
 		if(opcion == 1)
 		{

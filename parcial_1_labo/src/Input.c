@@ -226,11 +226,11 @@ int PedirCuit(char cadena[])
     int retorno = 0;
     int contador = 0;
 
-    PedirCadena("Ingrese CUIT:\nEjemplo 12-12345678-1*: ", cadena, 14);
+    //PedirCadena("Ingrese el CUIT:\nEjemplo \"12-12345678-1\": ", cadena, 14);
     while(retorno != 1)
     {
     	retorno = 1;
-		PedirCadena("ERROR Ingrese CUIT:\nEjemplo 12-12345678-1*: ", cadena, 14);
+		PedirCadena("Ingrese el CUIT:\nEjemplo \"12-12345678-1\": ", cadena, 14);
 		if(strlen(cadena) == 13)
 		{
 			for(int i = 0; i < 14 && cadena[i] != '\0'; i++)
@@ -255,6 +255,11 @@ int PedirCuit(char cadena[])
 		{
 			retorno = 0;
 		}
+		if(retorno == 0)
+		{
+			printf("Error, algun dato ingresado es incorrecto.\n");
+		}
     }
+
     return retorno;
 }

@@ -40,5 +40,7 @@ int BajaCliente(eCliente lista[], int tam);
 int MostrarClientePorIdConCantidad(eCliente lista[], int tam, int id, int cantidad);
 void MostrarUnClienteConCantidad(eCliente lista, int cantidad);
 eCliente ObtenerClientePorID(eCliente lista[], int tam, int id);
+int SaberSiHayClientesActivos(eCliente lista[], int tam);
+int ContadorClientes(eCliente lista[], int tam, int* contClientes);
 
 #endif /* CLIENTE_H_ */

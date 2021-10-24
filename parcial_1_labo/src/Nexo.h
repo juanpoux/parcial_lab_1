@@ -17,9 +17,11 @@ int MostrarClientesConCantidadPedidosPendientes(eCliente listaClientes[], int ta
 void EncabezadoConCantidadPendientes();
 void EncabezadoConCantidadKilos();
 int MostrarPedidosPendientesConKilos(eCliente listaCliente[], int tamCliente, ePedido listaPedido[], int tamPedido);
+int ProcesarResiduos(ePedido lista[], int tam, int generadorId, eCliente listaCliente[], int tamCliente);
 void MostrarPedidosConDatosDeCliente(ePedido pedido, eCliente listaCliente[], int tamCliente);
 int CantidadPendientesPorLocalidad(eCliente listaCliente[], int tamCliente, ePedido listaPedido[], int tamPedido);
 void MostrarPedidosProcesados(ePedido pedido, eCliente listaCliente[], int tamCliente);
 int MostrarPedidosProcesadosConDescripcion(eCliente listaCliente[], int tamCliente, ePedido listaPedido[], int tamPedido);
+int CalcularPromedioPP(ePedido listaPedido[], int tamPedido, eCliente listaCliente[], int tamCliente);
 
 #endif /* NEXO_H_ */

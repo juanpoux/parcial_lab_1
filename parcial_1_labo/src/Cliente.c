@@ -94,7 +94,7 @@ int MenuDeOpciones()
 	printf("====================\n\tMENU\n====================\n\n1) ALTAS \n2) MODIFICACIONES \n3) BAJAS \n4) CREAR PEDIDO DE RECOLECCION"
 			"\n5) PROCESAR RESIDUOS \n6) MOSTRAR CLIENTES CON PEDIDOS PENDIENTES \n7) MOSTRAR PEDIDOS PENDIENTES"
 			"\n8) MOSTRAR PEDIDOS PROCESADOS \n9) MOSTRAR PEDIDOS PENDIENTES POR LOCALIDAD "
-			"\n10) Cantidad de kilos de polipropileno reciclado promedio por cliente \n0) SALIR\n\n");
+			"\n10) MOSTRAR CANTIDAD DE KILOS RECICLADOS DE POLIPROPILENO RECICLADO POR CLIENTE \n0) SALIR\n\n");
 	PedirEnteroP(&retorno, "Ingrese una opcion: ", "Error, opcion invalida! ", 0, 10);
 
 	return retorno;
@@ -363,3 +363,51 @@ eCliente ObtenerClientePorID(eCliente lista[], int tam, int id)
 
 	return aux;
 }
+
+int SaberSiHayClientesActivos(eCliente lista[], int tam)
+{
+	int retorno;
+	int i;
+
+	retorno = 0;
+	if(lista != NULL && tam > 0)
+	{
+		for(i = 0; i < tam; i++)
+		{
+			if(lista[i].isEmpty == CARGADO)
+			{
+				retorno = 1;
+				break;
+			}
+		}
+	}
+	return retorno;
+}
+
+int ContadorClientes(eCliente lista[], int tam, int* contClientes)
+{
+	int retorno;
+	int i;
+	int contador;
+
+	retorno = -1;
+	contador = 0;
+
+	if(lista != NULL && tam > 0)
+	{
+		retorno = 0;
+		for(i = 0; i < tam; i++)
+		{
+			if(lista[i].isEmpty == CARGADO)
+			{
+				retorno = 1;
+				contador++;
+				//*contClientes = *contClientes + 1;
+			}
+		}
+	}
+	*contClientes = contador;
+
+	return retorno;
+}
+

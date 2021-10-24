@@ -24,10 +24,11 @@ int MostrarListaPedidosPendiente(ePedido lista[], int tam);*/
 int BuscarLibrePedido(ePedido lista[], int tam);
 int PedirYVerificarIdPedido(ePedido lista[], int tam, int* id, char mensaje[], char mensajeError[], int minimo, int maximo);
 ePedido ObtenerPedidoPorID(ePedido lista[], int tam, int id);
-int ProcesarResiduos(ePedido lista[], int tam, int generadorId);
 int VerificarIdActivoPedido(ePedido lista[], int tam, int id);
 int BuscarIndicePorIdPedido(ePedido lista[], int tam, int id);
 int ContarPendientes(ePedido lista[], int tam, int idCliente, int* cantidad);
 int InicializarArrayPedidos(ePedido lista[], int tam);
+int VerificarEstadoActivo(ePedido lista[], int tam, int estado);
+int AcumularKilosPP(ePedido lista[], int tam, float* kilosPP);
 
 #endif /* PEDIDO_H_ */

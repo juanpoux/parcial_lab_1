@@ -55,51 +55,7 @@ int BuscarLibrePedido(ePedido lista[], int tam)
 	return retorno;
 }
 
-int ProcesarResiduos(ePedido lista[], int tam, int generadorId)
-{
-	int retorno;
-	int id;
-	float kilos;
-	int opcion;
-	ePedido aux;
-	int indice;
 
-	retorno = -1;
-
-	if(lista != NULL && tam > 0)
-	{
-		PedirYVerificarIdPedido(lista, tam, &id, "ingrese el id: ", "error ", 1, generadorId);
-		aux  = ObtenerPedidoPorID(lista, tam, id);
-		indice = BuscarIndicePorIdPedido(lista, tam, id);
-
-		kilos = aux.kilos;
-
-		printf("Kilos a procesar %.2f. ", kilos);
-		PedirFlotanteP(&aux.HDPE, "Cuanto de HDPE? ", "ERROR ", 0, kilos);
-		kilos = kilos - aux.HDPE;
-		printf("Quedan %.2f kilos. ", kilos);
-		PedirFlotanteP(&aux.LDPE, "Cuanto de LDPE: ", "ERROR ", 0, kilos);
-		kilos = kilos - aux.LDPE;
-		printf("Quedan %.2f kilos. ", kilos);
-		PedirFlotanteP(&aux.PP, "Cuanto de PP: ", "ERROR ", 0, kilos);
-		kilos = kilos - aux.PP;
-
-		printf("%.2f de HDPE\n%.2f de LDPE\n%.2f de PP\n%.2f de resto\n", aux.HDPE, aux.LDPE, aux.PP, kilos);
-
-		PedirEnteroP(&opcion, "Desea guardar el pedido asi? \n1) SI\n2) NO \n", "Error, ingreso invalido ", 1, 2);
-		if(opcion == 1)
-		{
-			lista[indice] =  aux;
-			lista[indice].estado = COMPLETADO;
-			retorno = 1;
-		}
-		else
-		{
-			retorno = 2;
-		}
-	}
-	return retorno;
-}
 
 int VerificarIdActivoPedido(ePedido lista[], int tam, int id)
 {
@@ -224,6 +180,55 @@ int InicializarArrayPedidos(ePedido lista[], int tam)
 			lista[i].estado = 0;
 		}
 	}
+
+	return retorno;
+}
+
+int VerificarEstadoActivo(ePedido lista[], int tam, int estado)
+{
+	int retorno;
+	int i;
+
+	retorno = 0;
+
+	if(lista != NULL && tam > 0)
+	{
+		for(i = 0; i < tam; i++)
+		{
+			if(lista[i].isEmpty == CARGADO && lista[i].estado == estado)
+			{
+				retorno = 1;
+				break;
+			}
+		}
+	}
+
+	return retorno;
+}
+
+int AcumularKilosPP(ePedido lista[], int tam, float* kilosPP)
+{
+	int retorno;
+	int i;
+	//float acumuladorPP;
+
+	retorno = -1;
+
+	if(lista != NULL && tam > 0)
+	{
+		retorno = 0;
+		for(i = 0; i < tam; i++)
+		{
+			if(lista[i].isEmpty == CARGADO && lista[i].estado == COMPLETADO)
+			{
+				retorno = 1;
+				//acumuladorPP = acumuladorPP + lista[i].PP;
+				*kilosPP = *kilosPP + lista[i].PP;
+			}
+		}
+	}
+
+	//*kilosPP = acumuladorPP;
 
 	return retorno;
 }

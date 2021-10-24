@@ -62,11 +62,13 @@ int MostrarClientesConCantidadPedidosPendientes(eCliente listaClientes[], int ta
 
 	if(listaClientes != NULL && tamCliente > 0 && listaPedidos != NULL && tamPedido > 0)
 	{
+		retorno = 0;
 		EncabezadoConCantidadPendientes();
 		for(i = 0; i < tamCliente; i++)
 		{
 			if(listaClientes[i].isEmpty == CARGADO)
 			{
+				retorno = 1;
 				ContarPendientes(listaPedidos, tamPedido, listaClientes[i].idCliente, &cantidad);
 				MostrarClientePorIdConCantidad(listaClientes, tamCliente, listaClientes[i].idCliente, cantidad);
 			}
@@ -101,6 +103,7 @@ int MostrarPedidosPendientesConKilos(eCliente listaCliente[], int tamCliente, eP
 
 	if(listaCliente != NULL && tamCliente > 0 && listaPedido != NULL && tamPedido > 0)
 	{
+		retorno = 0;
 		EncabezadoConCantidadKilos();
 
 		/*for(i = 0; i < tamPedido; i++)
@@ -128,6 +131,7 @@ int MostrarPedidosPendientesConKilos(eCliente listaCliente[], int tamCliente, eP
 		{
 			if(listaPedido[i].isEmpty == CARGADO && listaPedido[i].estado == PENDIENTE)
 			{
+				retorno = 1;
 				/*auxC = ObtenerClientePorID(listaCliente, tamCliente, listaPedido[i].idCliente);
 				printf("|%6d |", listaPedido[i].idPedido);
 				printf("%-15s |", auxC.nombre);
@@ -141,6 +145,54 @@ int MostrarPedidosPendientesConKilos(eCliente listaCliente[], int tamCliente, eP
 		}
 	}
 
+	return retorno;
+}
+
+int ProcesarResiduos(ePedido lista[], int tam, int generadorId, eCliente listaCliente[], int tamCliente)
+{
+	int retorno;
+	int id;
+	float kilos;
+	int opcion;
+	ePedido aux;
+	int indice;
+
+	retorno = -1;
+
+	if(lista != NULL && tam > 0)
+	{
+		retorno = 0;
+		MostrarPedidosPendientesConKilos(listaCliente, tamCliente, lista, tam);
+		PedirYVerificarIdPedido(lista, tam, &id, "ingrese el id: ", "error ", 1, generadorId);
+		aux  = ObtenerPedidoPorID(lista, tam, id);
+		indice = BuscarIndicePorIdPedido(lista, tam, id);
+
+		kilos = aux.kilos;
+
+		printf("Kilos a procesar %.2f. ", kilos);
+		PedirFlotanteP(&aux.HDPE, "Cuanto de HDPE? ", "ERROR ", 0, kilos);
+		kilos = kilos - aux.HDPE;
+		printf("Quedan %.2f kilos. ", kilos);
+		PedirFlotanteP(&aux.LDPE, "Cuanto de LDPE: ", "ERROR ", 0, kilos);
+		kilos = kilos - aux.LDPE;
+		printf("Quedan %.2f kilos. ", kilos);
+		PedirFlotanteP(&aux.PP, "Cuanto de PP: ", "ERROR ", 0, kilos);
+		kilos = kilos - aux.PP;
+
+		printf("%.2f de HDPE\n%.2f de LDPE\n%.2f de PP\n%.2f de resto\n", aux.HDPE, aux.LDPE, aux.PP, kilos);
+
+		PedirEnteroP(&opcion, "Desea guardar el pedido asi? \n1) SI\n2) NO \n", "Error, ingreso invalido ", 1, 2);
+		if(opcion == 1)
+		{
+			lista[indice] =  aux;
+			lista[indice].estado = COMPLETADO;
+			retorno = 1;
+		}
+		else
+		{
+			retorno = 2;
+		}
+	}
 	return retorno;
 }
 
@@ -242,3 +294,40 @@ void MostrarPedidosProcesados(ePedido pedido, eCliente listaCliente[], int tamCl
 	printf("%-10.2f |\n", resto);
 	printf("-------------------------------------------------------------------------------------------------------------------------------------------\n");
 }
+
+int CalcularPromedioPP(ePedido listaPedido[], int tamPedido, eCliente listaCliente[], int tamCliente)
+{
+	int retorno;
+	float acumuladorPP;
+	int cantClientes;
+	float promedio;
+
+	retorno = -1;
+	acumuladorPP = 0;
+
+	if(listaPedido != NULL && tamPedido > 0 && listaCliente != NULL && tamCliente > 0)
+	{
+		retorno = 0;
+		AcumularKilosPP(listaPedido, tamPedido, &acumuladorPP);
+		ContadorClientes(listaCliente, tamCliente, &cantClientes);
+
+		if(acumuladorPP == 0)
+		{
+			retorno = 2;
+			//printf("No hay polipropileno reciclado por el momento...\n");
+		}
+		else
+		{
+			retorno = 1;
+			promedio = acumuladorPP / cantClientes;
+			printf("Kilos totales de polipropileno: %.2f \n", acumuladorPP);
+			printf("Cantidad total de clientes: %d \n", cantClientes);
+			printf("La cantidad promedio de kilos de polipropileno reciclado por cliente es: %.2f \n", promedio);
+		}
+
+	}
+
+	return retorno;
+}
+
+

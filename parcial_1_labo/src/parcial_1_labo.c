@@ -227,7 +227,7 @@ int main(void)
 			if (VerificarEstadoActivo(pedidos, TPEDIDO, COMPLETADO) == 1)
 			{
 				printf(
-						"\n                ******* Pedidos procesados *******\n\n");
+						"\n                                                   ******* Pedidos procesados *******\n\n");
 
 				switch (MostrarPedidosProcesadosConDescripcion(clientes,
 				TCLIENTE, pedidos,
@@ -293,4 +293,3 @@ int main(void)
 
 	return EXIT_SUCCESS;
 }
-

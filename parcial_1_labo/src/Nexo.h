@@ -23,5 +23,6 @@ int CantidadPendientesPorLocalidad(eCliente listaCliente[], int tamCliente, ePed
 void MostrarPedidosProcesados(ePedido pedido, eCliente listaCliente[], int tamCliente);
 int MostrarPedidosProcesadosConDescripcion(eCliente listaCliente[], int tamCliente, ePedido listaPedido[], int tamPedido);
 int CalcularPromedioPP(ePedido listaPedido[], int tamPedido, eCliente listaCliente[], int tamCliente);
+int BajaCliente(eCliente lista[], int tam, ePedido listaPedido[], int tamPedido);
 
 #endif /* NEXO_H_ */

@@ -226,41 +226,6 @@ int ModificarCliente(eCliente lista[], int tam)
 	return retorno;
 }
 
-int BajaCliente(eCliente lista[], int tam)
-{
-	int retorno;
-	int idCliente;
-	int indice;
-	int opcion;
-	eCliente aux;
-
-	retorno = -1;
-
-	if(lista != NULL && tam > 0)
-	{
-		retorno = 0;
-		EncabezadoCliente();
-		MostrarListaClientes(lista, tam);
-		PedirYVerificarIdCliente(lista, tam, &idCliente, "Seleccione el ID del cliente que desea dar de baja: ", "Error, opcion invalida! ", 1, 9999);
-		indice = BuscarClientePorID(lista, tam, idCliente);
-		EncabezadoCliente();
-		MostrarUnCliente(lista[indice]);
-		aux = lista[indice];
-		aux.isEmpty = VACIO;
-		PedirEnteroP(&opcion, "Desea confirmar operacion? \n1) SI\n2) NO \n", "Error, opcion invalida ", 1, 2);
-		if(opcion == 1)
-		{
-			lista[indice] =  aux;
-			retorno = 1;
-		}
-		else
-		{
-			retorno = 2;
-		}
-	}
-	return retorno;
-}
-
 int VerificarIdActivoCliente(eCliente lista[], int tam, int id)
 {
 	int retorno;

@@ -330,4 +330,43 @@ int CalcularPromedioPP(ePedido listaPedido[], int tamPedido, eCliente listaClien
 	return retorno;
 }
 
+int BajaCliente(eCliente lista[], int tam, ePedido listaPedido[], int tamPedido)
+{
+	int retorno;
+	int idCliente;
+	int indice;
+	int opcion;
+	eCliente aux;
 
+	retorno = -1;
+
+	if(lista != NULL && tam > 0)
+	{
+		retorno = 0;
+		EncabezadoCliente();
+		MostrarListaClientes(lista, tam);
+		PedirYVerificarIdCliente(lista, tam, &idCliente, "Seleccione el ID del cliente que desea dar de baja: ", "Error, opcion invalida! ", 1, 9999);
+		indice = BuscarClientePorID(lista, tam, idCliente);
+		EncabezadoCliente();
+		MostrarUnCliente(lista[indice]);
+		aux = lista[indice];
+		aux.isEmpty = VACIO;
+
+		if(VerificarIdActivoPedido(listaPedido, tamPedido, idCliente) == 1)
+		{
+			printf("\n\n**** Este cliente tiene pedidos asociados ****\n\n");
+		}
+		PedirEnteroP(&opcion, "Desea confirmar operacion? \n1) SI\n2) NO \n", "Error, opcion invalida ", 1, 2);
+		if(opcion == 1)
+		{
+			DarBajaPedidoPorIdCliente(listaPedido, tamPedido, idCliente);
+			lista[indice] =  aux;
+			retorno = 1;
+		}
+		else
+		{
+			retorno = 2;
+		}
+	}
+	return retorno;
+}

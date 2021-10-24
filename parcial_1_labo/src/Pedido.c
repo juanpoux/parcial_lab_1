@@ -232,3 +232,25 @@ int AcumularKilosPP(ePedido lista[], int tam, float* kilosPP)
 
 	return retorno;
 }
+
+int DarBajaPedidoPorIdCliente(ePedido lista[], int tam, int idCliente)
+{
+	int retorno;
+
+	retorno = -1;
+
+	if(lista != NULL && tam > 0)
+	{
+		retorno = 0;
+		for(int i = 0; i < tam; i++)
+		{
+			if(lista[i].isEmpty == CARGADO && lista[i].idCliente == idCliente)
+			{
+				retorno = 1;
+				lista[i].isEmpty = VACIO;
+			}
+		}
+	}
+
+	return retorno;
+}

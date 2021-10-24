@@ -36,7 +36,6 @@ int BuscarClientePorID(eCliente lista[], int tam, int id);
 int VerificarIdActivoCliente(eCliente lista[], int tam, int id);
 int PedirYVerificarIdCliente(eCliente lista[], int tam, int* id, char mensaje[], char mensajeError[], int minimo, int maximo);
 int ModificarCliente(eCliente lista[], int tam);
-int BajaCliente(eCliente lista[], int tam);
 int MostrarClientePorIdConCantidad(eCliente lista[], int tam, int id, int cantidad);
 void MostrarUnClienteConCantidad(eCliente lista, int cantidad);
 eCliente ObtenerClientePorID(eCliente lista[], int tam, int id);

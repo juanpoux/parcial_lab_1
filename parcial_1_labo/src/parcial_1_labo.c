@@ -105,7 +105,7 @@ int main(void)
 			{
 				printf(
 						"\n                  ******* Dar de baja un cliente *******\n\n");
-				switch (BajaCliente(clientes, TCLIENTE))
+				switch (BajaCliente(clientes, TCLIENTE, pedidos, TPEDIDO))
 				{
 				case -1:
 					printf("Parametros invalidos!\n");

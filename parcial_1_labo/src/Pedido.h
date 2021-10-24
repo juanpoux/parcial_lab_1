@@ -30,5 +30,6 @@ int ContarPendientes(ePedido lista[], int tam, int idCliente, int* cantidad);
 int InicializarArrayPedidos(ePedido lista[], int tam);
 int VerificarEstadoActivo(ePedido lista[], int tam, int estado);
 int AcumularKilosPP(ePedido lista[], int tam, float* kilosPP);
+int DarBajaPedidoPorIdCliente(ePedido lista[], int tam, int idCliente);
 
 #endif /* PEDIDO_H_ */

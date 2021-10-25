@@ -131,4 +131,14 @@ int CalcularPromedioPP(ePedido listaPedido[], int tamPedido, eCliente listaClien
 /// @return	-1 si hubo algun dato no valido, 1 si fue dado de baja con exito, 2 si fue cancelado
 int BajaCliente(eCliente lista[], int tam, ePedido listaPedido[], int tamPedido);
 
+/// @fn int BajaPedido(ePedido[], int, eCliente[], int)
+/// @brief
+///
+/// @param lista
+/// @param tam
+/// @param listaCliente
+/// @param tamCliente
+/// @return
+int BajaPedido(ePedido lista[], int tam, eCliente listaCliente[], int tamCliente);
+
 #endif /* NEXO_H_ */

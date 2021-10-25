@@ -337,3 +337,40 @@ int BajaCliente(eCliente lista[], int tam, ePedido listaPedido[], int tamPedido)
 	}
 	return retorno;
 }
+
+
+int BajaPedido(ePedido lista[], int tam, eCliente listaCliente[], int tamCliente)
+{
+	int retorno;
+	int idPedido;
+	int indice;
+	int opcion;
+	ePedido aux;
+
+	retorno = -1;
+
+	if(lista != NULL && tam > 0)
+	{
+		retorno = 0;
+		//EncabezadoConCantidadKilos();
+		MostrarPedidosPendientesConKilos(listaCliente, tamCliente, lista, tam);
+		PedirYVerificarIdPedido(lista, tam, &idPedido, "Seleccione el ID del pedido que desea dar de baja: ", "Error, opcion invalida! ", 1, 9999);
+		indice = BuscarIndicePorIdPedido(lista, tam, idPedido);
+		aux = lista[indice];
+		aux.isEmpty = VACIO;
+		EncabezadoConCantidadKilos();
+		MostrarPedidosConDatosDeCliente(aux, listaCliente, tamCliente);
+
+		PedirEnteroP(&opcion, "Desea confirmar operacion? \n1) SI\n2) NO \n", "Error, opcion invalida ", 1, 2);
+		if(opcion == 1)
+		{
+			lista[indice] =  aux;
+			retorno = 1;
+		}
+		else
+		{
+			retorno = 2;
+		}
+	}
+	return retorno;
+}

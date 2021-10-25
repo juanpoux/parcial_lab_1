@@ -46,7 +46,7 @@ int main(void)
 
 	bancoIdCliente = 1;
 	bancoIdPedido = 1;
-	banderaCliente = 0;
+	banderaCliente = 1;
 	InicializarArray(clientes, TCLIENTE);
 
 	do
@@ -97,31 +97,56 @@ int main(void)
 			}
 			break;
 		case 3:
-			if (banderaCliente == 1)
+			PedirEnteroP(&opcion, "1 BAJA CLIENTE\n2 BAJA PEDIDO: ",
+					"Error, opcion invalida ", 1, 2);
+			switch (opcion)
+			case 1:
 			{
-				printf(
-						"\n                  ******* Dar de baja un cliente *******\n\n");
-				switch (BajaCliente(clientes, TCLIENTE, pedidos, TPEDIDO))
+				if (banderaCliente == 1)
 				{
-				case -1:
-					printf("Parametros invalidos!\n");
-					break;
-				case 0:
-					printf("No hay posiciones libres!\n");
-					break;
-				case 1:
-					printf("Baja generada con exito\n");
-					banderaCliente = SaberSiHayClientesActivos(clientes,
-					TCLIENTE);
-					break;
-				case 2:
-					printf("Baja cancelada\n");
-					break;
+					printf(
+							"\n                  ******* Dar de baja un cliente *******\n\n");
+					switch (BajaCliente(clientes, TCLIENTE, pedidos, TPEDIDO))
+					{
+					case -1:
+						printf("Parametros invalidos!\n");
+						break;
+					case 1:
+						printf("Baja generada con exito\n");
+						banderaCliente = SaberSiHayClientesActivos(clientes,
+						TCLIENTE);
+						break;
+					case 2:
+						printf("Baja cancelada\n");
+						break;
+					}
 				}
-			}
-			else
-			{
-				printf("Primero debe dar de alta al menos un cliente\n");
+				else
+				{
+					printf("Primero debe dar de alta al menos un cliente\n");
+				}
+
+				break;
+				case 2:
+				if (VerificarEstadoActivo(pedidos, TPEDIDO, PENDIENTE) == 1)
+				{
+					printf(
+							"\n                           ******* Dar de baja un pedido *******\n\n");
+
+					switch (BajaPedido(pedidos, TPEDIDO, clientes, TCLIENTE))
+					{
+					case -1:
+						printf("Parametros invalidos!\n");
+						break;
+					case 1:
+						printf("Baja generada con exito!\n");
+						break;
+					case 2:
+						printf("Baja cancelada\n");
+						break;
+					}
+				}
+				break;
 			}
 			break;
 		case 4:
@@ -270,7 +295,8 @@ int main(void)
 					printf("Parametros invalidos!\n");
 					break;
 				case 2:
-					printf("No hay polipropileno reciclado por el momento...\n");
+					printf(
+							"No hay polipropileno reciclado por el momento...\n");
 					break;
 				}
 			}

@@ -102,8 +102,8 @@ void MostrarUnCliente(eCliente lista)
 	printf("%-12d |\n", lista.idLocalidad);
 
 	//printf("%-4d |\n", lista.isEmpty);
-	printf(
-			"-------------------------------------------------------------------------------------\n");
+	//ING_renglones(-1, 100, '-');
+	printf(			"-------------------------------------------------------------------------------------\n");
 }
 
 int MostrarListaClientes(eCliente lista[], int tam)
@@ -292,8 +292,9 @@ void MostrarUnClienteConCantidad(eCliente lista, int cantidad)
 	printf("%-16d |\n", cantidad);
 	//printf("%-4d |", lista.isEmpty);
 
-	printf(
-			"-------------------------------------------------------------------------------------------------------\n");
+	ING_renglones(-1, 100, '*');
+
+	//printf("-------------------------------------------------------------------------------------------------------\n");
 }
 
 eCliente ObtenerClientePorID(eCliente lista[], int tam, int id)

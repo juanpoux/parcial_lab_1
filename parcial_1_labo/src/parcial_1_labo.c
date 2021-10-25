@@ -33,12 +33,12 @@ int main(void)
 	{
 	{ 1, 1, 100, PENDIENTE, CARGADO, 0, 0, 0 },
 	{ 2, 1, 500, PENDIENTE, CARGADO, 0, 0, 0 },
-	{ 3, 5, 600, COMPLETADO, CARGADO, 50, 90, 50 },
+	{ 3, 1, 600, COMPLETADO, CARGADO, 50, 90, 50 },
 	{ 4, 6, 625, COMPLETADO, CARGADO, 50, 60, 50 },
 	{ 5, 2, 500, PENDIENTE, CARGADO, 0, 0, 0 },
 	{ 6, 2, 800, COMPLETADO, CARGADO, 70, 80, 50 },
-	{ 7, 1, 625, PENDIENTE, CARGADO, 0, 0, 0 },
-	{ 8, 1, 1990, PENDIENTE, CARGADO, 0, 0, 0 } };
+	{ 7, 2, 625, PENDIENTE, CARGADO, 0, 0, 0 },
+	{ 8, 5, 1990, PENDIENTE, CARGADO, 0, 0, 0 } };
 
 	eLocalidad localidades[TLOCALIDAD] =
 	{
@@ -57,7 +57,7 @@ int main(void)
 	bancoIdCliente = 1;
 	bancoIdPedido = 1;
 	banderaCliente = 1;
-	InicializarArray(clientes, TCLIENTE);
+	//InicializarArray(clientes, TCLIENTE);
 
 	do
 	{
@@ -318,7 +318,11 @@ int main(void)
 			}
 			break;
 		case 11:
-			BuscarClienteConMasPedidosPendientes(clientes, TCLIENTE, pedidos, TPEDIDO);
+			BuscarClienteConMasPedidosPendientes(pedidos, TPEDIDO, clientes, TCLIENTE);
+			//BuscarClienteConMasPedidosPendientes(pedidos, TPEDIDO);
+			break;
+		case 12:
+			MostrarUnCliente(clientes[0]);
 			break;
 		case 0:
 			PedirEnteroP(&opcion, "Desea salir? \n1) SALIR: \n2) NO SALIR: ",

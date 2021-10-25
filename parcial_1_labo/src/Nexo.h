@@ -11,6 +11,7 @@
 #include "Cliente.h"
 #include "Input.h"
 #include "Localidad.h"
+#include "Auxiliar.h"
 
 /// @fn int CrearPedidoDeRecoleccion(eCliente[], int, ePedido[], int, int*)
 /// @brief crea un pedido de recoleccion completando algunos campos de un ePedido
@@ -145,6 +146,8 @@ int BajaPedido(ePedido lista[], int tam, eCliente listaCliente[], int tamCliente
 eCliente CargarCliente2(int idGenerico, eLocalidad listaLoc[], int tamLoc);
 int AltaCliente2(eCliente lista[], int tam, int* generadorId, eLocalidad listaLoc[], int tamLoc);
 int ModificarCliente2(eCliente lista[], int tam, eLocalidad listaLoc[], int tamLoc);
-int BuscarClienteConMasPedidosPendientes(eCliente listaCliente[], int tamCliente, ePedido listaPedido[], int tamPedido);
+int BuscarClienteConMasPedidosPendientes(ePedido listaPedido[], int tamPedido, eCliente listaCliente[], int tamCliente);
+int CalcularMayor(eAuxiliar listaAux[], int tamAux, int* cantidad);
+void ING_renglones(int posicion, int cantidad, char simbolo);
 
 #endif /* NEXO_H_ */

@@ -1,25 +1,11 @@
 #include "Cliente.h"
 
-void Hardcodeo(eCliente* lista)
-{
-	eCliente clientes[3] =
-	{
-	{ "Coca Cola", "22-44556655-2", "San Martin 266", "Abasto", 1, CARGADO },
-	{ "Pepsi", "22-88887777-2", "Vieytes 885", "Washington DC", 2, CARGADO },
-	{ "Google", "11-77777777-2", "Comahue 266", "Banfield", 3, CARGADO } };
-
-	//if(lista != NULL)
-	//{
-		lista = clientes;
-	//}
-}
 
 eCliente CargarCliente(int idGenerico)
 {
 	eCliente cliente;
 
 	PedirCadena("Ingrese el nombre de la empresa: ", cliente.nombre, MAX_NOMBRE);
-	//PedirCadena("Ingrese el ciut de la empresa: ", cliente.cuit, MAX_NOMBRE);
 	PedirCuit(cliente.cuit);
 	PedirCadena("Ingrese la direccion de la empresa: ", cliente.direccion, MAX_NOMBRE);
 	PedirCadena("Ingrese la localidad de la empresa: ", cliente.localidad, MAX_NOMBRE);
@@ -253,7 +239,7 @@ int PedirYVerificarIdCliente(eCliente lista[], int tam, int* id, char mensaje[],
 	int retorno;
 	int idAux;
 
-	retorno = 0;
+	retorno = -1;
 
 	if(lista != NULL && tam > 0)
 	{
@@ -277,7 +263,7 @@ int MostrarClientePorIdConCantidad(eCliente lista[], int tam, int id, int cantid
 	int i;
 	int retorno;
 
-	retorno = 0;
+	retorno = -1;
 
 	if(lista != NULL && tam > 0)
 	{
@@ -334,7 +320,7 @@ int SaberSiHayClientesActivos(eCliente lista[], int tam)
 	int retorno;
 	int i;
 
-	retorno = 0;
+	retorno = -1;
 	if(lista != NULL && tam > 0)
 	{
 		for(i = 0; i < tam; i++)

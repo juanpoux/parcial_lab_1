@@ -84,9 +84,6 @@ int main(void)
 				case -1:
 					printf("Parametros invalidos!\n");
 					break;
-				case 0:
-					printf("No hay posiciones libres!\n");
-					break;
 				case 1:
 					printf("Modificacion generada con exito\n");
 					break;

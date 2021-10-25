@@ -3,7 +3,6 @@
 int CrearPedidoDeRecoleccion(eCliente listaClientes[], int tamCliente, ePedido listaPedidos[], int tamPedidos, int* idPedido)
 {
 	int retorno;
-	//int idCliente;
 	int opcion;
 	int indice = -1;
 	ePedido pedidoAux;
@@ -96,8 +95,6 @@ int MostrarPedidosPendientesConKilos(eCliente listaCliente[], int tamCliente, eP
 {
 	int retorno;
 	int i;
-	//int j;
-	//eCliente auxC;
 
 	retorno = -1;
 
@@ -106,40 +103,11 @@ int MostrarPedidosPendientesConKilos(eCliente listaCliente[], int tamCliente, eP
 		retorno = 0;
 		EncabezadoConCantidadKilos();
 
-		/*for(i = 0; i < tamPedido; i++)
-		{
-			if(listaPedido[i].isEmpty == CARGADO && listaPedido[i].estado == PENDIENTE)
-  			{
-				for(j = 0; j < tamCliente; j++)
-				{
-					if(listaCliente[j].isEmpty == CARGADO && listaCliente[j].idCliente == listaPedido[i].idCliente)
-					{
-						printf("|%6d |", listaPedido[i].idPedido);
-						printf("%-15.2f |\n", listaPedido[i].kilos);
-
-						printf("%-15s |", listaCliente[j].nombre);
-						printf("%-15s |", listaCliente[j].cuit);
-						printf("%-15s |", listaCliente[j].direccion);
-						printf("%-15s |", listaCliente[j].localidad);
-						printf("----------------------------------------------------------------------------------------------\n");
-					}
-				}
-			}
-		}*/
-
 		for(i = 0; i < tamPedido; i++)
 		{
 			if(listaPedido[i].isEmpty == CARGADO && listaPedido[i].estado == PENDIENTE)
 			{
 				retorno = 1;
-				/*auxC = ObtenerClientePorID(listaCliente, tamCliente, listaPedido[i].idCliente);
-				printf("|%6d |", listaPedido[i].idPedido);
-				printf("%-15s |", auxC.nombre);
-				printf("%-15s |", auxC.cuit);
-				printf("%-15s |", auxC.direccion);
-				printf("%-15s |", auxC.localidad);
-				printf("%-15.2f |\n", listaPedido[i].kilos);
-				printf("----------------------------------------------------------------------------------------------\n");*/
 				MostrarPedidosConDatosDeCliente(listaPedido[i], listaCliente, tamCliente);
 			}
 		}
@@ -250,8 +218,6 @@ int MostrarPedidosProcesadosConDescripcion(eCliente listaCliente[], int tamClien
 {
 	int retorno;
 	int i;
-	//int j;
-	//eCliente auxC;
 
 	retorno = -1;
 
@@ -265,6 +231,7 @@ int MostrarPedidosProcesadosConDescripcion(eCliente listaCliente[], int tamClien
 		{
 			if(listaPedido[i].isEmpty == CARGADO && listaPedido[i].estado == COMPLETADO)
 			{
+				retorno = 1;
 				MostrarPedidosProcesados(listaPedido[i], listaCliente, tamCliente);
 			}
 		}

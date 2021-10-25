@@ -10,6 +10,7 @@
 #include "Pedido.h"
 #include "Cliente.h"
 #include "Input.h"
+#include "Localidad.h"
 
 /// @fn int CrearPedidoDeRecoleccion(eCliente[], int, ePedido[], int, int*)
 /// @brief crea un pedido de recoleccion completando algunos campos de un ePedido
@@ -91,7 +92,7 @@ void MostrarPedidosConDatosDeCliente(ePedido pedido, eCliente listaCliente[], in
 /// @param listaPedido array de pedidos
 /// @param tamPedido tamaño del array de pedidos
 /// @return -1 si hubo algun dato no valido, 0 si no hay pedidos pendientes, 1 si encontro pedidos pendientes en dicha localidad
-int CantidadPendientesPorLocalidad(eCliente listaCliente[], int tamCliente, ePedido listaPedido[], int tamPedido);
+int CantidadPendientesPorLocalidad(eCliente listaCliente[], int tamCliente, ePedido listaPedido[], int tamPedido, eLocalidad listaLoc[], int tamLoc);
 
 /// @fn void MostrarPedidosProcesados(ePedido, eCliente[], int)
 /// @brief imprime en pantalla los datos de un ePedido ya procesado
@@ -140,5 +141,10 @@ int BajaCliente(eCliente lista[], int tam, ePedido listaPedido[], int tamPedido)
 /// @param tamCliente
 /// @return
 int BajaPedido(ePedido lista[], int tam, eCliente listaCliente[], int tamCliente);
+
+eCliente CargarCliente2(int idGenerico, eLocalidad listaLoc[], int tamLoc);
+int AltaCliente2(eCliente lista[], int tam, int* generadorId, eLocalidad listaLoc[], int tamLoc);
+int ModificarCliente2(eCliente lista[], int tam, eLocalidad listaLoc[], int tamLoc);
+int BuscarClienteConMasPedidosPendientes(eCliente listaCliente[], int tamCliente, ePedido listaPedido[], int tamPedido);
 
 #endif /* NEXO_H_ */

@@ -173,15 +173,16 @@ void MostrarPedidosConDatosDeCliente(ePedido pedido, eCliente listaCliente[], in
 	printf("%-15s |", auxC.nombre);
 	printf("%-15s |", auxC.cuit);
 	printf("%-20s |", auxC.direccion);
-	printf("%-20s |", auxC.localidad);
+	//printf("%-20s |", auxC.localidad);
 	printf("%-15.2f |\n", pedido.kilos);
 	printf("------------------------------------------------------------------------------------------------------------\n");
 }
 
-int CantidadPendientesPorLocalidad(eCliente listaCliente[], int tamCliente, ePedido listaPedido[], int tamPedido)
+int CantidadPendientesPorLocalidad(eCliente listaCliente[], int tamCliente, ePedido listaPedido[], int tamPedido, eLocalidad listaLoc[], int tamLoc)
 {
 	int retorno;
-	char localidad[60];
+	//char localidad[60];
+	int localidad;
 	int cantidad;
 
 	retorno = -1;
@@ -189,24 +190,33 @@ int CantidadPendientesPorLocalidad(eCliente listaCliente[], int tamCliente, ePed
 	if(listaCliente != NULL && tamCliente > 0 && listaPedido != NULL && tamPedido > 0)
 	{
 		retorno = 0;
-		PedirCadena("Ingrese localidad: ", localidad, 60);
+		//PedirCadena("Ingrese localidad: ", localidad, 60);
+		MostrarLocalidades(listaLoc, tamLoc);
+		PedirEnteroP(&localidad, "Ingrese ID de localidad: ", "ERROR", 1, 99);
 		for(int i = 0; i < tamCliente; i++)
 		{
-			if(listaCliente[i].isEmpty == CARGADO && stricmp(listaCliente[i].localidad, localidad) == 0)
+			if(listaCliente[i].isEmpty == CARGADO/* && stricmp(listaCliente[i].localidad, localidad) == 0*/)
 			{
-				retorno = 1;
-				ContarPendientes(listaPedido, tamPedido, listaCliente[i].idCliente, &cantidad);
+				for(int j = 0; j < tamLoc; j++)
+				{
+					if(listaLoc[j].isEmpty == CARGADO && listaCliente[i].idLocalidad == listaLoc[j].idLocalidad)
+					{
+						retorno = 1;
+						ContarPendientes(listaPedido, tamPedido, listaCliente[i].idCliente, &cantidad);
+						printf("\nEn la localidad de %s hay %d pedidos pedidos pendientes\n", listaLoc[j].descripcion, cantidad);
+					}
+				}
 			}
 		}
 		if(retorno == 1)
 		{
-			printf("\nEn la localidad de %s hay %d pedidos pedidos pendientes\n", localidad, cantidad);
+			//printf("\nEn la localidad de %s hay %d pedidos pedidos pendientes\n", listaLoc[j].descripcion, cantidad);
 		}
 		else
 		{
 			if(retorno == 0)
 			{
-				printf("\nNo hay pedidos pendientes en la localidad de %s\n", localidad);
+				printf("\nNo hay pedidos pendientes en la localidad de %d\n", localidad);
 			}
 		}
 	}
@@ -254,7 +264,7 @@ void MostrarPedidosProcesados(ePedido pedido, eCliente listaCliente[], int tamCl
 	printf("%-15s |", auxC.nombre);
 	printf("%-15s |", auxC.cuit);
 	printf("%-20s |", auxC.direccion);
-	printf("%-20s |", auxC.localidad);
+	//printf("%-20s |", auxC.localidad);
 	printf("%-10.2f |", pedido.HDPE);
 	printf("%-10.2f |", pedido.LDPE);
 	printf("%-10.2f |", pedido.PP);
@@ -372,5 +382,138 @@ int BajaPedido(ePedido lista[], int tam, eCliente listaCliente[], int tamCliente
 			retorno = 2;
 		}
 	}
+	return retorno;
+}
+eCliente CargarCliente2(int idGenerico, eLocalidad listaLoc[], int tamLoc)
+{
+	eCliente cliente;
+
+	PedirCadena("Ingrese el nombre de la empresa: ", cliente.nombre, MAX_NOMBRE);
+	PedirCuit(cliente.cuit);
+	PedirCadena("Ingrese la direccion de la empresa: ", cliente.direccion, MAX_NOMBRE);
+	MostrarLocalidades(listaLoc, tamLoc);
+	PedirEnteroP(&cliente.idLocalidad, "Ingrese id de la localidad: ", "Error, ingreso invalido ", 1, 9999);
+	//PedirCadena("Ingrese la localidad de la empresa: ", cliente.localidad, MAX_NOMBRE);
+	cliente.idCliente = idGenerico;
+	cliente.isEmpty = CARGADO;
+
+	return cliente;
+}
+
+int AltaCliente2(eCliente lista[], int tam, int* generadorId, eLocalidad listaLoc[], int tamLoc)
+{
+	int retorno;
+	int indice;
+	int opcion;
+	eCliente aux;
+
+	retorno = -1;
+
+	if(lista != NULL && tam > 0)
+	{
+		retorno = 0;
+		indice = BuscarLibreCliente(lista, tam);
+		if(indice != -1)
+		{
+			aux = CargarCliente2(*generadorId, listaLoc, tamLoc);
+		}
+
+		EncabezadoCliente();
+		MostrarUnCliente(aux);
+		PedirEnteroP(&opcion, "Desea guardar cliente asi? \n1) SI\n2) NO\n", "Error, opcion invalida ", 1, 2);
+
+		if(opcion == 1)
+		{
+			lista[indice] =  aux;
+			retorno = 1;
+			*generadorId = *generadorId + 1;
+		}
+		else
+		{
+			retorno = 2;
+		}
+	}
+
+	return retorno;
+}
+
+int ModificarCliente2(eCliente lista[], int tam, eLocalidad listaLoc[], int tamLoc)
+{
+	int retorno;
+	int idCliente;
+	int indice;
+	int opcion;
+	eCliente aux;
+	retorno = -1;
+	if(lista != NULL && tam > 0)
+	{
+		retorno = 0;
+		EncabezadoCliente();
+		MostrarListaClientes(lista, tam);
+		PedirYVerificarIdCliente(lista, tam, &idCliente, "Seleccione el ID del cliente que desea modificar: ", "Error, opcion invalida! ", 1, 9999);
+		indice = BuscarClientePorID(lista, tam, idCliente);
+		aux = lista[indice];
+		EncabezadoCliente();
+		MostrarUnCliente(aux);
+		PedirEnteroP(&opcion, "1) Modificar direccion \n2) Modificar localidad \n3) Volver al menu principal: ", "Error, opcion invalida! ", 1, 3);
+		switch(opcion)
+		{
+		case 1:
+			PedirCadena("Ingrese modificacion de la direccion : ", aux.direccion, MAX_NOMBRE);
+			break;
+		case 2:
+			MostrarLocalidades(listaLoc, tamLoc);
+			PedirEnteroP(&aux.idLocalidad, "Ingrese id de la localidad: ", "Error, ingreso invalido ", 1, 9999);
+			//PedirCadena("Ingrese modificacion de la localidad : ", aux.localidad, MAX_NOMBRE);
+			break;
+		case 3:
+			break;
+		}
+		EncabezadoCliente();
+		MostrarUnCliente(aux);
+		PedirEnteroP(&opcion, "Desea guardar cliente asi? \n1) SI\n2) NO \n", "Error, opcion invalida ", 1, 2);
+		if(opcion == 1)
+		{
+			lista[indice] =  aux;
+			retorno = 1;
+		}
+		else
+		{
+			retorno = 2;
+		}
+	}
+	return retorno;
+}
+
+int BuscarClienteConMasPedidosPendientes(eCliente listaCliente[], int tamCliente, ePedido listaPedido[], int tamPedido)
+{
+	int retorno;
+	int cantidad;
+	int maximo = -1;
+	int bandera = 1;
+	eCliente aux;
+
+	retorno = -1;
+
+	if(listaCliente != NULL && tamCliente > 0 && listaPedido != NULL && tamPedido)
+	{
+		for(int i = 0; i < tamCliente; i++)
+		{
+			ContarPendientes(listaPedido, tamPedido, listaCliente[i].idCliente, &cantidad);
+			aux = listaCliente[i];
+
+			if(bandera == 1 || maximo < cantidad)
+			{
+				aux = listaCliente[i];
+				maximo = cantidad;
+				bandera = 0;
+				printf("\na\n");
+			}
+		}
+
+		MostrarUnCliente(aux);
+		printf("%d", cantidad);
+	}
+
 	return retorno;
 }

@@ -8,7 +8,7 @@ eCliente CargarCliente(int idGenerico)
 	PedirCadena("Ingrese el nombre de la empresa: ", cliente.nombre, MAX_NOMBRE);
 	PedirCuit(cliente.cuit);
 	PedirCadena("Ingrese la direccion de la empresa: ", cliente.direccion, MAX_NOMBRE);
-	PedirCadena("Ingrese la localidad de la empresa: ", cliente.localidad, MAX_NOMBRE);
+	//PedirCadena("Ingrese la localidad de la empresa: ", cliente.localidad, MAX_NOMBRE);
 	cliente.idCliente = idGenerico;
 	cliente.isEmpty = CARGADO;
 
@@ -81,7 +81,7 @@ int MenuDeOpciones()
 			"\n5) PROCESAR RESIDUOS \n6) MOSTRAR CLIENTES CON PEDIDOS PENDIENTES \n7) MOSTRAR PEDIDOS PENDIENTES"
 			"\n8) MOSTRAR PEDIDOS PROCESADOS \n9) MOSTRAR PEDIDOS PENDIENTES POR LOCALIDAD "
 			"\n10) MOSTRAR CANTIDAD DE KILOS RECICLADOS DE POLIPROPILENO RECICLADO POR CLIENTE \n0) SALIR\n\n");
-	PedirEnteroP(&retorno, "Ingrese una opcion: ", "Error, opcion invalida! ", 0, 10);
+	PedirEnteroP(&retorno, "Ingrese una opcion: ", "Error, opcion invalida! ", 0, 15);
 
 	return retorno;
 }
@@ -89,7 +89,7 @@ int MenuDeOpciones()
 void EncabezadoCliente()
 {
 printf("=====================================================================================\n");
-printf("|%4s |%-15s |%-15s |%-20s |%-20s |\n", "ID", "Empresa", "CUIT", "Direccion", "Localidad");
+printf("|%4s |%-15s |%-15s |%-20s |%-6s |\n", "ID", "Empresa", "CUIT", "Direccion", "ID Localidad");
 printf("=====================================================================================\n");
 }
 void MostrarUnCliente(eCliente lista)
@@ -98,7 +98,8 @@ void MostrarUnCliente(eCliente lista)
 	printf("%-15s |", lista.nombre);
 	printf("%-15s |", lista.cuit);
 	printf("%-20s |", lista.direccion);
-	printf("%-20s |\n", lista.localidad);
+	//printf("%-20s |\n", lista.localidad);
+	printf("%-12d |\n", lista.idLocalidad);
 
 	//printf("%-4d |\n", lista.isEmpty);
 	printf(
@@ -191,7 +192,7 @@ int ModificarCliente(eCliente lista[], int tam)
 			PedirCadena("Ingrese modificacion de la direccion : ", aux.direccion, MAX_NOMBRE);
 			break;
 		case 2:
-			PedirCadena("Ingrese modificacion de la localidad : ", aux.localidad, MAX_NOMBRE);
+			//PedirCadena("Ingrese modificacion de la localidad : ", aux.localidad, MAX_NOMBRE);
 			break;
 		case 3:
 			break;
@@ -287,7 +288,7 @@ void MostrarUnClienteConCantidad(eCliente lista, int cantidad)
 	printf("%-15s |", lista.nombre);
 	printf("%-15s |", lista.cuit);
 	printf("%-20s |", lista.direccion);
-	printf("%-20s |", lista.localidad);
+	//printf("%-20s |", lista.localidad);
 	printf("%-16d |\n", cantidad);
 	//printf("%-4d |", lista.isEmpty);
 

@@ -17,7 +17,8 @@ typedef struct
 	char nombre[MAX_NOMBRE];
 	char cuit[MAX_NOMBRE];
 	char direccion[MAX_NOMBRE];
-	char localidad[MAX_NOMBRE];
+	//char localidad[MAX_NOMBRE];
+	int idLocalidad;
 	int idCliente;
 	int isEmpty;
 

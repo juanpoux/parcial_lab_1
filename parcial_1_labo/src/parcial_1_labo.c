@@ -7,28 +7,29 @@
 #include "Nexo.h"
 #define TCLIENTE 100
 #define TPEDIDO 1000
+#define TLOCALIDAD 6
 #define MAX_NOMBRE 60
 
 int main(void)
 {
 	setbuf(stdout, NULL);
 
-	eCliente clientes[TCLIENTE]/* =
+	eCliente clientes[TCLIENTE] =
 	{
-	{ "Coca Cola", "22-44556655-2", "San Martin 266", "Abasto", 1,
+	{ "Coca Cola", "22-44556655-2", "San Martin 266"/*, "Abasto"*/, 1, 1,
 	CARGADO },
-	{ "Pepsi", "22-88887777-2", "Vieytes 885", "Gerli", 2,
+	{ "Pepsi", "22-88887777-2", "Vieytes 885"/*, "Gerli"*/, 1, 2,
 	CARGADO },
-	{ "Royal Canin", "11-45678489-2", "Comahue 266", "Banfield", 3,
+	{ "Royal Canin", "11-45678489-2", "Comahue 266"/*, "Banfield"*/, 1, 3,
 	CARGADO },
-	{ "Eukanuba", "12-55988744-2", "Espora 5990", "Lomas de Zamora", 4,
+	{ "Eukanuba", "12-55988744-2", "Espora 5990"/*, "Lomas de Zamora"*/, 1, 4,
 	CARGADO },
-	{ "Pedigree", "55-15874965-2", "Saavedra 352", "Lanus", 5,
+	{ "Pedigree", "55-15874965-2", "Saavedra 352"/*, "Lanus"*/, 1, 5,
 	CARGADO },
-	{ "Purina", "11-49875963-2", "Eva Peron 254", "Temperley", 6,
-	CARGADO } }*/;
+	{ "Purina", "11-49875963-2", "Eva Peron 254"/*, "Temperley"*/, 1, 6,
+	CARGADO } };
 
-	ePedido pedidos[TPEDIDO]/* =
+	ePedido pedidos[TPEDIDO] =
 	{
 	{ 1, 1, 100, PENDIENTE, CARGADO, 0, 0, 0 },
 	{ 2, 1, 500, PENDIENTE, CARGADO, 0, 0, 0 },
@@ -36,8 +37,17 @@ int main(void)
 	{ 4, 6, 625, COMPLETADO, CARGADO, 50, 60, 50 },
 	{ 5, 2, 500, PENDIENTE, CARGADO, 0, 0, 0 },
 	{ 6, 2, 800, COMPLETADO, CARGADO, 70, 80, 50 },
-	{ 7, 2, 625, PENDIENTE, CARGADO, 0, 0, 0 },
-	{ 8, 1, 1990, PENDIENTE, CARGADO, 0, 0, 0 } }*/;
+	{ 7, 1, 625, PENDIENTE, CARGADO, 0, 0, 0 },
+	{ 8, 1, 1990, PENDIENTE, CARGADO, 0, 0, 0 } };
+
+	eLocalidad localidades[TLOCALIDAD] =
+	{
+	{ 1, "Lomas de Zamora", CARGADO },
+	{ 2, "Banfield", CARGADO },
+	{ 3, "Lanus", CARGADO },
+	{ 4, "Temperley", CARGADO },
+	{ 5, "Adrogue", CARGADO },
+	{ 6, "Avellaneda", CARGADO } };
 
 	int opcion;
 	int bancoIdCliente;
@@ -56,7 +66,8 @@ int main(void)
 		case 1:
 			printf(
 					"\n                ******* Dar de alta un cliente *******\n\n");
-			switch (AltaCliente(clientes, TCLIENTE, &bancoIdCliente))
+			//switch (AltaCliente(clientes, TCLIENTE, &bancoIdCliente))
+			switch (AltaCliente2(clientes, TCLIENTE, &bancoIdCliente, localidades, TLOCALIDAD))
 			{
 			case -1:
 				printf("Parametros invalidos!\n");
@@ -78,7 +89,8 @@ int main(void)
 			{
 				printf(
 						"\n               ******* Modificar datos de un cliente *******\n\n");
-				switch (ModificarCliente(clientes, TCLIENTE))
+				//switch (ModificarCliente(clientes, TCLIENTE))
+				switch (ModificarCliente2(clientes, TCLIENTE, localidades, TLOCALIDAD))
 				{
 				case -1:
 					printf("Parametros invalidos!\n");
@@ -271,7 +283,7 @@ int main(void)
 						"\n                ******* Cantidad de pedidos pendientes por localidad *******\n\n");
 				switch (CantidadPendientesPorLocalidad(clientes, TCLIENTE,
 						pedidos,
-						TPEDIDO))
+						TPEDIDO, localidades, TLOCALIDAD))
 				{
 				case -1:
 					printf("Parametros invalidos!\n");
@@ -304,6 +316,9 @@ int main(void)
 			{
 				printf("Primero debe procesar al menos un pedido!\n");
 			}
+			break;
+		case 11:
+			BuscarClienteConMasPedidosPendientes(clientes, TCLIENTE, pedidos, TPEDIDO);
 			break;
 		case 0:
 			PedirEnteroP(&opcion, "Desea salir? \n1) SALIR: \n2) NO SALIR: ",

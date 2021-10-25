@@ -13,7 +13,7 @@ int main(void)
 {
 	setbuf(stdout, NULL);
 
-	eCliente clientes[TCLIENTE] =
+	eCliente clientes[TCLIENTE]/* =
 	{
 	{ "Coca Cola", "22-44556655-2", "San Martin 266", "Abasto", 1,
 	CARGADO },
@@ -26,9 +26,9 @@ int main(void)
 	{ "Pedigree", "55-15874965-2", "Saavedra 352", "Lanus", 5,
 	CARGADO },
 	{ "Purina", "11-49875963-2", "Eva Peron 254", "Temperley", 6,
-	CARGADO } };
+	CARGADO } }*/;
 
-	ePedido pedidos[TPEDIDO] =
+	ePedido pedidos[TPEDIDO]/* =
 	{
 	{ 1, 1, 100, PENDIENTE, CARGADO, 0, 0, 0 },
 	{ 2, 1, 500, PENDIENTE, CARGADO, 0, 0, 0 },
@@ -37,18 +37,17 @@ int main(void)
 	{ 5, 2, 500, PENDIENTE, CARGADO, 0, 0, 0 },
 	{ 6, 2, 800, COMPLETADO, CARGADO, 70, 80, 50 },
 	{ 7, 2, 625, PENDIENTE, CARGADO, 0, 0, 0 },
-	{ 8, 1, 1990, PENDIENTE, CARGADO, 0, 0, 0 } };
+	{ 8, 1, 1990, PENDIENTE, CARGADO, 0, 0, 0 } }*/;
 
 	int opcion;
 	int bancoIdCliente;
 	int bancoIdPedido;
 	int banderaCliente;
 
-	bancoIdCliente = 7;
-	bancoIdPedido = 9;
-	banderaCliente = 1;
-	//InicializarArray(clientes, TCLIENTE);
-	//Hardcodeo(clientes);
+	bancoIdCliente = 1;
+	bancoIdPedido = 1;
+	banderaCliente = 0;
+	InicializarArray(clientes, TCLIENTE);
 
 	do
 	{

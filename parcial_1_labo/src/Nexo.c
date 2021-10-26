@@ -555,52 +555,12 @@ int ModificarCliente2(eCliente lista[], int tam, eLocalidad listaLoc[],
 	return retorno;
 }
 
-/*int BuscarClienteConMasPedidosPendientes(eCliente listaCliente[], int tamCliente, ePedido listaPedido[], int tamPedido)
+
+int CargarAuxConClientePorEstado(ePedido listaPedido[], int tamPedido, eCliente listaCliente[], eAuxiliar aux[], int tamCliente, int estado)
 {
 	int retorno;
-	int cantidad;
-	int maximo = -1;
-	int bandera = 1;
-	eCliente aux;
-
-	retorno = -1;
-
-	if (listaCliente != NULL && tamCliente > 0 && listaPedido != NULL && tamPedido > 0)
-	{
-		for (int i = 0; i < tamCliente; i++)
-		{
-			if (listaCliente[i].isEmpty == 1)
-			{
-
-				ContarPendientes(listaPedido, tamPedido,
-						listaCliente[i].idCliente, &cantidad);
-				aux = listaCliente[i];
-				printf("\nasdmmmm%dmmmmmasd\n", cantidad);
-
-				if (bandera == 1 || maximo < cantidad)
-				{
-					aux = listaCliente[i];
-					maximo = cantidad;
-					bandera = 0;
-					printf("\n11mmmm%dmmmmm11\n", cantidad);
-				}
-				printf("mmmm%dmmmmm", cantidad);
-			}
-		}
-
-		//MostrarUnCliente(aux);
-		printf("\nf***%d***f\n", cantidad);
-	}
-
-	return retorno;
-}*/
-
-int BuscarClienteConMasPedidosPendientes(ePedido listaPedido[], int tamPedido, eCliente listaCliente[], int tamCliente)
-{
-	int retorno;
-	eAuxiliar aux[tamCliente];
-	eCliente auxCliente;
 	int mayor;
+	int cantidad;
 
 	InicializarAux(aux, tamCliente);
 
@@ -613,39 +573,97 @@ int BuscarClienteConMasPedidosPendientes(ePedido listaPedido[], int tamPedido, e
 		{
 			if(listaCliente[i].isEmpty == CARGADO)
 			{
-				for(int j = 0; j < tamPedido; j++)
-				{
-					if(listaPedido[j].isEmpty == CARGADO && listaPedido[j].estado == PENDIENTE &&
-							listaPedido[j].idCliente == listaCliente[i].idCliente)
-					{
-						aux[i].idCliente = listaCliente[i].idCliente;
-						aux[i].contador++;
-						aux[i].isEmpty = CARGADO;
-					}
-				}
+				//cuenta la pedidos tiene cada cliente en estado por parametro
+				ContarClientesPorEstadoDePedido(listaPedido, tamPedido, estado, listaCliente[i].idCliente, &cantidad);
+
+				aux[i].idCliente = listaCliente[i].idCliente;
+				aux[i].contador = cantidad;
+				aux[i].isEmpty = CARGADO;
 			}
 		}
 
-		CalcularMayor(aux, tamCliente, &mayor);
 
+		//MostrarClientesConCantidadDePedidosSegunEstado(listaCliente, tamCliente, aux, mayor);//esta?
 
+		/*for(int i = 0; i < tamCliente; i++)
+		{
+			if(aux[i].isEmpty == CARGADO && aux[i].contador == mayor)
+			{
+				auxCliente = ObtenerClientePorID(listaCliente, tamCliente, aux[i].idCliente);
+
+				printf("Nombre: %s cantidad: %d\n", auxCliente.nombre, aux[i].contador);
+			}
+		}*/
 	}
 
 	return retorno;
 }
 
-/*void MostrarClientesConCantidadDePedidosSegunEstado(eCliente listaCliente[], int tamCliente, eAuxiliar aux[], int)
+int ContarClientesPorEstadoDePedido(ePedido listaPedido[], int tamPedido,
+		int estado, int idCliente, int* cantidad)
 {
-	for(int i = 0; i < tamCliente; i++)
-	{
-		if(aux[i].isEmpty == CARGADO && aux[i].contador == mayor)
-		{
-			auxCliente = ObtenerClientePorID(listaCliente, tamCliente, aux[i].idCliente);
+	int retorno;
+	int contador;
 
-			printf("Nombre: %s cantidad: %d\n", auxCliente.nombre, aux[i].contador);
+	retorno = -1;
+	contador = 0;
+
+	if(listaPedido != NULL) //etc
+	{
+		retorno = 0;
+
+		for(int i = 0; i < tamPedido; i++)
+		{
+			if(listaPedido[i].isEmpty == CARGADO && listaPedido[i].estado == estado && listaPedido[i].idCliente == idCliente)
+			{
+				contador++;
+			}
 		}
 	}
-}*/
+
+	*cantidad = contador;
+
+	return retorno;
+
+}
+
+void MostrarClientesConCantidadDePedidosSegunEstado(eCliente listaCliente[], int tamCliente, ePedido listaPedido[],
+		int tamPedido, int estado)
+{
+	int mayor;
+	eAuxiliar aux[tamCliente];
+	eCliente auxCliente;
+
+	if (listaCliente != NULL && listaPedido != NULL && tamCliente > 0) //etc
+	{
+		CargarAuxConClientePorEstado(listaPedido, tamPedido, listaCliente, aux, tamCliente, estado);
+
+		//recorre los contadores de la lista auxiliar y devuelve el mayor
+		CalcularMayor(aux, tamCliente, &mayor);//esta?
+
+		for(int i = 0; i < tamCliente; i++)
+		{
+			if(aux[i].isEmpty == CARGADO && aux[i].contador == mayor)
+			{
+				auxCliente = ObtenerClientePorID(listaCliente, tamCliente, aux[i].idCliente);
+
+				printf("Nombre: %s cantidad: %d\n", auxCliente.nombre, aux[i].contador);//asi?
+			}
+		}
+	}
+
+	/*if(aux[i].isEmpty == CARGADO && aux[i].contador == mayor)
+	{
+		for(int j = 0; j < tamCliente; j++)
+		{
+			if(aux[i].isEmpty == CARGADO && aux[i].idCliente == listaCliente[j].idCliente)
+			{
+				printf("Nombre: %s cantidad: %d\n", listaCliente[j].nombre, aux[i].contador);
+			}
+		}
+		//auxCliente = ObtenerClientePorID(listaCliente, tamCliente, aux[i].idCliente);
+	}*/
+}
 
 int CalcularMayor(eAuxiliar listaAux[], int tamAux, int* cantidad)
 {
@@ -672,7 +690,6 @@ int CalcularMayor(eAuxiliar listaAux[], int tamAux, int* cantidad)
 	}
 
 	return retorno;
-
 }
 
 void ING_renglones(int posicion, int cantidad, char simbolo)

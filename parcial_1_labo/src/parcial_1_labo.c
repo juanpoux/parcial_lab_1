@@ -37,7 +37,7 @@ int main(void)
 	{ 4, 6, 625, COMPLETADO, CARGADO, 50, 60, 50 },
 	{ 5, 2, 500, PENDIENTE, CARGADO, 0, 0, 0 },
 	{ 6, 2, 800, COMPLETADO, CARGADO, 70, 80, 50 },
-	{ 7, 2, 625, PENDIENTE, CARGADO, 0, 0, 0 },
+	{ 7, 1, 625, PENDIENTE, CARGADO, 0, 0, 0 },
 	{ 8, 5, 1990, PENDIENTE, CARGADO, 0, 0, 0 } };
 
 	eLocalidad localidades[TLOCALIDAD] =
@@ -318,8 +318,9 @@ int main(void)
 			}
 			break;
 		case 11:
-			BuscarClienteConMasPedidosPendientes(pedidos, TPEDIDO, clientes, TCLIENTE);
+			//BuscarClienteConMasPedidosPendientes(pedidos, TPEDIDO, clientes, TCLIENTE);
 			//BuscarClienteConMasPedidosPendientes(pedidos, TPEDIDO);
+			MostrarClientesConCantidadDePedidosSegunEstado(clientes, TCLIENTE, pedidos, TPEDIDO, PENDIENTE);
 			break;
 		case 12:
 			MostrarUnCliente(clientes[0]);

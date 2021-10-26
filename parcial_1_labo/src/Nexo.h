@@ -149,5 +149,7 @@ int ModificarCliente2(eCliente lista[], int tam, eLocalidad listaLoc[], int tamL
 int BuscarClienteConMasPedidosPendientes(ePedido listaPedido[], int tamPedido, eCliente listaCliente[], int tamCliente);
 int CalcularMayor(eAuxiliar listaAux[], int tamAux, int* cantidad);
 void ING_renglones(int posicion, int cantidad, char simbolo);
+int ContarClientesPorEstadoDePedido(ePedido listaPedido[], int tamPedido, int estado, int idCliente, int* cantidad);
+void MostrarClientesConCantidadDePedidosSegunEstado(eCliente listaCliente[], int tamCliente, ePedido listaPedido[],	int tamPedido, int estado);
 
 #endif /* NEXO_H_ */

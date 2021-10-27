@@ -22,7 +22,7 @@
 /// @param tamPedidos tamaño del array de pedidos
 /// @param idPedido genera un id automatico sumando de a 1
 /// @return -1 si hubo algun dato no valido, 0 si no encontro posiciones libre, 1 si logro crear el pedido, 2 si cancelo la creacion del pedido
-int CrearPedidoDeRecoleccion(eCliente listaClientes[], int tamCliente, ePedido listaPedidos[], int tamPedidos, int* idPedido);
+int CrearPedidoDeRecoleccion(eCliente listaClientes[], int tamCliente,ePedido listaPedidos[], int tamPedidos, int *idPedido, eLocalidad localidades[], int tamLoc);
 
 /// @fn ePedido CrearPedido(eCliente[], int, ePedido[], int, int*)
 /// @brief pide los datos de los campos de un ePedido
@@ -43,7 +43,8 @@ ePedido CrearPedido(eCliente listaClientes[], int tamCliente, ePedido listaPedid
 /// @param listaPedidos array de pedidos
 /// @param tamPedido tamaño del array de pedidos
 /// @return -1 si hubo algun dato no valido, 0 si no encontro clientes cargados, 1 si logro hacerlo
-int MostrarClientesConCantidadPedidosPendientes(eCliente listaClientes[], int tamCliente, ePedido listaPedidos[], int tamPedido);
+//int MostrarClientesConCantidadPedidosPendientes(eCliente listaClientes[], int tamCliente, ePedido listaPedidos[], int tamPedido);
+int MostrarClientesConCantidadPedidosPendientes(eCliente listaClientes[], int tamCliente, ePedido listaPedidos[], int tamPedido, eLocalidad listaLoc[], int tamLoc);
 
 /// @fn void EncabezadoConCantidadPendientes()
 /// @brief encabezado con cantidad de pedidos pendientes
@@ -63,7 +64,7 @@ void EncabezadoConCantidadKilos();
 /// @param listaPedido array de pedidos
 /// @param tamPedido tamaño del array de pedidos
 /// @return -1 si hubo algun dato no valido, 0 si no encontro clientes cargados, 1 si logro hacerlo
-int MostrarPedidosPendientesConKilos(eCliente listaCliente[], int tamCliente, ePedido listaPedido[], int tamPedido);
+int MostrarPedidosPendientesConKilos(eCliente listaCliente[], int tamCliente, ePedido listaPedido[], int tamPedido, eLocalidad localidades[], int tamLoc);
 
 /// @fn int ProcesarResiduos(ePedido[], int, int, eCliente[], int)
 /// @brief muestra en pantalla los pedidos pendientes, pide el ingreso de un id para realizar el procesamiento
@@ -75,7 +76,7 @@ int MostrarPedidosPendientesConKilos(eCliente listaCliente[], int tamCliente, eP
 /// @param listaCliente array de clientes
 /// @param tamCliente tamaño del array
 /// @return -1 si hubo algun dato no valido, 1 si logro hacerlo, 2 si fue cancelado
-int ProcesarResiduos(ePedido lista[], int tam, int generadorId, eCliente listaCliente[], int tamCliente);
+int ProcesarResiduos(ePedido lista[], int tam, int generadorId, eCliente listaCliente[], int tamCliente, eLocalidad localidades[], int tamLoc);
 
 /// @fn void MostrarPedidosConDatosDeCliente(ePedido, eCliente[], int)
 /// @brief imprime los datos de un pedido con datos del cliente
@@ -83,7 +84,7 @@ int ProcesarResiduos(ePedido lista[], int tam, int generadorId, eCliente listaCl
 /// @param pedido ePedido
 /// @param listaCliente array de clientes
 /// @param tamCliente tamaño del array de clientes
-void MostrarPedidosConDatosDeCliente(ePedido pedido, eCliente listaCliente[], int tamCliente);
+void MostrarPedidosConDatosDeCliente(ePedido pedido, eCliente listaCliente[],int tamCliente, eLocalidad localidades[], int tamLoc);
 
 /// @fn int CantidadPendientesPorLocalidad(eCliente[], int, ePedido[], int)
 /// @brief pide el ingreso de una localidad y muestra en pantalla la cantidad de pedidos pendientes que tiene esa localidad
@@ -131,7 +132,7 @@ int CalcularPromedioPP(ePedido listaPedido[], int tamPedido, eCliente listaClien
 /// @param listaPedido array de pedidos
 /// @param tamPedido tamaño del array de pedidos
 /// @return	-1 si hubo algun dato no valido, 1 si fue dado de baja con exito, 2 si fue cancelado
-int BajaCliente(eCliente lista[], int tam, ePedido listaPedido[], int tamPedido);
+int BajaCliente(eCliente lista[], int tam, ePedido listaPedido[], int tamPedido, eLocalidad localidades[], int tamLoc);
 
 /// @fn int BajaPedido(ePedido[], int, eCliente[], int)
 /// @brief
@@ -141,15 +142,20 @@ int BajaCliente(eCliente lista[], int tam, ePedido listaPedido[], int tamPedido)
 /// @param listaCliente
 /// @param tamCliente
 /// @return
-int BajaPedido(ePedido lista[], int tam, eCliente listaCliente[], int tamCliente);
+int BajaPedido(ePedido lista[], int tam, eCliente listaCliente[], int tamCliente, eLocalidad localidades[], int tamLoc);
 
 eCliente CargarCliente2(int idGenerico, eLocalidad listaLoc[], int tamLoc);
 int AltaCliente2(eCliente lista[], int tam, int* generadorId, eLocalidad listaLoc[], int tamLoc);
+void MostrarUnCliente2(eCliente lista, eLocalidad localidad[], int tamLoc);
+int MostrarListaClientes2(eCliente lista[], int tam, eLocalidad localidades[], int tamLoc);
 int ModificarCliente2(eCliente lista[], int tam, eLocalidad listaLoc[], int tamLoc);
 int BuscarClienteConMasPedidosPendientes(ePedido listaPedido[], int tamPedido, eCliente listaCliente[], int tamCliente);
 int CalcularMayor(eAuxiliar listaAux[], int tamAux, int* cantidad);
 void ING_renglones(int posicion, int cantidad, char simbolo);
 int ContarClientesPorEstadoDePedido(ePedido listaPedido[], int tamPedido, int estado, int idCliente, int* cantidad);
 void MostrarClientesConCantidadDePedidosSegunEstado(eCliente listaCliente[], int tamCliente, ePedido listaPedido[],	int tamPedido, int estado);
+int BuscarClienteConMayorCantidadPedidos(eCliente listaCliente[], int tamCliente, ePedido listaPedido[], int tamPedido);//, eAuxiliar aux[])
+int MostrarClientePorIdConCantidad(eCliente lista[], int tam, int id, int cantidad, eLocalidad localidades[], int tamLoc);
+void MostrarUnClienteConCantidad(eCliente lista, int cantidad, eLocalidad localidades[], int tamLoc);
 
 #endif /* NEXO_H_ */

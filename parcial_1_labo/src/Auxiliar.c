@@ -13,3 +13,4 @@ void InicializarAux(eAuxiliar lista[], int tam)
 		lista[i].idCliente = 0;
 	}
 }
+

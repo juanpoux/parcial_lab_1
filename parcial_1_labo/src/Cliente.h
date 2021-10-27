@@ -127,14 +127,14 @@ int ModificarCliente(eCliente lista[], int tam);
 /// @param id id del cliente
 /// @param cantidad cantidad de pedidos pendientes
 /// @return -1 si algun dato no es valido, 1 si pudo hacerlo
-int MostrarClientePorIdConCantidad(eCliente lista[], int tam, int id, int cantidad);
+//int MostrarClientePorIdConCantidad(eCliente lista[], int tam, int id, int cantidad);
 
 /// @fn void MostrarUnClienteConCantidad(eCliente, int)
 /// @brief muestra un cliente con cantidad de pedidos pendientes
 ///
 /// @param lista un cliente
 /// @param cantidad cantidad de pedidos pendientes
-void MostrarUnClienteConCantidad(eCliente lista, int cantidad);
+//void MostrarUnClienteConCantidad(eCliente lista, int cantidad);
 
 /// @fn eCliente ObtenerClientePorID(eCliente[], int, int)
 /// @brief obtiene los datos de un cliente por id
@@ -161,5 +161,7 @@ int SaberSiHayClientesActivos(eCliente lista[], int tam);
 /// @param contClientes puntero de la cantidad de clientes
 /// @return retorna -1 si algun dato es invalido, 0 si no encontro clientes cargados, 1 si encontro clientes
 int ContadorClientes(eCliente lista[], int tam, int* contClientes);
+
+int BuscarClientePorIdLocalidad(eCliente lista[], int tam, int idLocalidad);
 
 #endif /* CLIENTE_H_ */

@@ -111,4 +111,6 @@ void PedirFlotanteP(float* pResultado, char* mensaje, char* mensajeError, int mi
 /// @return retorna 1 si pudo validar el ingreso y 0 si tiene que pedirlo de nuevo
 int PedirCuit(char cadena[]);
 
+void Renglones(int posicion, int cantidad, char simbolo);
+
 #endif /* BIBLIOTECA_H_ */

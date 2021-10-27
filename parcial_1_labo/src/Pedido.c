@@ -22,8 +22,6 @@ int BuscarLibrePedido(ePedido lista[], int tam)
 	return retorno;
 }
 
-
-
 int VerificarIdActivoPedido(ePedido lista[], int tam, int id)
 {
 	int retorno;
@@ -129,7 +127,6 @@ int ContarPendientes(ePedido lista[], int tam, int idCliente, int* cantidad)
 				contador++;
 			}
 		}
-		printf("\n%d\n", contador);
 		*cantidad = contador;
 	}
 	return retorno;

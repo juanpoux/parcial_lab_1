@@ -88,22 +88,17 @@ int MenuDeOpciones()
 
 void EncabezadoCliente()
 {
-printf("=====================================================================================\n");
-printf("|%4s |%-15s |%-15s |%-20s |%-6s |\n", "ID", "Empresa", "CUIT", "Direccion", "ID Localidad");
-printf("=====================================================================================\n");
+	Renglones(1, 85, '=');
+	printf("\n|%4s |%-15s |%-15s |%-20s |%-20s |\n", "ID", "Empresa", "CUIT", "Direccion", "Localidad");
+	Renglones(-1, 85, '=');
 }
 void MostrarUnCliente(eCliente lista)
 {
 	printf("|%4d |", lista.idCliente);
 	printf("%-15s |", lista.nombre);
 	printf("%-15s |", lista.cuit);
-	printf("%-20s |", lista.direccion);
-	//printf("%-20s |\n", lista.localidad);
-	printf("%-12d |\n", lista.idLocalidad);
-
-	//printf("%-4d |\n", lista.isEmpty);
-	//ING_renglones(-1, 100, '-');
-	printf(			"-------------------------------------------------------------------------------------\n");
+	printf("%-20s |\n", lista.direccion);
+	Renglones(-1, 83, '-');
 }
 
 int MostrarListaClientes(eCliente lista[], int tam)
@@ -259,7 +254,7 @@ int PedirYVerificarIdCliente(eCliente lista[], int tam, int* id, char mensaje[],
 	return retorno;
 }
 
-int MostrarClientePorIdConCantidad(eCliente lista[], int tam, int id, int cantidad)
+/*int MostrarClientePorIdConCantidad(eCliente lista[], int tam, int id, int cantidad)
 {
 	int i;
 	int retorno;
@@ -280,22 +275,21 @@ int MostrarClientePorIdConCantidad(eCliente lista[], int tam, int id, int cantid
 	}
 
 	return retorno;
-}
+}*/
 
-void MostrarUnClienteConCantidad(eCliente lista, int cantidad)
+/*void MostrarUnClienteConCantidad(eCliente lista, int cantidad)
 {
+
 	printf("|%4d |", lista.idCliente);
 	printf("%-15s |", lista.nombre);
 	printf("%-15s |", lista.cuit);
 	printf("%-20s |", lista.direccion);
 	//printf("%-20s |", lista.localidad);
 	printf("%-16d |\n", cantidad);
-	//printf("%-4d |", lista.isEmpty);
 
-	ING_renglones(-1, 100, '*');
-
+	Renglones(-1, 120, '-');
 	//printf("-------------------------------------------------------------------------------------------------------\n");
-}
+}*/
 
 eCliente ObtenerClientePorID(eCliente lista[], int tam, int id)
 {
@@ -364,3 +358,24 @@ int ContadorClientes(eCliente lista[], int tam, int* contClientes)
 	return retorno;
 }
 
+int BuscarClientePorIdLocalidad(eCliente lista[], int tam, int idLocalidad)
+{
+	int i;
+	int retorno;
+
+	retorno = -1;
+
+	if(lista != NULL && tam > 0)
+	{
+		for(i = 0; i < tam; i++)
+		{
+			if(lista[i].idLocalidad == idLocalidad)
+			{
+				retorno = lista[i].idCliente;
+				break;
+			}
+		}
+	}
+
+	return retorno;
+}

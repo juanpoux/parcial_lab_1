@@ -263,3 +263,30 @@ int PedirCuit(char cadena[])
 
     return retorno;
 }
+
+void Renglones(int posicion, int cantidad, char simbolo)
+{
+	switch (posicion)
+	{
+	case -1:
+		for (int i = 0; i < cantidad; i++)
+		{
+			printf("%c", simbolo);
+		}
+		printf("\n");
+		break;
+	case 0:
+		for (int i = 0; i < cantidad; i++)
+		{
+			printf("%c", simbolo);
+		}
+		break;
+	case 1:
+		printf("\n");
+		for (int i = 0; i < cantidad; i++)
+		{
+			printf("%c", simbolo);
+		}
+		break;
+	}
+}

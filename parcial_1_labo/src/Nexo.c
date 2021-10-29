@@ -1,4 +1,27 @@
 #include "Nexo.h"
+/***********************************************************     INICIAR     ***********************************************************/
+
+
+/***********************************************************      A-B-M      ***********************************************************/
+
+ePedido CrearPedido(eCliente listaClientes[], int tamCliente,
+		ePedido listaPedidos[], int tamPedidos, int *idPedido)
+{
+	ePedido pedidoAux;
+
+	EncabezadoCliente();
+	MostrarListaClientes(listaClientes, tamCliente);
+	PedirYVerificarIdCliente(listaClientes, tamCliente, &pedidoAux.idCliente,
+			"Ingrese el ID del cliente: ", "Error, ingreso invalido ", 1, 9999);
+	pedidoAux.idPedido = *idPedido;
+	pedidoAux.estado = PENDIENTE;
+	pedidoAux.isEmpty = CARGADO;
+	PedirFlotanteP(&pedidoAux.kilos,
+			"Ingrese la cantidad de kilos de plastico: ",
+			"Error, ingreso invalido ", 0, 99999999);
+
+	return pedidoAux;
+}
 
 int CrearPedidoDeRecoleccion(eCliente listaClientes[], int tamCliente,ePedido listaPedidos[], int tamPedidos, int *idPedido, eLocalidad localidades[], int tamLoc)
 {
@@ -41,138 +64,6 @@ int CrearPedidoDeRecoleccion(eCliente listaClientes[], int tamCliente,ePedido li
 	return retorno;
 }
 
-ePedido CrearPedido(eCliente listaClientes[], int tamCliente,
-		ePedido listaPedidos[], int tamPedidos, int *idPedido)
-{
-	ePedido pedidoAux;
-
-	EncabezadoCliente();
-	MostrarListaClientes(listaClientes, tamCliente);
-	PedirYVerificarIdCliente(listaClientes, tamCliente, &pedidoAux.idCliente,
-			"Ingrese el ID del cliente: ", "Error, ingreso invalido ", 1, 9999);
-	pedidoAux.idPedido = *idPedido;
-	pedidoAux.estado = PENDIENTE;
-	pedidoAux.isEmpty = CARGADO;
-	PedirFlotanteP(&pedidoAux.kilos,
-			"Ingrese la cantidad de kilos de plastico: ",
-			"Error, ingreso invalido ", 0, 99999999);
-
-	return pedidoAux;
-}
-
-int MostrarClientesConCantidadPedidosPendientes(eCliente listaClientes[], int tamCliente, ePedido listaPedidos[], int tamPedido, eLocalidad listaLoc[], int tamLoc)
-{
-	int retorno;
-	int i;
-	int cantidad;
-
-	retorno = -1;
-
-	if (listaClientes != NULL && tamCliente > 0 && listaPedidos != NULL
-			&& tamPedido > 0)
-	{
-		retorno = 0;
-		EncabezadoConCantidadPendientes();
-		for (i = 0; i < tamCliente; i++)
-		{
-			if (listaClientes[i].isEmpty == CARGADO)
-			{
-				retorno = 1;
-				ContarPendientes(listaPedidos, tamPedido,
-						listaClientes[i].idCliente, &cantidad);
-				MostrarClientePorIdConCantidad(listaClientes, tamCliente,
-						listaClientes[i].idCliente, cantidad, listaLoc, tamLoc);
-			}
-		}
-	}
-	return retorno;
-}
-
-void EncabezadoConCantidadPendientes()
-{
-	printf("=======================================================================================================\n");
-	printf("|%4s |%-15s |%-15s |%-20s |%-20s |%-15s |\n", "ID", "Empresa", "CUIT", "Direccion", "Localidad", "Cant. Pendientes");
-	printf("=======================================================================================================\n");
-}
-
-void EncabezadoConCantidadKilos()
-{
-	printf(
-			"============================================================================================================\n");
-	printf("|%10s |%-15s |%-15s |%-20s |%-20s |%-15s |\n", "Id pedido",
-			"Empresa", "CUIT", "Direccion", "Localidad", "Cant. kilos");
-	printf(
-			"============================================================================================================\n");
-}
-
-int MostrarPedidosPendientesConKilos(eCliente listaCliente[], int tamCliente,
-		ePedido listaPedido[], int tamPedido, eLocalidad localidades[], int tamLoc)
-{
-	int retorno;
-	int i;
-
-	retorno = -1;
-
-	if (listaCliente != NULL && tamCliente > 0 && listaPedido != NULL
-			&& tamPedido > 0)
-	{
-		retorno = 0;
-		EncabezadoConCantidadKilos();
-
-		for (i = 0; i < tamPedido; i++)
-		{
-			if (listaPedido[i].isEmpty == CARGADO
-					&& listaPedido[i].estado == PENDIENTE)
-			{
-				retorno = 1;
-				MostrarPedidosConDatosDeCliente(listaPedido[i], listaCliente,
-						tamCliente, localidades, tamLoc);
-			}
-		}
-	}
-
-	return retorno;
-}
-
-int MostrarClientePorIdConCantidad(eCliente lista[], int tam, int id, int cantidad, eLocalidad localidades[], int tamLoc)
-{
-	int i;
-	int retorno;
-
-	retorno = -1;
-
-	if(lista != NULL && tam > 0)
-	{
-		for (i = 0; i < tam; i++)
-		{
-			if (lista[i].isEmpty == CARGADO && lista[i].idCliente == id)
-			{
-				MostrarUnClienteConCantidad(lista[i], cantidad, localidades, tamLoc);
-				retorno = 1;
-				break;
-			}
-		}
-	}
-
-	return retorno;
-}
-
-void MostrarUnClienteConCantidad(eCliente lista, int cantidad, eLocalidad localidades[], int tamLoc)
-{
-	eLocalidad aux;
-
-	aux = ObtenerLocalidadPorID(localidades, tamLoc, lista.idLocalidad);
-
-	printf("|%4d |", lista.idCliente);
-	printf("%-15s |", lista.nombre);
-	printf("%-15s |", lista.cuit);
-	printf("%-20s |", lista.direccion);
-	printf("%-20s |", aux.descripcion);
-	printf("%-16d |\n", cantidad);
-
-	Renglones(-1, 103, '-');
-}
-
 int ProcesarResiduos(ePedido lista[], int tam, int generadorId,
 		eCliente listaCliente[], int tamCliente, eLocalidad localidades[], int tamLoc)
 {
@@ -190,7 +81,7 @@ int ProcesarResiduos(ePedido lista[], int tam, int generadorId,
 		retorno = 0;
 		MostrarPedidosPendientesConKilos(listaCliente, tamCliente, lista, tam, localidades, tamLoc);
 		PedirYVerificarIdPedido(lista, tam, &id, "ingrese el id: ", "error ", 1,
-				generadorId);
+				999999);
 		aux = ObtenerPedidoPorID(lista, tam, id);
 		indice = BuscarIndicePorIdPedido(lista, tam, id);
 
@@ -222,189 +113,6 @@ int ProcesarResiduos(ePedido lista[], int tam, int generadorId,
 			retorno = 2;
 		}
 	}
-	return retorno;
-}
-
-void MostrarPedidosConDatosDeCliente(ePedido pedido, eCliente listaCliente[],int tamCliente, eLocalidad localidades[], int tamLoc)
-{
-	eCliente auxC;
-	eLocalidad auxL;
-
-	auxC = ObtenerClientePorID(listaCliente, tamCliente, pedido.idCliente);
-	auxL = ObtenerLocalidadPorID(localidades, tamLoc, auxC.idLocalidad);
-
-	printf("|%10d |", pedido.idPedido);
-	printf("%-15s |", auxC.nombre);
-	printf("%-15s |", auxC.cuit);
-	printf("%-20s |", auxC.direccion);
-	printf("%-20s |", auxL.descripcion);
-	printf("%-15.2f |\n", pedido.kilos);
-	Renglones(-1, 108, '-');
-}
-
-/*int CantidadPendientesPorLocalidad(eCliente listaCliente[], int tamCliente,
-		ePedido listaPedido[], int tamPedido, eLocalidad listaLoc[], int tamLoc)
-{
-	int retorno;
-	//char localidad[60];
-	int localidad;
-	int cantidad;
-
-	retorno = -1;
-
-	if (listaCliente != NULL && tamCliente > 0 && listaPedido != NULL
-			&& tamPedido > 0)
-	{
-		retorno = 0;
-		//PedirCadena("Ingrese localidad: ", localidad, 60);
-		MostrarLocalidades(listaLoc, tamLoc);
-		PedirEnteroP(&localidad, "Ingrese ID de localidad: ", "ERROR", 1, 99);
-		for (int i = 0; i < tamCliente; i++)
-		{
-			if (listaCliente[i].isEmpty == CARGADO)// && stricmp(listaCliente[i].localidad, localidad) == 0)
-			{
-				for (int j = 0; j < tamLoc; j++)
-				{
-					if (listaLoc[j].isEmpty == CARGADO && listaCliente[i].idLocalidad == listaLoc[j].idLocalidad)
-					{
-						retorno = 1;
-						ContarPendientes(listaPedido, tamPedido, listaCliente[i].idCliente, &cantidad);
-						printf("\nEn la localidad de %s hay %d pedidos pedidos pendientes\n", listaLoc[j].descripcion, cantidad);
-					}
-				}
-			}
-		}
-		if (retorno == 1)
-		{
-			//printf("\nEn la localidad de %s hay %d pedidos pedidos pendientes\n", listaLoc[j].descripcion, cantidad);
-		}
-		else
-		{
-			if (retorno == 0)
-			{
-				printf("\nNo hay pedidos pendientes en la localidad de %d\n",
-						localidad);
-			}
-		}
-	}
-
-	return retorno;
-}*/
-
-int CantidadPendientesPorLocalidad(eCliente listaCliente[], int tamCliente,
-		ePedido listaPedido[], int tamPedido, eLocalidad listaLoc[], int tamLoc)
-{
-	int retorno;
-	int cantidad;
-	int idLocalidad;
-	int idCliente;
-
-	retorno = -1;
-
-	if (listaCliente != NULL && tamCliente > 0 && listaPedido != NULL && tamPedido > 0) //etc
-	{
-		retorno = 0;
-
-		MostrarLocalidades(listaLoc, tamLoc);
-		PedirYVerificarIdLocalidad(listaLoc, tamLoc, &idLocalidad, "Seleccione id de localidad: ", "ERROR", 1, 99999);
-
-		idCliente = BuscarClientePorIdLocalidad(listaCliente, tamCliente, idLocalidad);
-
-		ContarClientesPorEstadoDePedido(listaPedido, tamPedido, PENDIENTE, idCliente, &cantidad);
-
-		printf("\nEn la localidad de %s hay %d pedidos pedidos pendientes\n", ObtenerLocalidadPorID(listaLoc, tamLoc, idLocalidad).descripcion, cantidad);
-	}
-	return retorno;
-}
-
-int MostrarPedidosProcesadosConDescripcion(eCliente listaCliente[],
-		int tamCliente, ePedido listaPedido[], int tamPedido)
-{
-	int retorno;
-	int i;
-
-	retorno = -1;
-
-	if (listaCliente != NULL && tamCliente > 0 && listaPedido != NULL
-			&& tamPedido > 0)
-	{
-		Renglones(1, 117, '=');
-		printf("\n|%10s |%-15s |%-15s |%-20s |%-10s |%-10s |%-10s |%-10s |\n", "Id pedido", "Empresa", "CUIT", "Direccion", "HDPE", "LDPE", "PP", "Resto");
-		Renglones(-1, 117, '=');
-
-		retorno = 0;
-		for (i = 0; i < tamPedido; i++)
-		{
-			if (listaPedido[i].isEmpty == CARGADO
-					&& listaPedido[i].estado == COMPLETADO)
-			{
-				retorno = 1;
-				MostrarPedidosProcesados(listaPedido[i], listaCliente,
-						tamCliente);
-			}
-		}
-	}
-
-	return retorno;
-}
-
-void MostrarPedidosProcesados(ePedido pedido, eCliente listaCliente[],
-		int tamCliente)
-{
-	eCliente auxC;
-	float resto;
-
-	auxC = ObtenerClientePorID(listaCliente, tamCliente, pedido.idCliente);
-
-	resto = pedido.kilos - pedido.HDPE - pedido.LDPE - pedido.PP;
-
-	printf("|%10d |", pedido.idPedido);
-	printf("%-15s |", auxC.nombre);
-	printf("%-15s |", auxC.cuit);
-	printf("%-20s |", auxC.direccion);
-	printf("%-10.2f |", pedido.HDPE);
-	printf("%-10.2f |", pedido.LDPE);
-	printf("%-10.2f |", pedido.PP);
-	printf("%-10.2f |\n", resto);
-	Renglones(-1, 117, '-');
-}
-
-int CalcularPromedioPP(ePedido listaPedido[], int tamPedido,
-		eCliente listaCliente[], int tamCliente)
-{
-	int retorno;
-	float acumuladorPP;
-	int cantClientes;
-	float promedio;
-
-	retorno = -1;
-	acumuladorPP = 0;
-
-	if (listaPedido != NULL && tamPedido > 0 && listaCliente != NULL
-			&& tamCliente > 0)
-	{
-		retorno = 0;
-		AcumularKilosPP(listaPedido, tamPedido, &acumuladorPP);
-		ContadorClientes(listaCliente, tamCliente, &cantClientes);
-
-		if (acumuladorPP == 0)
-		{
-			retorno = 2;
-			//printf("No hay polipropileno reciclado por el momento...\n");
-		}
-		else
-		{
-			retorno = 1;
-			promedio = acumuladorPP / cantClientes;
-			printf("Kilos totales de polipropileno: %.2f \n", acumuladorPP);
-			printf("Cantidad total de clientes: %d \n", cantClientes);
-			printf(
-					"La cantidad promedio de kilos de polipropileno reciclado por cliente es: %.2f \n",
-					promedio);
-		}
-
-	}
-
 	return retorno;
 }
 
@@ -491,6 +199,7 @@ int BajaPedido(ePedido lista[], int tam, eCliente listaCliente[],
 	}
 	return retorno;
 }
+
 eCliente CargarCliente2(int idGenerico, eLocalidad listaLoc[], int tamLoc)
 {
 	eCliente cliente;
@@ -541,42 +250,6 @@ int AltaCliente2(eCliente lista[], int tam, int *generadorId,
 			else
 			{
 				retorno = 2;
-			}
-		}
-	}
-
-	return retorno;
-}
-void MostrarUnCliente2(eCliente lista, eLocalidad localidad[], int tamLoc)
-{
-	eLocalidad aux;
-	aux = ObtenerLocalidadPorID(localidad, tamLoc, lista.idLocalidad);
-	printf("|%4d |", lista.idCliente);
-	printf("%-15s |", lista.nombre);
-	printf("%-15s |", lista.cuit);
-	printf("%-20s |", lista.direccion);
-	//printf("%-20s |\n", lista.localidad);
-	printf("%-20s |\n", aux.descripcion);
-	//printf("%-12d |\n", lista.idLocalidad);
-
-	printf(			"-------------------------------------------------------------------------------------\n");
-}
-
-int MostrarListaClientes2(eCliente lista[], int tam, eLocalidad localidades[], int tamLoc)
-{
-	int i;
-	int retorno;
-
-	retorno = 0;
-
-	if(lista != NULL && tam > 0)
-	{
-		for (i = 0; i < tam; i++)
-		{
-			if (lista[i].isEmpty == CARGADO)
-			{
-				MostrarUnCliente2(lista[i], localidades, tamLoc);
-				retorno = 1;
 			}
 		}
 	}
@@ -640,7 +313,6 @@ int ModificarCliente2(eCliente lista[], int tam, eLocalidad listaLoc[],
 	return retorno;
 }
 
-
 int CargarAuxConClientePorEstado(ePedido listaPedido[], int tamPedido, eCliente listaCliente[], eAuxiliar aux[], int tamCliente, int estado)
 {
 	int retorno;
@@ -683,6 +355,302 @@ int CargarAuxConClientePorEstado(ePedido listaPedido[], int tamPedido, eCliente 
 	return retorno;
 }
 
+/***********************************************************      BUSCAR      ***********************************************************/
+
+int BuscarClienteConMayorCantidadPedidos(eCliente listaCliente[], int tamCliente, ePedido listaPedido[], int tamPedido)//, eAuxiliar aux[])
+{
+	int retorno = 0;
+	eAuxiliar aux[tamCliente];
+	int mayor = -1;
+
+	InicializarAux(aux, tamCliente);
+
+	if (listaCliente != NULL && listaPedido != NULL && tamCliente )//> 0 && aux != NULL)
+	{
+		for(int i = 0; i < tamPedido; i++)
+		{
+			if(listaPedido[i].isEmpty == CARGADO)
+			{
+				for(int j = 0; j < tamCliente; j++)
+				{
+					if(listaCliente[j].isEmpty == CARGADO && listaCliente[j].idCliente == listaPedido[i].idCliente)
+					{
+						aux[j].contador++;
+						aux[j].idCliente = listaCliente[j].idCliente;
+						aux[j].isEmpty = CARGADO;
+					}
+				}
+			}
+		}
+
+		CalcularMayor(aux, tamCliente, &mayor);
+		/*for(int i = 0; i < tamCliente; i++)
+		{
+			if(aux[i].isEmpty == CARGADO && (!bandera || mayor < aux[i].contador))
+			{
+				mayor = aux[i].contador;
+				bandera = 1;
+			}
+		}*/
+
+		for(int i = 0; i < tamCliente; i++)
+		{
+			if(aux[i].isEmpty == CARGADO && aux[i].contador == mayor && aux[i].idCliente == listaCliente[i].idCliente)
+			{
+				printf("Cantidad de pedidos: %d Nombre empresa: %s\n", aux[i].contador, listaCliente[i].nombre);
+			}
+		}
+	}
+	return retorno;
+}
+
+
+/***********************************************************     MOSTRAR     ***********************************************************/
+
+int MostrarClientesConCantidadPedidosPendientes(eCliente listaClientes[], int tamCliente, ePedido listaPedidos[], int tamPedido, eLocalidad listaLoc[], int tamLoc)
+{
+	int retorno;
+	int i;
+	int cantidad;
+
+	retorno = -1;
+
+	if (listaClientes != NULL && tamCliente > 0 && listaPedidos != NULL
+			&& tamPedido > 0)
+	{
+		retorno = 0;
+		EncabezadoConCantidadPendientes();
+		for (i = 0; i < tamCliente; i++)
+		{
+			if (listaClientes[i].isEmpty == CARGADO)
+			{
+				retorno = 1;
+				ContarPendientes(listaPedidos, tamPedido,
+						listaClientes[i].idCliente, &cantidad);
+				MostrarClientePorIdConCantidad(listaClientes, tamCliente,
+						listaClientes[i].idCliente, cantidad, listaLoc, tamLoc);
+			}
+		}
+	}
+	return retorno;
+}
+
+int MostrarPedidosPendientesConKilos(eCliente listaCliente[], int tamCliente,
+		ePedido listaPedido[], int tamPedido, eLocalidad localidades[], int tamLoc)
+{
+	int retorno;
+	int i;
+
+	retorno = -1;
+
+	if (listaCliente != NULL && tamCliente > 0 && listaPedido != NULL
+			&& tamPedido > 0)
+	{
+		retorno = 0;
+		EncabezadoConCantidadKilos();
+
+		for (i = 0; i < tamPedido; i++)
+		{
+			if (listaPedido[i].isEmpty == CARGADO
+					&& listaPedido[i].estado == PENDIENTE)
+			{
+				retorno = 1;
+				MostrarPedidosConDatosDeCliente(listaPedido[i], listaCliente,
+						tamCliente, localidades, tamLoc);
+			}
+		}
+	}
+
+	return retorno;
+}
+
+int MostrarClientePorIdConCantidad(eCliente lista[], int tam, int id, int cantidad, eLocalidad localidades[], int tamLoc)
+{
+	int i;
+	int retorno;
+
+	retorno = -1;
+
+	if(lista != NULL && tam > 0)
+	{
+		for (i = 0; i < tam; i++)
+		{
+			if (lista[i].isEmpty == CARGADO && lista[i].idCliente == id)
+			{
+				MostrarUnClienteConCantidad(lista[i], cantidad, localidades, tamLoc);
+				retorno = 1;
+				break;
+			}
+		}
+	}
+
+	return retorno;
+}
+
+void MostrarUnClienteConCantidad(eCliente lista, int cantidad, eLocalidad localidades[], int tamLoc)
+{
+	eLocalidad aux;
+
+	aux = ObtenerLocalidadPorID(localidades, tamLoc, lista.idLocalidad);
+
+	printf("|%4d |", lista.idCliente);
+	printf("%-15s |", lista.nombre);
+	printf("%-15s |", lista.cuit);
+	printf("%-20s |", lista.direccion);
+	printf("%-20s |", aux.descripcion);
+	printf("%-16d |\n", cantidad);
+
+	Renglones(-1, 103, '-');
+}
+
+void MostrarPedidosConDatosDeCliente(ePedido pedido, eCliente listaCliente[],int tamCliente, eLocalidad localidades[], int tamLoc)
+{
+	eCliente auxC;
+	eLocalidad auxL;
+
+	auxC = ObtenerClientePorID(listaCliente, tamCliente, pedido.idCliente);
+	auxL = ObtenerLocalidadPorID(localidades, tamLoc, auxC.idLocalidad);
+
+	printf("|%10d |", pedido.idPedido);
+	printf("%-15s |", auxC.nombre);
+	printf("%-15s |", auxC.cuit);
+	printf("%-20s |", auxC.direccion);
+	printf("%-20s |", auxL.descripcion);
+	printf("%-15.2f |\n", pedido.kilos);
+	Renglones(-1, 108, '-');
+}
+
+int MostrarPedidosProcesadosConDescripcion(eCliente listaCliente[],
+		int tamCliente, ePedido listaPedido[], int tamPedido)
+{
+	int retorno;
+	int i;
+
+	retorno = -1;
+
+	if (listaCliente != NULL && tamCliente > 0 && listaPedido != NULL
+			&& tamPedido > 0)
+	{
+		Renglones(1, 117, '=');
+		printf("\n|%10s |%-15s |%-15s |%-20s |%-10s |%-10s |%-10s |%-10s |\n", "Id pedido", "Empresa", "CUIT", "Direccion", "HDPE", "LDPE", "PP", "Resto");
+		Renglones(-1, 117, '=');
+
+		retorno = 0;
+		for (i = 0; i < tamPedido; i++)
+		{
+			if (listaPedido[i].isEmpty == CARGADO
+					&& listaPedido[i].estado == COMPLETADO)
+			{
+				retorno = 1;
+				MostrarPedidosProcesados(listaPedido[i], listaCliente,
+						tamCliente);
+			}
+		}
+	}
+
+	return retorno;
+}
+
+void MostrarPedidosProcesados(ePedido pedido, eCliente listaCliente[],
+		int tamCliente)
+{
+	eCliente auxC;
+	float resto;
+
+	auxC = ObtenerClientePorID(listaCliente, tamCliente, pedido.idCliente);
+
+	resto = pedido.kilos - pedido.HDPE - pedido.LDPE - pedido.PP;
+
+	printf("|%10d |", pedido.idPedido);
+	printf("%-15s |", auxC.nombre);
+	printf("%-15s |", auxC.cuit);
+	printf("%-20s |", auxC.direccion);
+	printf("%-10.2f |", pedido.HDPE);
+	printf("%-10.2f |", pedido.LDPE);
+	printf("%-10.2f |", pedido.PP);
+	printf("%-10.2f |\n", resto);
+	Renglones(-1, 117, '-');
+}
+
+void MostrarUnCliente2(eCliente lista, eLocalidad localidad[], int tamLoc)
+{
+	eLocalidad aux;
+	aux = ObtenerLocalidadPorID(localidad, tamLoc, lista.idLocalidad);
+	printf("|%4d |", lista.idCliente);
+	printf("%-15s |", lista.nombre);
+	printf("%-15s |", lista.cuit);
+	printf("%-20s |", lista.direccion);
+	//printf("%-20s |\n", lista.localidad);
+	printf("%-20s |\n", aux.descripcion);
+	//printf("%-12d |\n", lista.idLocalidad);
+
+	printf(			"-------------------------------------------------------------------------------------\n");
+}
+
+int MostrarListaClientes2(eCliente lista[], int tam, eLocalidad localidades[], int tamLoc)
+{
+	int i;
+	int retorno;
+
+	retorno = 0;
+
+	if(lista != NULL && tam > 0)
+	{
+		for (i = 0; i < tam; i++)
+		{
+			if (lista[i].isEmpty == CARGADO)
+			{
+				MostrarUnCliente2(lista[i], localidades, tamLoc);
+				retorno = 1;
+			}
+		}
+	}
+
+	return retorno;
+}
+
+void MostrarClientesConCantidadDePedidosSegunEstado(eCliente listaCliente[], int tamCliente, ePedido listaPedido[],
+		int tamPedido, int estado)
+{
+	int mayor;
+	eAuxiliar aux[tamCliente];
+	eCliente auxCliente;
+
+	if (listaCliente != NULL && listaPedido != NULL && tamCliente > 0)
+	{
+		CargarAuxConClientePorEstado(listaPedido, tamPedido, listaCliente, aux, tamCliente, estado);
+
+		//recorre los contadores de la lista auxiliar y devuelve el mayor
+		CalcularMayor(aux, tamCliente, &mayor);
+
+		for(int i = 0; i < tamCliente; i++)
+		{
+			if(aux[i].isEmpty == CARGADO && aux[i].contador == mayor)
+			{
+				auxCliente = ObtenerClientePorID(listaCliente, tamCliente, aux[i].idCliente);
+
+				printf("Nombre: %s cantidad: %d\n", auxCliente.nombre, aux[i].contador);//asi?
+			}
+		}
+	}
+
+	/*if(aux[i].isEmpty == CARGADO && aux[i].contador == mayor)
+	{
+		for(int j = 0; j < tamCliente; j++)
+		{
+			if(aux[i].isEmpty == CARGADO && aux[i].idCliente == listaCliente[j].idCliente)
+			{
+				printf("Nombre: %s cantidad: %d\n", listaCliente[j].nombre, aux[i].contador);
+			}
+		}
+		//auxCliente = ObtenerClientePorID(listaCliente, tamCliente, aux[i].idCliente);
+	}*/
+}
+
+
+
+/***********************************************************     CALCULOS     ***********************************************************/
+
 int ContarClientesPorEstadoDePedido(ePedido listaPedido[], int tamPedido,
 		int estado, int idCliente, int* cantidad)
 {
@@ -709,44 +677,6 @@ int ContarClientesPorEstadoDePedido(ePedido listaPedido[], int tamPedido,
 
 	return retorno;
 
-}
-
-void MostrarClientesConCantidadDePedidosSegunEstado(eCliente listaCliente[], int tamCliente, ePedido listaPedido[],
-		int tamPedido, int estado)
-{
-	int mayor;
-	eAuxiliar aux[tamCliente];
-	eCliente auxCliente;
-
-	if (listaCliente != NULL && listaPedido != NULL && tamCliente > 0)
-	{
-		CargarAuxConClientePorEstado(listaPedido, tamPedido, listaCliente, aux, tamCliente, estado);
-
-		//recorre los contadores de la lista auxiliar y devuelve el mayor
-		CalcularMayor(aux, tamCliente, &mayor);//esta?
-
-		for(int i = 0; i < tamCliente; i++)
-		{
-			if(aux[i].isEmpty == CARGADO && aux[i].contador == mayor)
-			{
-				auxCliente = ObtenerClientePorID(listaCliente, tamCliente, aux[i].idCliente);
-
-				printf("Nombre: %s cantidad: %d\n", auxCliente.nombre, aux[i].contador);//asi?
-			}
-		}
-	}
-
-	/*if(aux[i].isEmpty == CARGADO && aux[i].contador == mayor)
-	{
-		for(int j = 0; j < tamCliente; j++)
-		{
-			if(aux[i].isEmpty == CARGADO && aux[i].idCliente == listaCliente[j].idCliente)
-			{
-				printf("Nombre: %s cantidad: %d\n", listaCliente[j].nombre, aux[i].contador);
-			}
-		}
-		//auxCliente = ObtenerClientePorID(listaCliente, tamCliente, aux[i].idCliente);
-	}*/
 }
 
 int CalcularMayor(eAuxiliar listaAux[], int tamAux, int* cantidad)
@@ -802,49 +732,141 @@ int ContarPedidosPorCliente(ePedido listaPedido[], int tamPedido, int idCliente,
 	return retorno;
 }
 
-int BuscarClienteConMayorCantidadPedidos(eCliente listaCliente[], int tamCliente, ePedido listaPedido[], int tamPedido)//, eAuxiliar aux[])
+/*int CantidadPendientesPorLocalidad(eCliente listaCliente[], int tamCliente,
+		ePedido listaPedido[], int tamPedido, eLocalidad listaLoc[], int tamLoc)
 {
-	int retorno = 0;
-	eAuxiliar aux[tamCliente];
-	int mayor = -1;
+	int retorno;
+	//char localidad[60];
+	int localidad;
+	int cantidad;
 
-	InicializarAux(aux, tamCliente);
+	retorno = -1;
 
-	if (listaCliente != NULL && listaPedido != NULL && tamCliente )//> 0 && aux != NULL)
+	if (listaCliente != NULL && tamCliente > 0 && listaPedido != NULL
+			&& tamPedido > 0)
 	{
-		for(int i = 0; i < tamPedido; i++)
+		retorno = 0;
+		//PedirCadena("Ingrese localidad: ", localidad, 60);
+		MostrarLocalidades(listaLoc, tamLoc);
+		PedirEnteroP(&localidad, "Ingrese ID de localidad: ", "ERROR", 1, 99);
+		for (int i = 0; i < tamCliente; i++)
 		{
-			if(listaPedido[i].isEmpty == CARGADO)
+			if (listaCliente[i].isEmpty == CARGADO)// && stricmp(listaCliente[i].localidad, localidad) == 0)
 			{
-				for(int j = 0; j < tamCliente; j++)
+				for (int j = 0; j < tamLoc; j++)
 				{
-					if(listaCliente[j].isEmpty == CARGADO && listaCliente[j].idCliente == listaPedido[i].idCliente)
+					if (listaLoc[j].isEmpty == CARGADO && listaCliente[i].idLocalidad == listaLoc[j].idLocalidad)
 					{
-						aux[j].contador++;
-						aux[j].idCliente = listaCliente[j].idCliente;
-						aux[j].isEmpty = CARGADO;
+						retorno = 1;
+						ContarPendientes(listaPedido, tamPedido, listaCliente[i].idCliente, &cantidad);
+						printf("\nEn la localidad de %s hay %d pedidos pedidos pendientes\n", listaLoc[j].descripcion, cantidad);
 					}
 				}
 			}
 		}
-
-		CalcularMayor(aux, tamCliente, &mayor);
-		/*for(int i = 0; i < tamCliente; i++)
+		if (retorno == 1)
 		{
-			if(aux[i].isEmpty == CARGADO && (!bandera || mayor < aux[i].contador))
-			{
-				mayor = aux[i].contador;
-				bandera = 1;
-			}
-		}*/
-
-		for(int i = 0; i < tamCliente; i++)
+			//printf("\nEn la localidad de %s hay %d pedidos pedidos pendientes\n", listaLoc[j].descripcion, cantidad);
+		}
+		else
 		{
-			if(aux[i].isEmpty == CARGADO && aux[i].contador == mayor && aux[i].idCliente == listaCliente[i].idCliente)
+			if (retorno == 0)
 			{
-				printf("Cantidad de pedidos: %d Nombre empresa: %s\n", aux[i].contador, listaCliente[i].nombre);
+				printf("\nNo hay pedidos pendientes en la localidad de %d\n",
+						localidad);
 			}
 		}
 	}
+
+	return retorno;
+}*/
+
+int CantidadPendientesPorLocalidad(eCliente listaCliente[], int tamCliente,
+		ePedido listaPedido[], int tamPedido, eLocalidad listaLoc[], int tamLoc)
+{
+	int retorno;
+	int cantidad;
+	int idLocalidad;
+	int idCliente;
+
+	retorno = -1;
+
+	if (listaCliente != NULL && tamCliente > 0 && listaPedido != NULL && tamPedido > 0) //etc
+	{
+		retorno = 0;
+
+		MostrarLocalidades(listaLoc, tamLoc);
+		PedirYVerificarIdLocalidad(listaLoc, tamLoc, &idLocalidad, "Seleccione id de localidad: ", "ERROR", 1, 99999);
+
+		idCliente = BuscarClientePorIdLocalidad(listaCliente, tamCliente, idLocalidad);
+
+		ContarClientesPorEstadoDePedido(listaPedido, tamPedido, PENDIENTE, idCliente, &cantidad);
+
+		printf("\nEn la localidad de %s hay %d pedidos pedidos pendientes\n", ObtenerLocalidadPorID(listaLoc, tamLoc, idLocalidad).descripcion, cantidad);
+	}
 	return retorno;
 }
+
+int CalcularPromedioPP(ePedido listaPedido[], int tamPedido,
+		eCliente listaCliente[], int tamCliente)
+{
+	int retorno;
+	float acumuladorPP;
+	int cantClientes;
+	float promedio;
+
+	retorno = -1;
+	acumuladorPP = 0;
+
+	if (listaPedido != NULL && tamPedido > 0 && listaCliente != NULL
+			&& tamCliente > 0)
+	{
+		retorno = 0;
+		AcumularKilosPP(listaPedido, tamPedido, &acumuladorPP);
+		ContadorClientes(listaCliente, tamCliente, &cantClientes);
+
+		if (acumuladorPP == 0)
+		{
+			retorno = 2;
+			//printf("No hay polipropileno reciclado por el momento...\n");
+		}
+		else
+		{
+			retorno = 1;
+			promedio = acumuladorPP / cantClientes;
+			printf("Kilos totales de polipropileno: %.2f \n", acumuladorPP);
+			printf("Cantidad total de clientes: %d \n", cantClientes);
+			printf(
+					"La cantidad promedio de kilos de polipropileno reciclado por cliente es: %.2f \n",
+					promedio);
+		}
+
+	}
+
+	return retorno;
+}
+
+
+
+/***********************************************************    ENCABEZADO    ***********************************************************/
+
+void EncabezadoConCantidadPendientes()
+{
+	printf("=======================================================================================================\n");
+	printf("|%4s |%-15s |%-15s |%-20s |%-20s |%-15s |\n", "ID", "Empresa", "CUIT", "Direccion", "Localidad", "Cant. Pendientes");
+	printf("=======================================================================================================\n");
+}
+
+void EncabezadoConCantidadKilos()
+{
+	printf(
+			"============================================================================================================\n");
+	printf("|%10s |%-15s |%-15s |%-20s |%-20s |%-15s |\n", "Id pedido",
+			"Empresa", "CUIT", "Direccion", "Localidad", "Cant. kilos");
+	printf(
+			"============================================================================================================\n");
+}
+
+
+/****************************************************************************************************************************************/
+

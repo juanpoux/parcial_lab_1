@@ -157,5 +157,6 @@ void MostrarClientesConCantidadDePedidosSegunEstado(eCliente listaCliente[], int
 int BuscarClienteConMayorCantidadPedidos(eCliente listaCliente[], int tamCliente, ePedido listaPedido[], int tamPedido);//, eAuxiliar aux[])
 int MostrarClientePorIdConCantidad(eCliente lista[], int tam, int id, int cantidad, eLocalidad localidades[], int tamLoc);
 void MostrarUnClienteConCantidad(eCliente lista, int cantidad, eLocalidad localidades[], int tamLoc);
+int CargarAuxConClientePorEstado(ePedido listaPedido[], int tamPedido, eCliente listaCliente[], eAuxiliar aux[], int tamCliente, int estado);
 
 #endif /* NEXO_H_ */

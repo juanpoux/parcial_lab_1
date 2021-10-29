@@ -21,7 +21,6 @@ int MostrarLocalidades(eLocalidad lista[], int tam)
 	return retorno;
 }
 
-
 void MostrarUnaLocalidad(eLocalidad localidad)
 {
 	printf("-----------------------------\n");

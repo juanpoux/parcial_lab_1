@@ -357,16 +357,20 @@ int CargarAuxConClientePorEstado(ePedido listaPedido[], int tamPedido, eCliente 
 
 /***********************************************************      BUSCAR      ***********************************************************/
 
-int BuscarClienteConMayorCantidadPedidos(eCliente listaCliente[], int tamCliente, ePedido listaPedido[], int tamPedido)//, eAuxiliar aux[])
+int BuscarClienteConMayorCantidadPedidos(eCliente listaCliente[], int tamCliente, ePedido listaPedido[], int tamPedido)
 {
-	int retorno = 0;
+	int retorno;
 	eAuxiliar aux[tamCliente];
-	int mayor = -1;
+	int mayor;
+
+	retorno = -1;
+	mayor = -1;
 
 	InicializarAux(aux, tamCliente);
 
-	if (listaCliente != NULL && listaPedido != NULL && tamCliente )//> 0 && aux != NULL)
+	if (listaCliente != NULL && listaPedido != NULL && tamCliente > 0 && aux != NULL && tamPedido > 0)//> 0 && aux != NULL)
 	{
+		retorno = 0;
 		for(int i = 0; i < tamPedido; i++)
 		{
 			if(listaPedido[i].isEmpty == CARGADO)
@@ -395,7 +399,8 @@ int BuscarClienteConMayorCantidadPedidos(eCliente listaCliente[], int tamCliente
 
 		for(int i = 0; i < tamCliente; i++)
 		{
-			if(aux[i].isEmpty == CARGADO && aux[i].contador == mayor && aux[i].idCliente == listaCliente[i].idCliente)
+			if(aux[i].isEmpty == CARGADO && listaCliente[i].isEmpty == CARGADO &&
+					aux[i].contador == mayor && aux[i].idCliente == listaCliente[i].idCliente)
 			{
 				printf("Cantidad de pedidos: %d Nombre empresa: %s\n", aux[i].contador, listaCliente[i].nombre);
 			}
@@ -403,6 +408,17 @@ int BuscarClienteConMayorCantidadPedidos(eCliente listaCliente[], int tamCliente
 	}
 	return retorno;
 }
+
+/*int MostrarClienteConMayorCantidadPedidos(eCliente listaCliente[], int tamCliente, ePedido listaPedido[], int tamPedido)
+{
+	for(int i = 0; i < tamCliente; i++)
+	{
+		if(aux[i].isEmpty == CARGADO && aux[i].contador == mayor && aux[i].idCliente == listaCliente[i].idCliente)
+		{
+			printf("Cantidad de pedidos: %d Nombre empresa: %s\n", aux[i].contador, listaCliente[i].nombre);
+		}
+	}
+}*/
 
 
 /***********************************************************     MOSTRAR     ***********************************************************/
@@ -609,15 +625,19 @@ int MostrarListaClientes2(eCliente lista[], int tam, eLocalidad localidades[], i
 	return retorno;
 }
 
-void MostrarClientesConCantidadDePedidosSegunEstado(eCliente listaCliente[], int tamCliente, ePedido listaPedido[],
+int MostrarClientesConCantidadDePedidosSegunEstado(eCliente listaCliente[], int tamCliente, ePedido listaPedido[],
 		int tamPedido, int estado)
 {
+	int retorno;
 	int mayor;
 	eAuxiliar aux[tamCliente];
 	eCliente auxCliente;
 
+	retorno = -1;
+
 	if (listaCliente != NULL && listaPedido != NULL && tamCliente > 0)
 	{
+		retorno = 0;
 		CargarAuxConClientePorEstado(listaPedido, tamPedido, listaCliente, aux, tamCliente, estado);
 
 		//recorre los contadores de la lista auxiliar y devuelve el mayor
@@ -630,9 +650,13 @@ void MostrarClientesConCantidadDePedidosSegunEstado(eCliente listaCliente[], int
 				auxCliente = ObtenerClientePorID(listaCliente, tamCliente, aux[i].idCliente);
 
 				printf("Nombre: %s cantidad: %d\n", auxCliente.nombre, aux[i].contador);//asi?
+
+				retorno = 1;
 			}
 		}
 	}
+
+	return retorno;
 
 	/*if(aux[i].isEmpty == CARGADO && aux[i].contador == mayor)
 	{
@@ -695,8 +719,8 @@ int CalcularMayor(eAuxiliar listaAux[], int tamAux, int* cantidad)
 		{
 			if(listaAux[i].isEmpty == CARGADO && (bandera == 0 || mayor < listaAux[i].contador))
 			{
-				mayor = listaAux[i].contador;
 				bandera = 1;
+				mayor = listaAux[i].contador;
 			}
 		}
 

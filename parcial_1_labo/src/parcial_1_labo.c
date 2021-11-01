@@ -40,15 +40,15 @@ int main(void)
 
 	ePedido pedidos[TPEDIDO] =
 	{
-	{ 1, 1, 100, PENDIENTE, CARGADO, 0, 0, 0 },
+	//{ 1, 1, 100, PENDIENTE, CARGADO, 0, 0, 0 },
 	{ 2, 1, 500, PENDIENTE, CARGADO, 0, 0, 0 },
 	{ 3, 1, 600, COMPLETADO, CARGADO, 50, 90, 50 },
 	{ 4, 1, 625, COMPLETADO, CARGADO, 50, 60, 50 },
 	{ 5, 1, 500, PENDIENTE, CARGADO, 0, 0, 0 },
-	{ 6, 1, 800, COMPLETADO, CARGADO, 70, 80, 50 },
-	{ 7, 1, 625, PENDIENTE, CARGADO, 0, 0, 0 },
-	{ 8, 1, 1990, PENDIENTE, CARGADO, 0, 0, 0 },
-	{ 9, 1, 900, PENDIENTE, CARGADO, 0, 0, 0 } };
+	{ 6, 2, 800, COMPLETADO, CARGADO, 70, 80, 50 },
+	{ 7, 2, 625, PENDIENTE, CARGADO, 0, 0, 0 },
+	{ 8, 2, 1990, PENDIENTE, CARGADO, 0, 0, 0 },
+	{ 9, 2, 900, PENDIENTE, CARGADO, 0, 0, 0 } };
 
 	eLocalidad localidades[TLOCALIDAD] =
 	{
@@ -320,19 +320,39 @@ int main(void)
 			}
 			break;
 		case 11:
-			printf("\n        ******* Clientes con mas cantidad de pedidos pendientes *******\n\n");
-			MostrarClientesConCantidadDePedidosSegunEstado(clientes, TCLIENTE,
-					pedidos, TPEDIDO, PENDIENTE);
-			printf("\n        ******* Clientes con mas cantidad de pedidos completados *******\n\n");
-			MostrarClientesConCantidadDePedidosSegunEstado(clientes, TCLIENTE,
-					pedidos, TPEDIDO, COMPLETADO);
+			if(VerificarEstadoActivo(pedidos, TPEDIDO, COMPLETADO) == 1)
+			{
+				printf("\n        ******* Clientes con mas cantidad de pedidos pendientes *******\n\n");
+				if(MostrarClientesConCantidadDePedidosSegunEstado(clientes, TCLIENTE, pedidos, TPEDIDO, PENDIENTE) == -1)
+				{
+					printf("Parametros invalidos!\n");
+				}
+			}
+			else
+			{
+				printf("Primero debe procesar al menos un pedido!\n");
+			}
 			break;
 		case 12:
+			if(VerificarEstadoActivo(pedidos, TPEDIDO, COMPLETADO) == 1)
+			{
+				printf("\n        ******* Clientes con mas cantidad de pedidos completados *******\n\n");
+				if(MostrarClientesConCantidadDePedidosSegunEstado(clientes, TCLIENTE, pedidos, TPEDIDO, COMPLETADO) == -1)
+				{
+					printf("Parametros invalidos!\n");
+				}
+			}
+			else
+			{
+				printf("Primero debe procesar al menos un pedido!\n");
+			}
+			break;
+		case 13:
 			printf("\n         ******* Clientes con mas cantidad de pedidos *******\n\n");
 			BuscarClienteConMayorCantidadPedidos(clientes, TCLIENTE, pedidos,
 			TPEDIDO);
 			break;
-		case 13:
+		case 14:
 			MostrarLocalidades(localidades, TLOCALIDAD);
 			break;
 		case 0:

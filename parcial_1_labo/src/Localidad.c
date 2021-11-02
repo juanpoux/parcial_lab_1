@@ -1,4 +1,10 @@
 #include "Localidad.h"
+void EncabezadoLocalidades()
+{
+	Renglones(1, 29, '=');
+	printf("\n|%-5s |%-19s |\n", "ID", "Localidad");
+	Renglones(-1, 29, '=');
+}
 
 int MostrarLocalidades(eLocalidad lista[], int tam)
 {
@@ -15,7 +21,6 @@ int MostrarLocalidades(eLocalidad lista[], int tam)
 				MostrarUnaLocalidad(lista[i]);
 			}
 		}
-		printf("-----------------------------\n");
 	}
 
 	return retorno;
@@ -23,8 +28,8 @@ int MostrarLocalidades(eLocalidad lista[], int tam)
 
 void MostrarUnaLocalidad(eLocalidad localidad)
 {
-	printf("-----------------------------\n");
 	printf("|%-6d|%-20s|\n", localidad.idLocalidad, localidad.descripcion);
+	Renglones(-1, 29, '-');
 }
 
 eLocalidad ObtenerLocalidadPorID(eLocalidad lista[], int tam, int id)

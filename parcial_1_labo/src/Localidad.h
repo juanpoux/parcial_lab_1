@@ -19,6 +19,7 @@ typedef struct
 	int isEmpty;
 }eLocalidad;
 
+void EncabezadoLocalidades();
 void MostrarUnaLocalidad(eLocalidad localidad);
 int MostrarLocalidades(eLocalidad lista[], int tam);
 eLocalidad ObtenerLocalidadPorID(eLocalidad lista[], int tam, int id);

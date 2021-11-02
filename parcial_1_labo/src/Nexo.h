@@ -33,7 +33,7 @@ int CrearPedidoDeRecoleccion(eCliente listaClientes[], int tamCliente,ePedido li
 /// @param tamPedidos tamaño del array de pedidos
 /// @param idPedido id generado en la funcion anterior
 /// @return retorna el ePedido con los campos llenos
-ePedido CrearPedido(eCliente listaClientes[], int tamCliente, ePedido listaPedidos[], int tamPedidos, int* idPedido);
+ePedido CrearPedido(eCliente listaClientes[], int tamCliente, ePedido listaPedidos[], int tamPedidos, int* idPedido, eLocalidad listaLocalidad[], int tamLoc);
 
 /// @fn int MostrarClientesConCantidadPedidosPendientes(eCliente[], int, ePedido[], int)
 /// @brief imprime en pantalla datos de los clientes y la cantidad de pedidos pendientes
@@ -151,7 +151,7 @@ int MostrarListaClientes2(eCliente lista[], int tam, eLocalidad localidades[], i
 int ModificarCliente2(eCliente lista[], int tam, eLocalidad listaLoc[], int tamLoc);
 int BuscarClienteConMasPedidosPendientes(ePedido listaPedido[], int tamPedido, eCliente listaCliente[], int tamCliente);
 int CalcularMayor(eAuxiliar listaAux[], int tamAux, int* cantidad);
-void ING_renglones(int posicion, int cantidad, char simbolo);
+void Renglones(int posicion, int cantidad, char simbolo);
 int ContarClientesPorEstadoDePedido(ePedido listaPedido[], int tamPedido, int estado, int idCliente, int* cantidad);
 int MostrarClientesConCantidadDePedidosSegunEstado(eCliente listaCliente[], int tamCliente, ePedido listaPedido[],	int tamPedido, int estado);
 int BuscarClienteConMayorCantidadPedidos(eCliente listaCliente[], int tamCliente, ePedido listaPedido[], int tamPedido);//, eAuxiliar aux[])

@@ -5,12 +5,13 @@
 /***********************************************************      A-B-M      ***********************************************************/
 
 ePedido CrearPedido(eCliente listaClientes[], int tamCliente,
-		ePedido listaPedidos[], int tamPedidos, int *idPedido)
+		ePedido listaPedidos[], int tamPedidos, int *idPedido, eLocalidad listaLocalidad[], int tamLoc)
 {
 	ePedido pedidoAux;
 
 	EncabezadoCliente();
-	MostrarListaClientes(listaClientes, tamCliente);
+	//MostrarListaClientes(listaClientes, tamCliente);
+	MostrarListaClientes2(listaClientes, tamCliente, listaLocalidad, tamLoc);
 	PedirYVerificarIdCliente(listaClientes, tamCliente, &pedidoAux.idCliente,
 			"Ingrese el ID del cliente: ", "Error, ingreso invalido ", 1, 9999);
 	pedidoAux.idPedido = *idPedido;
@@ -41,7 +42,7 @@ int CrearPedidoDeRecoleccion(eCliente listaClientes[], int tamCliente,ePedido li
 		if (indice != -1)
 		{
 			pedidoAux = CrearPedido(listaClientes, tamCliente, listaPedidos,
-					tamPedidos, idPedido);
+					tamPedidos, idPedido, localidades, tamLoc);
 
 			EncabezadoConCantidadKilos();
 			MostrarPedidosConDatosDeCliente(pedidoAux, listaClientes,
@@ -209,6 +210,7 @@ eCliente CargarCliente2(int idGenerico, eLocalidad listaLoc[], int tamLoc)
 	PedirCuit(cliente.cuit);
 	PedirCadena("Ingrese la direccion de la empresa: ", cliente.direccion,
 	MAX_NOMBRE);
+	EncabezadoLocalidades();
 	MostrarLocalidades(listaLoc, tamLoc);
 	//PedirEnteroP(&cliente.idLocalidad, "Ingrese id de la localidad: ", "Error, ingreso invalido ", 1, 9999);
 	PedirYVerificarIdLocalidad(listaLoc, tamLoc, &cliente.idLocalidad, "Ingrese id de la localidad: ", "Error, ingreso invalido ", 1, 999999);
@@ -819,6 +821,7 @@ int CantidadPendientesPorLocalidad(eCliente listaCliente[], int tamCliente,
 	{
 		retorno = 0;
 
+		EncabezadoLocalidades();
 		MostrarLocalidades(listaLoc, tamLoc);
 		PedirYVerificarIdLocalidad(listaLoc, tamLoc, &idLocalidad, "Seleccione id de localidad: ", "ERROR", 1, 99999);
 
@@ -869,7 +872,6 @@ int CalcularPromedioPP(ePedido listaPedido[], int tamPedido,
 
 	return retorno;
 }
-
 
 
 /***********************************************************    ENCABEZADO    ***********************************************************/

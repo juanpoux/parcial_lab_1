@@ -355,8 +355,6 @@ void EncabezadoCliente()
 
 /***********************************************************    HARDCODEAR    ***********************************************************/
 
-
-
 void HardcodearClientes(eCliente lista[], int tam, int *id)
 {
 	char nombre[][MAX_NOMBRE] = { "Coca Cola", "Pepsi", "Royal Canin", "Eukanuba", "Pedigree", "Purina" };
@@ -382,6 +380,8 @@ void HardcodearClientes(eCliente lista[], int tam, int *id)
 	*id = contador;
 }
 
+
+/****************************************************************************************************************************************/
 /*void HardcodearClientes(eCliente *lista, int tam, int *id)
 {
 	char nombre[][MAX_NOMBRE] = { "Coca Cola", "Pepsi", "Royal Canin", "Eukanuba", "Pedigree", "Purina" };
@@ -406,11 +406,6 @@ void HardcodearClientes(eCliente lista[], int tam, int *id)
 	}
 	*id = contador;
 }*/
-
-
-
-
-
 
 
 /*int MostrarClientePorIdConCantidad(eCliente lista[], int tam, int id, int cantidad)

@@ -897,22 +897,19 @@ int CalcularPromedioPP(ePedido listaPedido[], int tamPedido,
 
 void EncabezadoConCantidadPendientes()
 {
-	printf(
-			"=======================================================================================================\n");
+	Renglones(-1, 103, '=');
+
 	printf("|%4s |%-15s |%-15s |%-20s |%-20s |%-15s |\n", "ID", "Empresa",
 			"CUIT", "Direccion", "Localidad", "Cant. Pendientes");
-	printf(
-			"=======================================================================================================\n");
+	Renglones(-1, 103, '=');
 }
 
 void EncabezadoConCantidadKilos()
 {
-	printf(
-			"============================================================================================================\n");
+	Renglones(-1, 108, '=');
 	printf("|%10s |%-15s |%-15s |%-20s |%-20s |%-15s |\n", "Id pedido",
 			"Empresa", "CUIT", "Direccion", "Localidad", "Cant. kilos");
-	printf(
-			"============================================================================================================\n");
+	Renglones(-1, 108, '=');
 }
 
 int MenuDeOpciones()

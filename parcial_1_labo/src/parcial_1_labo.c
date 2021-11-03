@@ -30,11 +30,11 @@ int main(void)
 	salida = 2;
 
 	InicializarArray(clientes, TCLIENTE);
-	InicializarPedidos(pedidos, TPEDIDO);
+	InicializarArrayPedidos(pedidos, TPEDIDO);
 	InicializarLocalidades(localidades, TLOCALIDAD);
 	HardcodearLocalidades(localidades, TLOCALIDAD);
-	//HardcodearClientes(clientes, 6, &bancoIdCliente);
-	//HardcodearPedidos(pedidos, 9, &bancoIdPedido);
+	HardcodearClientes(clientes, 6, &bancoIdCliente);
+	HardcodearPedidos(pedidos, 9, &bancoIdPedido);
 
 	do
 	{

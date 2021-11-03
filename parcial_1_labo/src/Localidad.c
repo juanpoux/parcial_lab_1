@@ -1,36 +1,33 @@
 #include "Localidad.h"
-void EncabezadoLocalidades()
-{
-	Renglones(1, 29, '=');
-	printf("\n|%-5s |%-19s |\n", "ID", "Localidad");
-	Renglones(-1, 29, '=');
-}
 
-int MostrarLocalidades(eLocalidad lista[], int tam)
+
+/***********************************************************     INICIAR     ***********************************************************/
+
+int InicializarLocalidades(eLocalidad lista[], int tam)
 {
 	int retorno;
 
-	retorno = -1;
+	retorno = 0;
 
 	if(lista != NULL && tam > 0)
 	{
 		for(int i = 0; i < tam; i++)
 		{
-			if(lista[i].isEmpty == CARGADO)
-			{
-				MostrarUnaLocalidad(lista[i]);
-			}
+			lista[i].isEmpty = VACIO;
 		}
 	}
 
 	return retorno;
 }
 
-void MostrarUnaLocalidad(eLocalidad localidad)
-{
-	printf("|%-6d|%-20s|\n", localidad.idLocalidad, localidad.descripcion);
-	Renglones(-1, 29, '-');
-}
+
+
+/***********************************************************      A-B-M      ***********************************************************/
+
+
+
+/***********************************************************      BUSCAR      ***********************************************************/
+
 
 eLocalidad ObtenerLocalidadPorID(eLocalidad lista[], int tam, int id)
 {
@@ -97,6 +94,50 @@ int PedirYVerificarIdLocalidad(eLocalidad lista[], int tam, int* id, char mensaj
 	return retorno;
 }
 
+
+
+/***********************************************************     MOSTRAR     ***********************************************************/
+
+int MostrarLocalidades(eLocalidad lista[], int tam)
+{
+	int retorno;
+
+	retorno = -1;
+
+	if(lista != NULL && tam > 0)
+	{
+		for(int i = 0; i < tam; i++)
+		{
+			if(lista[i].isEmpty == CARGADO)
+			{
+				MostrarUnaLocalidad(lista[i]);
+			}
+		}
+	}
+
+	return retorno;
+}
+
+void MostrarUnaLocalidad(eLocalidad localidad)
+{
+	printf("|%-6d|%-20s|\n", localidad.idLocalidad, localidad.descripcion);
+	Renglones(-1, 29, '-');
+}
+
+
+
+/***********************************************************    ENCABEZADO    ***********************************************************/
+
+void EncabezadoLocalidades()
+{
+	Renglones(1, 29, '=');
+	printf("\n|%-5s |%-19s |\n", "ID", "Localidad");
+	Renglones(-1, 29, '=');
+}
+
+
+/***********************************************************    HARDCODEAR    ***********************************************************/
+
 void HardcodearLocalidades(eLocalidad lista[], int tam)
 {
 	int idLoc[] = { 1,2,3,4,5,6 };
@@ -115,20 +156,16 @@ void HardcodearLocalidades(eLocalidad lista[], int tam)
 	}
 }
 
-int InicializarLocalidades(eLocalidad lista[], int tam)
-{
-	int retorno;
 
-	retorno = 0;
 
-	if(lista != NULL && tam > 0)
-	{
-		for(int i = 0; i < tam; i++)
-		{
-			lista[i].isEmpty = VACIO;
-		}
-	}
+/************************************************************    COMPARAR    ************************************************************/
 
-	return retorno;
-}
+/************************************************************    ORDENAR    ************************************************************/
+
+/***********************************************************     CALCULOS     ***********************************************************/
+
+/****************************************************************************************************************************************/
+
+
+
 

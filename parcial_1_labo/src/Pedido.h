@@ -113,6 +113,5 @@ int AcumularKilosPP(ePedido lista[], int tam, float* kilosPP);
 int DarBajaPedidoPorIdCliente(ePedido lista[], int tam, int idCliente);
 
 void HardcodearPedidos(ePedido lista[], int tam, int *id);
-int InicializarPedidos(ePedido lista[], int tam);
 
 #endif /* PEDIDO_H_ */

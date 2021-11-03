@@ -163,5 +163,6 @@ int SaberSiHayClientesActivos(eCliente lista[], int tam);
 int ContadorClientes(eCliente lista[], int tam, int* contClientes);
 
 int BuscarClientePorIdLocalidad(eCliente lista[], int tam, int idLocalidad);
+void HardcodearClientes(eCliente *lista, int tam, int *id);
 
 #endif /* CLIENTE_H_ */

@@ -112,4 +112,7 @@ int AcumularKilosPP(ePedido lista[], int tam, float* kilosPP);
 /// @return -1 si algun dato no es valido, 0 si no tenia pedidos activos, 1 si logro hacerlo
 int DarBajaPedidoPorIdCliente(ePedido lista[], int tam, int idCliente);
 
+void HardcodearPedidos(ePedido lista[], int tam, int *id);
+int InicializarPedidos(ePedido lista[], int tam);
+
 #endif /* PEDIDO_H_ */

@@ -368,7 +368,55 @@ int MenuDeOpciones()
 	return retorno;
 }
 
+void HardcodearClientes(eCliente lista[], int tam, int *id)
+{
+	char nombre[][MAX_NOMBRE] = { "Coca Cola", "Pepsi", "Royal Canin", "Eukanuba", "Pedigree", "Purina" };
+	char cuit[][MAX_NOMBRE] = { "22-44556655-2", "22-88887777-2", "11-45678489-2", "12-55988744-2", "55-15874965-2", "11-49875963-2" };
+	char direccion[][MAX_NOMBRE] = { "San Martin 266", "Vieytes 885", "Comahue 266", "Espora 5990", "Saavedra 352", "Eva Peron 254" };
+	int localidad[] = { 1, 1, 3, 1, 3, 2 };
+	int idCliente[] = { 1, 2, 3, 4, 5, 6 };
+	int isEmpty[] = { CARGADO, CARGADO, CARGADO, CARGADO, CARGADO, CARGADO };
+	int contador;
 
+	contador = 1;
+
+	for(int i = 0; i < tam; i++)
+	{
+		strcpy(lista[i].nombre, nombre[i]);
+		strcpy(lista[i].cuit, cuit[i]);
+		strcpy(lista[i].direccion, direccion[i]);
+		lista[i].idLocalidad = localidad[i];
+		lista[i].isEmpty = isEmpty[i];
+		lista[i].idCliente = idCliente[i];
+		contador++;
+	}
+	*id = contador;
+}
+
+/*void HardcodearClientes(eCliente *lista, int tam, int *id)
+{
+	char nombre[][MAX_NOMBRE] = { "Coca Cola", "Pepsi", "Royal Canin", "Eukanuba", "Pedigree", "Purina" };
+	char cuit[][MAX_NOMBRE] = { "22-44556655-2", "22-88887777-2", "11-45678489-2", "12-55988744-2", "55-15874965-2", "11-49875963-2" };
+	char direccion[][MAX_NOMBRE] = { "San Martin 266", "Vieytes 885", "Comahue 266", "Espora 5990", "Saavedra 352", "Eva Peron 254" };
+	int localidad[] = { 2, 2, 3, 1, 3, 2 };
+	int idCliente[] = { 1, 2, 3, 4, 5, 6 };
+	int isEmpty[] = { CARGADO, CARGADO, CARGADO, CARGADO, CARGADO, CARGADO };
+	int contador;
+
+	contador = 1;
+
+	for(int i = 0; i < tam; i++)
+	{
+		strcpy((lista + i)->nombre, *(nombre + i));
+		strcpy((lista + i)->cuit, *(cuit + i));
+		strcpy((lista + i)->direccion, *(direccion + i));
+		(lista + i)->idLocalidad = *(localidad + i);
+		(lista + i)->isEmpty = *(isEmpty + i);
+		(lista + i)->idCliente = *(idCliente +i);
+		contador++;
+	}
+	*id = contador;
+}*/
 
 
 

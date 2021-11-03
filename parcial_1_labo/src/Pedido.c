@@ -222,3 +222,50 @@ int DarBajaPedidoPorIdCliente(ePedido lista[], int tam, int idCliente)
 
 	return retorno;
 }
+
+
+void HardcodearPedidos(ePedido lista[], int tam, int *id)
+{
+	int idPedido[] = { 1,2,3,4,5,6,7,8,9 };
+	int idCliente[] = { 1,1,1,4,5,6,2,3,4 };
+	int estado[] = { PENDIENTE,PENDIENTE,COMPLETADO,COMPLETADO,PENDIENTE,COMPLETADO,PENDIENTE,PENDIENTE,PENDIENTE };
+	float kilos[] = { 100,500,600,625,500,880,625,1990,900 };
+	int isEmpty[] = { CARGADO, CARGADO, CARGADO, CARGADO, CARGADO, CARGADO };
+	float HDPE[] = { 0,0,50,50,0,70,0,0,0 };
+	float LDPE[] = { 0,0,90,60,0,80,0,0,0 };
+	float PP[] = { 0,0,50,50,0,50,0,0,0 };
+	int contador;
+
+	contador = 1;
+
+	for(int i = 0; i < tam; i++)
+	{
+		lista[i].idPedido = idPedido[i];
+		lista[i].idCliente = idCliente[i];
+		lista[i].estado = estado[i];
+		lista[i].kilos = kilos[i];
+		lista[i].isEmpty = isEmpty[i];
+		lista[i].HDPE = HDPE[i];
+		lista[i].LDPE = LDPE[i];
+		lista[i].PP = PP[i];
+		contador++;
+	}
+	*id = contador;
+}
+
+int InicializarPedidos(ePedido lista[], int tam)
+{
+	int retorno;
+
+	retorno = 0;
+
+	if(lista != NULL && tam > 0)
+	{
+		for(int i = 0; i < tam; i++)
+		{
+			lista[i].isEmpty = VACIO;
+		}
+	}
+
+	return retorno;
+}

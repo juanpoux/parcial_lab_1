@@ -23,42 +23,11 @@ int main(void)
 {
 	setbuf(stdout, NULL);
 
-	eCliente clientes[TCLIENTE] =
-	{
-	{ "Coca Cola", "22-44556655-2", "San Martin 266"/*, "Abasto"*/, 2, 1,
-	CARGADO },
-	{ "Pepsi", "22-88887777-2", "Vieytes 885"/*, "Gerli"*/, 3, 2,
-	CARGADO },
-	{ "Royal Canin", "11-45678489-2", "Comahue 266"/*, "Banfield"*/, 1, 3,
-	CARGADO },
-	{ "Eukanuba", "12-55988744-2", "Espora 5990"/*, "Lomas de Zamora"*/, 1, 4,
-	CARGADO },
-	{ "Pedigree", "55-15874965-2", "Saavedra 352"/*, "Lanus"*/, 1, 5,
-	CARGADO },
-	{ "Purina", "11-49875963-2", "Eva Peron 254"/*, "Temperley"*/, 1, 6,
-	CARGADO } };
+	eCliente clientes[TCLIENTE];
 
-	ePedido pedidos[TPEDIDO] =
-	{
-	{ 1, 1, 100, PENDIENTE, CARGADO, 0, 0, 0 },
-	{ 2, 1, 500, PENDIENTE, CARGADO, 0, 0, 0 },
-	{ 3, 1, 600, COMPLETADO, CARGADO, 50, 90, 50 },
-	{ 4, 1, 625, COMPLETADO, CARGADO, 50, 60, 50 },
-	{ 5, 1, 500, PENDIENTE, CARGADO, 0, 0, 0 },
-	{ 6, 2, 800, COMPLETADO, CARGADO, 70, 80, 50 },
-	{ 7, 2, 625, PENDIENTE, CARGADO, 0, 0, 0 },
-	{ 8, 2, 1990, PENDIENTE, CARGADO, 0, 0, 0 },
-	{ 9, 2, 900, PENDIENTE, CARGADO, 0, 0, 0 } };
+	ePedido pedidos[TPEDIDO];
 
-	eLocalidad localidades[TLOCALIDAD] =
-	{
-	{ 1, "Lomas de Zamora", CARGADO },
-	{ 2, "Banfield", CARGADO },
-	{ 3, "Lanus", CARGADO },
-	{ 4, "Temperley",
-	CARGADO },
-	{ 5, "Adrogue", CARGADO },
-	{ 6, "Avellaneda", CARGADO } };
+	eLocalidad localidades[TLOCALIDAD];
 
 	int opcion;
 	int salida;
@@ -71,7 +40,13 @@ int main(void)
 	bancoIdPedido = 1;
 	banderaCliente = 1;
 	salida = 2;
-	//InicializarArray(clientes, TCLIENTE);
+
+	InicializarArray(clientes, TCLIENTE);
+	InicializarPedidos(pedidos, TPEDIDO);
+	InicializarLocalidades(localidades, TLOCALIDAD);
+	HardcodearLocalidades(localidades, TLOCALIDAD);
+	HardcodearClientes(clientes, 6, &bancoIdCliente);
+	HardcodearPedidos(pedidos, 9, &bancoIdPedido);
 
 	do
 	{

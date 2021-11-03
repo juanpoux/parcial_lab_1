@@ -96,3 +96,39 @@ int PedirYVerificarIdLocalidad(eLocalidad lista[], int tam, int* id, char mensaj
 
 	return retorno;
 }
+
+void HardcodearLocalidades(eLocalidad lista[], int tam)
+{
+	int idLoc[] = { 1,2,3,4,5,6 };
+	char descripcion[][MAX_NOMBRE] = { "Lomas de Zamora", "Banfield", "Lanus", "Temperley", "Adrogue", "Avellaneda" };
+	int isEmpty[] = { CARGADO,CARGADO,CARGADO,CARGADO,CARGADO,CARGADO };
+	int contador;
+
+	contador = 1;
+
+	for(int i = 0; i < tam; i++)
+	{
+		lista[i].idLocalidad= idLoc[i];
+		strcpy(lista[i].descripcion, descripcion[i]);
+		lista[i].isEmpty = isEmpty[i];
+		contador++;
+	}
+}
+
+int InicializarLocalidades(eLocalidad lista[], int tam)
+{
+	int retorno;
+
+	retorno = 0;
+
+	if(lista != NULL && tam > 0)
+	{
+		for(int i = 0; i < tam; i++)
+		{
+			lista[i].isEmpty = VACIO;
+		}
+	}
+
+	return retorno;
+}
+

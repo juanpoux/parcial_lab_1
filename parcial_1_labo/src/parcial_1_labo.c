@@ -24,20 +24,17 @@ int main(void)
 	int salida;
 	int bancoIdCliente;
 	int bancoIdPedido;
-	int banderaCliente;
-	int informes;
 
 	bancoIdCliente = 1;
 	bancoIdPedido = 1;
-	banderaCliente = 0;
 	salida = 2;
 
 	InicializarArray(clientes, TCLIENTE);
 	InicializarPedidos(pedidos, TPEDIDO);
 	InicializarLocalidades(localidades, TLOCALIDAD);
 	HardcodearLocalidades(localidades, TLOCALIDAD);
-	HardcodearClientes(clientes, 6, &bancoIdCliente);
-	HardcodearPedidos(pedidos, 9, &bancoIdPedido);
+	//HardcodearClientes(clientes, 6, &bancoIdCliente);
+	//HardcodearPedidos(pedidos, 9, &bancoIdPedido);
 
 	do
 	{
@@ -58,7 +55,6 @@ int main(void)
 				break;
 			case 1:
 				printf("Alta generada con exito\n");
-				banderaCliente = 1;
 				break;
 			case 2:
 				printf("Alta cancelada\n");
@@ -66,7 +62,8 @@ int main(void)
 			}
 			break;
 		case 2:
-			if (banderaCliente == 1)
+			if (SaberSiHayClientesActivos(clientes,
+					TCLIENTE) == 1)
 			{
 				printf(
 						"\n               ******* Modificar datos de un cliente *******\n\n");
@@ -91,7 +88,8 @@ int main(void)
 			}
 			break;
 		case 3:
-			if (banderaCliente == 1)
+			if (SaberSiHayClientesActivos(clientes,
+					TCLIENTE) == 1)
 			{
 				PedirEnteroP(&opcion, "1 BAJA CLIENTE\n2 BAJA PEDIDO: ",
 						"Error, opcion invalida ", 1, 2);
@@ -108,8 +106,6 @@ int main(void)
 						break;
 					case 1:
 						printf("Baja generada con exito!\n");
-						banderaCliente = SaberSiHayClientesActivos(clientes,
-						TCLIENTE);
 						break;
 					case 2:
 						printf("Baja cancelada\n");
@@ -143,7 +139,8 @@ int main(void)
 			}
 			break;
 		case 4:
-			if (banderaCliente == 1)
+			if (SaberSiHayClientesActivos(clientes,
+					TCLIENTE) == 1)
 			{
 				printf(
 						"\n                ******* Crear pedido de recoleccion *******\n\n");
@@ -318,6 +315,7 @@ int main(void)
 					printf("Primero debe procesar al menos un pedido!\n");
 				}
 				break;
+
 			case 7:
 				if (VerificarEstadoActivo(pedidos, TPEDIDO, COMPLETADO) == 1)
 				{
@@ -351,17 +349,9 @@ int main(void)
 					printf("Primero debe crear al menos un pedido!\n");
 				}
 				break;
-			}
-			break;
-		case 7:
-			PedirEnteroP(&informes,
-					"1) Lista de clientes: \n2) Lista localidades: \n3) Lista pedidos pendientes: \n"
-							"4) Lista pedidos completados: ",
-					"Error, opcion invalida ", 1, 4);
-			switch (informes)
-			{
-			case 1:
-				if (banderaCliente == 1)
+			case 9:
+				if (SaberSiHayClientesActivos(clientes,
+						TCLIENTE) == 1)
 				{
 					EncabezadoCliente();
 					MostrarListaClientes2(clientes, TCLIENTE, localidades,
@@ -369,42 +359,14 @@ int main(void)
 				}
 				else
 				{
-					printf("Debe hacer la carga de al menos 1 cliente");
+					printf("Debe hacer la carga de al menos 1 cliente\n");
 				}
 				break;
-			case 2:
+			case 10:
 				EncabezadoLocalidades();
 				MostrarLocalidades(localidades, TLOCALIDAD);
 				break;
-			case 3:
-				if (VerificarEstadoActivo(pedidos, TPEDIDO, PENDIENTE) == 1)
-				{
-					MostrarPedidosPendientesConKilos(clientes, TCLIENTE,
-							pedidos, TPEDIDO, localidades, TLOCALIDAD);
-				}
-				else
-				{
-					printf("Primero debe crear al menos un pedido!\n");
-				}
-
-				break;
-			case 4:
-				if (VerificarEstadoActivo(pedidos, TPEDIDO, COMPLETADO) == 1)
-				{
-					MostrarPedidosProcesadosConDescripcion(clientes, TCLIENTE,
-							pedidos, TPEDIDO);
-				}
-				else
-				{
-					printf("Primero debe procesar al menos un pedido!\n");
-				}
-
-				break;
 			}
-			break;
-		case 0:
-			PedirEnteroP(&salida, "Desea salir? \n1) SALIR: \n2) NO SALIR: ",
-					"Error, opcion invalida ", 1, 2);
 			break;
 		}
 	} while (salida != 1);

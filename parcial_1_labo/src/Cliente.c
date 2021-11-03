@@ -355,18 +355,7 @@ void EncabezadoCliente()
 
 /***********************************************************    HARDCODEAR    ***********************************************************/
 
-int MenuDeOpciones()
-{
-	int retorno;
 
-	printf("====================\n\tMENU\n====================\n\n1) ALTAS \n2) MODIFICACIONES \n3) BAJAS \n4) CREAR PEDIDO DE RECOLECCION"
-			"\n5) PROCESAR RESIDUOS \n6) MOSTRAR CLIENTES CON PEDIDOS PENDIENTES \n7) MOSTRAR PEDIDOS PENDIENTES"
-			"\n8) MOSTRAR PEDIDOS PROCESADOS \n9) MOSTRAR PEDIDOS PENDIENTES POR LOCALIDAD "
-			"\n10) MOSTRAR CANTIDAD DE KILOS RECICLADOS DE POLIPROPILENO RECICLADO POR CLIENTE \n0) SALIR\n\n");
-	PedirEnteroP(&retorno, "Ingrese una opcion: ", "Error, opcion invalida! ", 0, 15);
-
-	return retorno;
-}
 
 void HardcodearClientes(eCliente lista[], int tam, int *id)
 {

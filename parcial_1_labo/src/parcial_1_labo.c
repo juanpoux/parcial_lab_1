@@ -1,18 +1,9 @@
-/* HARCODEAR */
+/*
+ * Parcial 1 laboratorio
+ * Juan Poux 1 C
+ *
+ */
 
-/* INICIAR */
-
-/* BUSCAR */
-
-/* MOSTRAR */
-
-/* A-B-M */
-
-/* COMPARAR */
-
-/* ORDENAR */
-
-/* ENCABEZADO */
 #include "Nexo.h"
 #define TCLIENTE 100
 #define TPEDIDO 1000
@@ -38,7 +29,7 @@ int main(void)
 
 	bancoIdCliente = 1;
 	bancoIdPedido = 1;
-	banderaCliente = 1;
+	banderaCliente = 0;
 	salida = 2;
 
 	InicializarArray(clientes, TCLIENTE);
@@ -208,163 +199,206 @@ int main(void)
 			}
 			break;
 		case 6:
-			if (VerificarEstadoActivo(pedidos, TPEDIDO, PENDIENTE) == 1)
+			switch (MenuInformes())
 			{
-				printf(
-						"\n             ******* Clientes con cantidad de pedidos en estado pendiente *******\n\n");
-
-				switch (MostrarClientesConCantidadPedidosPendientes(clientes,
-				TCLIENTE, pedidos, TPEDIDO, localidades, TLOCALIDAD))
+			case 1:
+				if (VerificarEstadoActivo(pedidos, TPEDIDO, PENDIENTE) == 1)
 				{
-				case -1:
-					printf("Parametros invalidos!\n");
-					break;
+					printf(
+							"\n             ******* Clientes con cantidad de pedidos en estado pendiente *******\n\n");
+
+					switch (MostrarClientesConCantidadPedidosPendientes(
+							clientes,
+							TCLIENTE, pedidos, TPEDIDO, localidades, TLOCALIDAD))
+					{
+					case -1:
+						printf("Parametros invalidos!\n");
+						break;
+					}
 				}
-			}
-			else
-			{
-				printf("Primero debe crear al menos un pedido!\n");
+				else
+				{
+					printf("Primero debe crear al menos un pedido!\n");
+				}
+				break;
+			case 2:
+				if (VerificarEstadoActivo(pedidos, TPEDIDO, PENDIENTE) == 1)
+				{
+					printf(
+							"\n                       ******* Pedidos con estado pendiente *******\n\n");
+
+					switch (MostrarPedidosPendientesConKilos(clientes, TCLIENTE,
+							pedidos, TPEDIDO, localidades, TLOCALIDAD))
+					{
+					case -1:
+						printf("Parametros invalidos!\n");
+						break;
+					}
+				}
+				else
+				{
+					printf("Primero debe crear al menos un pedido!\n");
+				}
+				break;
+			case 3:
+				if (VerificarEstadoActivo(pedidos, TPEDIDO, COMPLETADO) == 1)
+				{
+					printf(
+							"\n                                                   ******* Pedidos procesados *******\n\n");
+
+					switch (MostrarPedidosProcesadosConDescripcion(clientes,
+					TCLIENTE, pedidos,
+					TPEDIDO))
+					{
+					case -1:
+						printf("Parametros invalidos!\n");
+						break;
+					}
+				}
+				else
+				{
+					printf("Primero debe procesar al menos un pedido!\n");
+				}
+				break;
+			case 4:
+				if (VerificarEstadoActivo(pedidos, TPEDIDO, PENDIENTE) == 1)
+				{
+					printf(
+							"\n                ******* Cantidad de pedidos pendientes por localidad *******\n\n");
+					switch (CantidadPendientesPorLocalidad(clientes, TCLIENTE,
+							pedidos,
+							TPEDIDO, localidades, TLOCALIDAD))
+					{
+					case -1:
+						printf("Parametros invalidos!\n");
+						break;
+					}
+				}
+				else
+				{
+					printf("Primero debe crear al menos un pedido!\n");
+				}
+				break;
+			case 5:
+				if (VerificarEstadoActivo(pedidos, TPEDIDO, COMPLETADO) == 1)
+				{
+					printf(
+							"\n               ******* Promedio de kilos reciclados de polipropileno *******\n\n");
+
+					switch (CalcularPromedioPP(pedidos, TPEDIDO, clientes,
+							TCLIENTE))
+					{
+					case -1:
+						printf("Parametros invalidos!\n");
+						break;
+					case 2:
+						printf(
+								"No hay polipropileno reciclado por el momento...\n");
+						break;
+					}
+				}
+				else
+				{
+					printf("Primero debe procesar al menos un pedido!\n");
+				}
+				break;
+			case 6:
+				if (VerificarEstadoActivo(pedidos, TPEDIDO, PENDIENTE) == 1)
+				{
+					printf(
+							"\n        ******* Clientes con mas cantidad de pedidos pendientes *******\n\n");
+					if (MostrarClientesConCantidadDePedidosSegunEstado(clientes,
+					TCLIENTE, pedidos, TPEDIDO, PENDIENTE) == -1)
+					{
+						printf("Parametros invalidos!\n");
+					}
+				}
+				else
+				{
+					printf("Primero debe procesar al menos un pedido!\n");
+				}
+				break;
+			case 7:
+				if (VerificarEstadoActivo(pedidos, TPEDIDO, COMPLETADO) == 1)
+				{
+					printf(
+							"\n        ******* Clientes con mas cantidad de pedidos completados *******\n\n");
+					if (MostrarClientesConCantidadDePedidosSegunEstado(clientes,
+					TCLIENTE, pedidos, TPEDIDO, COMPLETADO) == -1)
+					{
+						printf("Parametros invalidos!\n");
+					}
+				}
+				else
+				{
+					printf("Primero debe procesar al menos un pedido!\n");
+				}
+				break;
+			case 8:
+				if (VerificarEstadoActivo(pedidos, TPEDIDO, PENDIENTE) == 1)
+				{
+					printf(
+							"\n         ******* Clientes con mas cantidad de pedidos *******\n\n");
+					if (BuscarClienteConMayorCantidadPedidos(clientes, TCLIENTE,
+							pedidos,
+							TPEDIDO) == -1)
+					{
+						printf("Parametros invalidos!\n");
+					}
+				}
+				else
+				{
+					printf("Primero debe crear al menos un pedido!\n");
+				}
+				break;
 			}
 			break;
 		case 7:
-			if (VerificarEstadoActivo(pedidos, TPEDIDO, PENDIENTE) == 1)
-			{
-				printf(
-						"\n                       ******* Pedidos con estado pendiente *******\n\n");
-
-				switch (MostrarPedidosPendientesConKilos(clientes, TCLIENTE,
-						pedidos, TPEDIDO, localidades, TLOCALIDAD))
-				{
-				case -1:
-					printf("Parametros invalidos!\n");
-					break;
-				}
-			}
-			else
-			{
-				printf("Primero debe crear al menos un pedido!\n");
-			}
-			break;
-		case 8:
-			if (VerificarEstadoActivo(pedidos, TPEDIDO, COMPLETADO) == 1)
-			{
-				printf(
-						"\n                                                   ******* Pedidos procesados *******\n\n");
-
-				switch (MostrarPedidosProcesadosConDescripcion(clientes,
-				TCLIENTE, pedidos,
-				TPEDIDO))
-				{
-				case -1:
-					printf("Parametros invalidos!\n");
-					break;
-				}
-			}
-			else
-			{
-				printf("Primero debe procesar al menos un pedido!\n");
-			}
-			break;
-		case 9:
-			if (VerificarEstadoActivo(pedidos, TPEDIDO, PENDIENTE) == 1)
-			{
-				printf(
-						"\n                ******* Cantidad de pedidos pendientes por localidad *******\n\n");
-				switch (CantidadPendientesPorLocalidad(clientes, TCLIENTE,
-						pedidos,
-						TPEDIDO, localidades, TLOCALIDAD))
-				{
-				case -1:
-					printf("Parametros invalidos!\n");
-					break;
-				}
-			}
-			else
-			{
-				printf("Primero debe crear al menos un pedido!\n");
-			}
-			break;
-		case 10:
-			if (VerificarEstadoActivo(pedidos, TPEDIDO, COMPLETADO) == 1)
-			{
-				printf(
-						"\n               ******* Promedio de kilos reciclados de polipropileno *******\n\n");
-
-				switch (CalcularPromedioPP(pedidos, TPEDIDO, clientes, TCLIENTE))
-				{
-				case -1:
-					printf("Parametros invalidos!\n");
-					break;
-				case 2:
-					printf(
-							"No hay polipropileno reciclado por el momento...\n");
-					break;
-				}
-			}
-			else
-			{
-				printf("Primero debe procesar al menos un pedido!\n");
-			}
-			break;
-		case 11:
-			if (VerificarEstadoActivo(pedidos, TPEDIDO, COMPLETADO) == 1)
-			{
-				printf(
-						"\n        ******* Clientes con mas cantidad de pedidos pendientes *******\n\n");
-				if (MostrarClientesConCantidadDePedidosSegunEstado(clientes,
-						TCLIENTE, pedidos, TPEDIDO, PENDIENTE) == -1)
-				{
-					printf("Parametros invalidos!\n");
-				}
-			}
-			else
-			{
-				printf("Primero debe procesar al menos un pedido!\n");
-			}
-			break;
-		case 12:
-			if (VerificarEstadoActivo(pedidos, TPEDIDO, COMPLETADO) == 1)
-			{
-				printf(
-						"\n        ******* Clientes con mas cantidad de pedidos completados *******\n\n");
-				if (MostrarClientesConCantidadDePedidosSegunEstado(clientes,
-						TCLIENTE, pedidos, TPEDIDO, COMPLETADO) == -1)
-				{
-					printf("Parametros invalidos!\n");
-				}
-			}
-			else
-			{
-				printf("Primero debe procesar al menos un pedido!\n");
-			}
-			break;
-		case 13:
-			printf(
-					"\n         ******* Clientes con mas cantidad de pedidos *******\n\n");
-			BuscarClienteConMayorCantidadPedidos(clientes, TCLIENTE, pedidos,
-			TPEDIDO);
-			break;
-		case 14:
 			PedirEnteroP(&informes,
 					"1) Lista de clientes: \n2) Lista localidades: \n3) Lista pedidos pendientes: \n"
-							"4) Lista pedidos completados",
+							"4) Lista pedidos completados: ",
 					"Error, opcion invalida ", 1, 4);
 			switch (informes)
 			{
 			case 1:
-				EncabezadoCliente();
-				MostrarListaClientes2(clientes, TCLIENTE, localidades,
-						TLOCALIDAD);
+				if (banderaCliente == 1)
+				{
+					EncabezadoCliente();
+					MostrarListaClientes2(clientes, TCLIENTE, localidades,
+					TLOCALIDAD);
+				}
+				else
+				{
+					printf("Debe hacer la carga de al menos 1 cliente");
+				}
 				break;
 			case 2:
 				EncabezadoLocalidades();
 				MostrarLocalidades(localidades, TLOCALIDAD);
 				break;
 			case 3:
-				MostrarPedidosPendientesConKilos(clientes, TCLIENTE, pedidos, TPEDIDO, localidades, TLOCALIDAD);
+				if (VerificarEstadoActivo(pedidos, TPEDIDO, PENDIENTE) == 1)
+				{
+					MostrarPedidosPendientesConKilos(clientes, TCLIENTE,
+							pedidos, TPEDIDO, localidades, TLOCALIDAD);
+				}
+				else
+				{
+					printf("Primero debe crear al menos un pedido!\n");
+				}
+
 				break;
 			case 4:
-				MostrarPedidosProcesadosConDescripcion(clientes, TCLIENTE, pedidos, TPEDIDO);
+				if (VerificarEstadoActivo(pedidos, TPEDIDO, COMPLETADO) == 1)
+				{
+					MostrarPedidosProcesadosConDescripcion(clientes, TCLIENTE,
+							pedidos, TPEDIDO);
+				}
+				else
+				{
+					printf("Primero debe procesar al menos un pedido!\n");
+				}
+
 				break;
 			}
 			break;

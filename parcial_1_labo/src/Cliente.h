@@ -47,12 +47,6 @@ int AltaCliente(eCliente lista[], int tam, int* generadorId);
 /// @return retorna la posicion del array si encontro espacio o -1 si no encontro
 int BuscarLibreCliente(eCliente lista[], int tam);
 
-/// @fn int MenuDeOpciones()
-/// @brief menu principal del programa
-///
-/// @return no tiene retorno por el momento
-int MenuDeOpciones();
-
 /// @fn void EncabezadoCliente()
 /// @brief encabezado con datos del cliente
 ///

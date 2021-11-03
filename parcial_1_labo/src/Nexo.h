@@ -144,6 +144,14 @@ int BajaCliente(eCliente lista[], int tam, ePedido listaPedido[], int tamPedido,
 /// @return
 int BajaPedido(ePedido lista[], int tam, eCliente listaCliente[], int tamCliente, eLocalidad localidades[], int tamLoc);
 
+/// @fn int MenuDeOpciones()
+/// @brief menu principal del programa
+///
+/// @return no tiene retorno por el momento
+int MenuDeOpciones();
+
+int MenuInformes();
+
 eCliente CargarCliente2(int idGenerico, eLocalidad listaLoc[], int tamLoc);
 int AltaCliente2(eCliente lista[], int tam, int* generadorId, eLocalidad listaLoc[], int tamLoc);
 void MostrarUnCliente2(eCliente lista, eLocalidad localidad[], int tamLoc);

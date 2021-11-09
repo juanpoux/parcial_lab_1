@@ -15,11 +15,8 @@ int main(void)
 	setbuf(stdout, NULL);
 
 	eCliente clientes[TCLIENTE];
-
 	ePedido pedidos[TPEDIDO];
-
 	eLocalidad localidades[TLOCALIDAD];
-
 	int opcion;
 	int salida;
 	int bancoIdCliente;

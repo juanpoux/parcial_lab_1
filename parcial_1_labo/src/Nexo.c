@@ -331,9 +331,7 @@ int CargarAuxConClientePorEstado(ePedido listaPedido[], int tamPedido,
 	int cantidad;
 
 	InicializarAux(aux, tamCliente);
-
 	retorno = -1;
-
 	if (listaPedido != NULL && tamPedido > 0 && listaCliente != NULL
 			&& aux != NULL && tamCliente > 0)
 	{
@@ -345,26 +343,12 @@ int CargarAuxConClientePorEstado(ePedido listaPedido[], int tamPedido,
 				//cuenta la cantidad de pedidos que tiene cada cliente por estado que paso por parametro
 				ContarClientesPorEstadoDePedido(listaPedido, tamPedido, estado,
 						listaCliente[i].idCliente, &cantidad);
-
 				aux[i].idCliente = listaCliente[i].idCliente;
 				aux[i].contador = cantidad;
 				aux[i].isEmpty = CARGADO;
 			}
 		}
-
-		//MostrarClientesConCantidadDePedidosSegunEstado(listaCliente, tamCliente, aux, mayor);//esta?
-
-		/*for(int i = 0; i < tamCliente; i++)
-		 {
-		 if(aux[i].isEmpty == CARGADO && aux[i].contador == mayor)
-		 {
-		 auxCliente = ObtenerClientePorID(listaCliente, tamCliente, aux[i].idCliente);
-
-		 printf("Nombre: %s cantidad: %d\n", auxCliente.nombre, aux[i].contador);
-		 }
-		 }*/
 	}
-
 	return retorno;
 }
 
@@ -379,9 +363,7 @@ int BuscarClienteConMayorCantidadPedidos(eCliente listaCliente[],
 
 	retorno = -1;
 	mayor = -1;
-
 	InicializarAux(aux, tamCliente);
-
 	if (listaCliente != NULL && listaPedido != NULL && tamCliente > 0
 			&& aux != NULL && tamPedido > 0)
 	{
@@ -489,21 +471,18 @@ int MostrarClientePorIdConCantidad(eCliente lista[], int tam, int id,
 	int retorno;
 
 	retorno = -1;
-
 	if (lista != NULL && tam > 0)
 	{
+		retorno = 0;
 		for (i = 0; i < tam; i++)
 		{
 			if (lista[i].isEmpty == CARGADO && lista[i].idCliente == id)
 			{
-				MostrarUnClienteConCantidad(lista[i], cantidad, localidades,
-						tamLoc);
-				retorno = 1;
+				MostrarUnClienteConCantidad(lista[i], cantidad, localidades,tamLoc);
 				break;
 			}
 		}
 	}
-
 	return retorno;
 }
 
@@ -549,7 +528,6 @@ int MostrarPedidosProcesadosConDescripcion(eCliente listaCliente[],
 	int i;
 
 	retorno = -1;
-
 	if (listaCliente != NULL && tamCliente > 0 && listaPedido != NULL
 			&& tamPedido > 0)
 	{
@@ -558,7 +536,6 @@ int MostrarPedidosProcesadosConDescripcion(eCliente listaCliente[],
 				"Id pedido", "Empresa", "CUIT", "Direccion", "HDPE", "LDPE",
 				"PP", "Resto");
 		Renglones(-1, 117, '=');
-
 		retorno = 0;
 		for (i = 0; i < tamPedido; i++)
 		{
@@ -571,7 +548,6 @@ int MostrarPedidosProcesadosConDescripcion(eCliente listaCliente[],
 			}
 		}
 	}
-
 	return retorno;
 }
 
@@ -618,10 +594,11 @@ int MostrarListaClientes2(eCliente lista[], int tam, eLocalidad localidades[],
 	int i;
 	int retorno;
 
-	retorno = 0;
+	retorno = -1;
 
 	if (lista != NULL && tam > 0)
 	{
+		retorno = 0;
 		for (i = 0; i < tam; i++)
 		{
 			if (lista[i].isEmpty == CARGADO)
@@ -662,9 +639,7 @@ int MostrarClientesConCantidadDePedidosSegunEstado(eCliente listaCliente[],
 						aux[i].idCliente);
 
 				printf("Nombre: %s cantidad: %d\n", auxCliente.nombre,
-						aux[i].contador); //asi?
-
-				retorno = 1;
+						aux[i].contador);
 			}
 		}
 	}
@@ -698,7 +673,6 @@ int ContarClientesPorEstadoDePedido(ePedido listaPedido[], int tamPedido,
 	if (listaPedido != NULL)
 	{
 		retorno = 0;
-
 		for (int i = 0; i < tamPedido; i++)
 		{
 			if (listaPedido[i].isEmpty == CARGADO

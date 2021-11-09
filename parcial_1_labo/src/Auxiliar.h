@@ -20,6 +20,11 @@ typedef struct
 	float flotantes;
 }eAuxiliar;
 
+/// @fn void InicializarAux(eAuxiliar[], int)
+/// @brief iniciliaza los campos de la estructura en 0
+///
+/// @param lista
+/// @param tam
 void InicializarAux(eAuxiliar lista[], int tam);
 
 

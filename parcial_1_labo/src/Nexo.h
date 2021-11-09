@@ -150,21 +150,134 @@ int BajaPedido(ePedido lista[], int tam, eCliente listaCliente[], int tamCliente
 /// @return no tiene retorno por el momento
 int MenuDeOpciones();
 
+/// @fn int MenuInformes()
+/// @brief menu de informes
+///
+/// @return
 int MenuInformes();
 
+/// @fn eCliente CargarCliente2(int, eLocalidad[], int)
+/// @brief nuevo cargar cliente con parametro de localidades
+///
+/// @param idGenerico
+/// @param listaLoc
+/// @param tamLoc
+/// @return un eCliente completo
 eCliente CargarCliente2(int idGenerico, eLocalidad listaLoc[], int tamLoc);
+
+/// @fn int AltaCliente2(eCliente[], int, int*, eLocalidad[], int)
+/// @brief nuevo alta cliente con parametros de localidades
+///
+/// @param lista
+/// @param tam
+/// @param generadorId
+/// @param listaLoc
+/// @param tamLoc
+/// @return retorna -1 si algun dato no esta bien, 0 si no hay espacio libre en el array, 1 si pudo hacer la carga con exito, 2 si cancelo la carga
 int AltaCliente2(eCliente lista[], int tam, int* generadorId, eLocalidad listaLoc[], int tamLoc);
+
+/// @fn void MostrarUnCliente2(eCliente, eLocalidad[], int)
+/// @brief muestra los datos de un cliente
+///
+/// @param lista
+/// @param localidad
+/// @param tamLoc
 void MostrarUnCliente2(eCliente lista, eLocalidad localidad[], int tamLoc);
+
+/// @fn int MostrarListaClientes2(eCliente[], int, eLocalidad[], int)
+/// @brief muestra la lista de los clientes
+///
+/// @param lista
+/// @param tam
+/// @param localidades
+/// @param tamLoc
+/// @return -1 si no pudo, 0 si pudo
 int MostrarListaClientes2(eCliente lista[], int tam, eLocalidad localidades[], int tamLoc);
+
+/// @fn int ModificarCliente2(eCliente[], int, eLocalidad[], int)
+/// @brief nuevo modificar cliente con parametros de localidades
+///
+/// @param lista
+/// @param tam
+/// @param listaLoc
+/// @param tamLoc
+/// @return retorna -1 si algun dato no esta bien, 1 si pudo hacer la modificacion con exito, 2 si cancelo
 int ModificarCliente2(eCliente lista[], int tam, eLocalidad listaLoc[], int tamLoc);
-int BuscarClienteConMasPedidosPendientes(ePedido listaPedido[], int tamPedido, eCliente listaCliente[], int tamCliente);
+
+//int BuscarClienteConMasPedidosPendientes(ePedido listaPedido[], int tamPedido, eCliente listaCliente[], int tamCliente);
+
+/// @fn int CalcularMayor(eAuxiliar[], int, int*)
+/// @brief recorre los contadores de la lista auxiliar y devuelve el mayor
+///
+/// @param listaAux
+/// @param tamAux
+/// @param cantidad
+/// @return -1 si no pudo, 0 si pudo
 int CalcularMayor(eAuxiliar listaAux[], int tamAux, int* cantidad);
-void Renglones(int posicion, int cantidad, char simbolo);
+
+/// @fn int ContarClientesPorEstadoDePedido(ePedido[], int, int, int, int*)
+/// @brief cuenta la cantidad de pedidos tiene cada cliente segun el estado que se pasa por parametro
+///
+/// @param listaPedido
+/// @param tamPedido
+/// @param estado
+/// @param idCliente
+/// @param cantidad
+/// @return -1 si no pudo, 0 si pudo
 int ContarClientesPorEstadoDePedido(ePedido listaPedido[], int tamPedido, int estado, int idCliente, int* cantidad);
+
+/// @fn int MostrarClientesConCantidadDePedidosSegunEstado(eCliente[], int, ePedido[], int, int)
+/// @brief muestra el o los clientes que tengan la mayor cantidad de pedidos segun el estado que se pasa por parametro
+///
+/// @param listaCliente
+/// @param tamCliente
+/// @param listaPedido
+/// @param tamPedido
+/// @param estado
+/// @return -1 si no pudo, 0 si pudo
 int MostrarClientesConCantidadDePedidosSegunEstado(eCliente listaCliente[], int tamCliente, ePedido listaPedido[],	int tamPedido, int estado);
-int BuscarClienteConMayorCantidadPedidos(eCliente listaCliente[], int tamCliente, ePedido listaPedido[], int tamPedido);//, eAuxiliar aux[])
+
+/// @fn int BuscarClienteConMayorCantidadPedidos(eCliente[], int, ePedido[], int)
+/// @brief Busca en la lista el cliente o clientes con mayor cantidad de pedidos y los muestra
+///
+/// @param listaCliente
+/// @param tamCliente
+/// @param listaPedido
+/// @param tamPedido
+/// @return -1 si no pudo, 0 si pudo
+int BuscarClienteConMayorCantidadPedidos(eCliente listaCliente[], int tamCliente, ePedido listaPedido[], int tamPedido);
+
+/// @fn int MostrarClientePorIdConCantidad(eCliente[], int, int, int, eLocalidad[], int)
+/// @brief muestra lista de clientes con cantidad de kilos que coincida con el id que se pasa por parametro
+///
+/// @param lista
+/// @param tam
+/// @param id
+/// @param cantidad
+/// @param localidades
+/// @param tamLoc
+/// @return -1 si no pudo, 0 si pudo
 int MostrarClientePorIdConCantidad(eCliente lista[], int tam, int id, int cantidad, eLocalidad localidades[], int tamLoc);
+
+/// @fn void MostrarUnClienteConCantidad(eCliente, int, eLocalidad[], int)
+/// @brief muestra un cliente con la cantidad de kilos que tiene a procesar
+///
+/// @param lista
+/// @param cantidad
+/// @param localidades
+/// @param tamLoc
 void MostrarUnClienteConCantidad(eCliente lista, int cantidad, eLocalidad localidades[], int tamLoc);
+
+/// @fn int CargarAuxConClientePorEstado(ePedido[], int, eCliente[], eAuxiliar[], int, int)
+/// @brief
+///
+/// @param listaPedido
+/// @param tamPedido
+/// @param listaCliente
+/// @param aux
+/// @param tamCliente
+/// @param estado
+/// @return
 int CargarAuxConClientePorEstado(ePedido listaPedido[], int tamPedido, eCliente listaCliente[], eAuxiliar aux[], int tamCliente, int estado);
 
 #endif /* NEXO_H_ */

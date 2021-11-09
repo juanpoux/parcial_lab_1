@@ -156,7 +156,21 @@ int SaberSiHayClientesActivos(eCliente lista[], int tam);
 /// @return retorna -1 si algun dato es invalido, 0 si no encontro clientes cargados, 1 si encontro clientes
 int ContadorClientes(eCliente lista[], int tam, int* contClientes);
 
+/// @fn int BuscarClientePorIdLocalidad(eCliente[], int, int)
+/// @brief un cliente por el id de localidad
+///
+/// @param lista
+/// @param tam
+/// @param idLocalidad
+/// @return -1 si no pudo, el id del cliente si lo encontro
 int BuscarClientePorIdLocalidad(eCliente lista[], int tam, int idLocalidad);
+
+/// @fn void HardcodearClientes(eCliente*, int, int*)
+/// @brief hardcodea datos de clientes
+///
+/// @param lista
+/// @param tam
+/// @param id
 void HardcodearClientes(eCliente *lista, int tam, int *id);
 
 #endif /* CLIENTE_H_ */

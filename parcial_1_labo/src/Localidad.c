@@ -7,10 +7,11 @@ int InicializarLocalidades(eLocalidad lista[], int tam)
 {
 	int retorno;
 
-	retorno = 0;
+	retorno = -1;
 
 	if(lista != NULL && tam > 0)
 	{
+		retorno = 0;
 		for(int i = 0; i < tam; i++)
 		{
 			lista[i].isEmpty = VACIO;
@@ -106,6 +107,7 @@ int MostrarLocalidades(eLocalidad lista[], int tam)
 
 	if(lista != NULL && tam > 0)
 	{
+		retorno = 0;
 		for(int i = 0; i < tam; i++)
 		{
 			if(lista[i].isEmpty == CARGADO)

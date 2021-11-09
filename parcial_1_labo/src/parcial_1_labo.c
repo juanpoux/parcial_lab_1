@@ -41,8 +41,7 @@ int main(void)
 		switch (MenuDeOpciones())
 		{
 		case 1:
-			printf(
-					"\n                ******* Dar de alta un cliente *******\n\n");
+			printf("\n                ******* Dar de alta un cliente *******\n\n");
 			//switch (AltaCliente(clientes, TCLIENTE, &bancoIdCliente))
 			switch (AltaCliente2(clientes, TCLIENTE, &bancoIdCliente,
 					localidades, TLOCALIDAD))
@@ -63,10 +62,9 @@ int main(void)
 			break;
 		case 2:
 			if (SaberSiHayClientesActivos(clientes,
-					TCLIENTE) == 1)
+			TCLIENTE) == 1)
 			{
-				printf(
-						"\n               ******* Modificar datos de un cliente *******\n\n");
+				printf("\n               ******* Modificar datos de un cliente *******\n\n");
 				//switch (ModificarCliente(clientes, TCLIENTE))
 				switch (ModificarCliente2(clientes, TCLIENTE, localidades,
 				TLOCALIDAD))
@@ -89,14 +87,13 @@ int main(void)
 			break;
 		case 3:
 			if (SaberSiHayClientesActivos(clientes,
-					TCLIENTE) == 1)
+			TCLIENTE) == 1)
 			{
 				PedirEnteroP(&opcion, "1 BAJA CLIENTE\n2 BAJA PEDIDO: ",
 						"Error, opcion invalida ", 1, 2);
 				if (opcion == 1)
 				{
-					printf(
-							"\n\t\t\t******* Dar de baja un cliente *******\n\n");
+					printf("\n\t\t\t******* Dar de baja un cliente *******\n\n");
 
 					switch (BajaCliente(clientes, TCLIENTE, pedidos, TPEDIDO,
 							localidades, TLOCALIDAD))
@@ -140,10 +137,9 @@ int main(void)
 			break;
 		case 4:
 			if (SaberSiHayClientesActivos(clientes,
-					TCLIENTE) == 1)
+			TCLIENTE) == 1)
 			{
-				printf(
-						"\n                ******* Crear pedido de recoleccion *******\n\n");
+				printf("\n                ******* Crear pedido de recoleccion *******\n\n");
 				switch (CrearPedidoDeRecoleccion(clientes, TCLIENTE, pedidos,
 				TPEDIDO, &bancoIdPedido, localidades, TLOCALIDAD))
 				{
@@ -169,8 +165,7 @@ int main(void)
 		case 5:
 			if (VerificarEstadoActivo(pedidos, TPEDIDO, PENDIENTE) == 1)
 			{
-				printf(
-						"\n                             ******* Procesando residuos *******\n\n");
+				printf("\n                             ******* Procesando residuos *******\n\n");
 
 				switch (ProcesarResiduos(pedidos, TPEDIDO, bancoIdPedido,
 						clientes,
@@ -201,8 +196,7 @@ int main(void)
 			case 1:
 				if (VerificarEstadoActivo(pedidos, TPEDIDO, PENDIENTE) == 1)
 				{
-					printf(
-							"\n             ******* Clientes con cantidad de pedidos en estado pendiente *******\n\n");
+					printf("\n             ******* Clientes con cantidad de pedidos en estado pendiente *******\n\n");
 
 					switch (MostrarClientesConCantidadPedidosPendientes(
 							clientes,
@@ -221,8 +215,7 @@ int main(void)
 			case 2:
 				if (VerificarEstadoActivo(pedidos, TPEDIDO, PENDIENTE) == 1)
 				{
-					printf(
-							"\n                       ******* Pedidos con estado pendiente *******\n\n");
+					printf("\n                       ******* Pedidos con estado pendiente *******\n\n");
 
 					switch (MostrarPedidosPendientesConKilos(clientes, TCLIENTE,
 							pedidos, TPEDIDO, localidades, TLOCALIDAD))
@@ -240,8 +233,7 @@ int main(void)
 			case 3:
 				if (VerificarEstadoActivo(pedidos, TPEDIDO, COMPLETADO) == 1)
 				{
-					printf(
-							"\n                                                   ******* Pedidos procesados *******\n\n");
+					printf("\n                                                   ******* Pedidos procesados *******\n\n");
 
 					switch (MostrarPedidosProcesadosConDescripcion(clientes,
 					TCLIENTE, pedidos,
@@ -260,8 +252,7 @@ int main(void)
 			case 4:
 				if (VerificarEstadoActivo(pedidos, TPEDIDO, PENDIENTE) == 1)
 				{
-					printf(
-							"\n                ******* Cantidad de pedidos pendientes por localidad *******\n\n");
+					printf("\n                ******* Cantidad de pedidos pendientes por localidad *******\n\n");
 					switch (CantidadPendientesPorLocalidad(clientes, TCLIENTE,
 							pedidos,
 							TPEDIDO, localidades, TLOCALIDAD))
@@ -279,18 +270,16 @@ int main(void)
 			case 5:
 				if (VerificarEstadoActivo(pedidos, TPEDIDO, COMPLETADO) == 1)
 				{
-					printf(
-							"\n               ******* Promedio de kilos reciclados de polipropileno *******\n\n");
+					printf("\n               ******* Promedio de kilos reciclados de polipropileno *******\n\n");
 
 					switch (CalcularPromedioPP(pedidos, TPEDIDO, clientes,
-							TCLIENTE))
+					TCLIENTE))
 					{
 					case -1:
 						printf("Parametros invalidos!\n");
 						break;
 					case 2:
-						printf(
-								"No hay polipropileno reciclado por el momento...\n");
+						printf("No hay polipropileno reciclado por el momento...\n");
 						break;
 					}
 				}
@@ -302,8 +291,7 @@ int main(void)
 			case 6:
 				if (VerificarEstadoActivo(pedidos, TPEDIDO, PENDIENTE) == 1)
 				{
-					printf(
-							"\n        ******* Clientes con mas cantidad de pedidos pendientes *******\n\n");
+					printf("\n        ******* Clientes con mas cantidad de pedidos pendientes *******\n\n");
 					if (MostrarClientesConCantidadDePedidosSegunEstado(clientes,
 					TCLIENTE, pedidos, TPEDIDO, PENDIENTE) == -1)
 					{
@@ -319,8 +307,7 @@ int main(void)
 			case 7:
 				if (VerificarEstadoActivo(pedidos, TPEDIDO, COMPLETADO) == 1)
 				{
-					printf(
-							"\n        ******* Clientes con mas cantidad de pedidos completados *******\n\n");
+					printf("\n        ******* Clientes con mas cantidad de pedidos completados *******\n\n");
 					if (MostrarClientesConCantidadDePedidosSegunEstado(clientes,
 					TCLIENTE, pedidos, TPEDIDO, COMPLETADO) == -1)
 					{
@@ -335,8 +322,7 @@ int main(void)
 			case 8:
 				if (VerificarEstadoActivo(pedidos, TPEDIDO, PENDIENTE) == 1)
 				{
-					printf(
-							"\n         ******* Clientes con mas cantidad de pedidos *******\n\n");
+					printf("\n         ******* Clientes con mas cantidad de pedidos *******\n\n");
 					if (BuscarClienteConMayorCantidadPedidos(clientes, TCLIENTE,
 							pedidos,
 							TPEDIDO) == -1)
@@ -351,7 +337,7 @@ int main(void)
 				break;
 			case 9:
 				if (SaberSiHayClientesActivos(clientes,
-						TCLIENTE) == 1)
+				TCLIENTE) == 1)
 				{
 					EncabezadoCliente();
 					MostrarListaClientes2(clientes, TCLIENTE, localidades,
